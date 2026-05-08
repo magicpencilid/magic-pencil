@@ -1,0 +1,83 @@
+/* =============================================
+   📡 API: POST /api/register
+   
+   Fungsi: Menerima data pendaftaran dari form
+   dan menyimpannya ke database SQLite.
+   
+   Di Next.js App Router:
+   - route.js di folder api/register/ → /api/register
+   - export async function POST(request) = handle POST request
+   - Response.json() = kirim response JSON
+   ============================================= */
+
+import { NextResponse } from "next/server";
+import { getDb } from "@/lib/database";
+
+export async function POST(request) {
+  try {
+    /* 1️⃣ Ambil data dari request body */
+    const body = await request.json();
+    
+    /* 2️⃣ Validasi data */
+    const errors = [];
+    if (!body.fullName?.trim()) errors.push("Nama lengkap wajib diisi");
+    if (!body.participantName?.trim()) errors.push("Nama peserta wajib diisi");
+    if (!body.whatsapp?.trim()) errors.push("Nomor WA wajib diisi");
+    if (!body.age || body.age < 3 || body.age > 99) errors.push("Usia harus antara 3-99");
+    if (!body.className) errors.push("Pilih kelas");
+
+    if (errors.length > 0) {
+      return NextResponse.json({ success: false, errors }, { status: 400 });
+    }
+
+    /* 3️⃣ Simpan ke database */
+    const db = getDb();
+    
+    const stmt = db.prepare(`
+      INSERT INTO pendaftar (full_name, participant_name, whatsapp, email, age, alamat, class_name, source, notes)
+      VALUES (@fullName, @participantName, @whatsapp, @email, @age, @alamat, @className, @source, @notes)
+    `);
+
+    const result = stmt.run({
+      fullName: body.fullName.trim(),
+      participantName: body.participantName.trim(),
+      whatsapp: body.whatsapp.trim(),
+      email: body.email?.trim() || null,
+      age: Number(body.age),
+      alamat: body.alamat?.trim() || null,
+      className: body.className,
+      source: body.source || null,
+      notes: body.notes?.trim() || null,
+    });
+
+    const regId = result.lastInsertRowid;
+
+    /* 3b️⃣ Simpan jadwal pilihan kalo ada */
+    if (body.pilihHari && body.pilihJam) {
+      db.prepare(`
+        INSERT INTO jadwal (registration_id, class_name, schedule_date, schedule_time)
+        VALUES (@registration_id, @class_name, @schedule_date, @schedule_time)
+      `).run({
+        registration_id: regId,
+        class_name: body.className,
+        schedule_date: body.pilihHari,
+        schedule_time: body.pilihJam,
+      });
+    }
+
+    /* 4️⃣ Kirim response sukses */
+    return NextResponse.json({
+      success: true,
+      data: {
+        id: regId,
+        message: "Pendaftaran berhasil!",
+      },
+    });
+  } catch (error) {
+    console.error("Registration error:", error);
+    return NextResponse.json(
+      { success: false, errors: ["Terjadi kesalahan server"] },
+      { status: 500 }
+    );
+  }
+}

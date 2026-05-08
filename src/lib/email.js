@@ -1,0 +1,8 @@
+id
+registration_id
+channel
+recipient
+message_type
+message_body
+status
+sent_at

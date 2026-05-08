@@ -1,0 +1,161 @@
+/* =============================================
+   ?? Magic Pencil - Global Styles
+   Black & White Sketch Gallery Theme
+   ============================================= */
+
+@import "tailwindcss";
+
+/* =============================================
+   ?? MONOCHROME THEME
+   Hanya hitam, putih, dan abu-abu.
+   Seperti galeri sketsa yang elegan.
+   ============================================= */
+@theme {
+  --color-primary: #1a1a1a;
+  --color-primary-light: #4a4a4a;
+  --color-primary-dark: #000000;
+
+  --color-accent: #666666;
+  --color-accent-light: #888888;
+  --color-accent-dark: #444444;
+
+  --color-surface: #ffffff;
+  --color-surface-alt: #f5f5f5;
+  --color-text: #1a1a1a;
+  --color-text-light: #888888;
+  --color-border: #e0e0e0;
+
+  --color-success: #3a7a49;
+  --color-warning: #a06600;
+  --color-error: #b33a3a;
+  --color-info: #4a6a8a;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+
+  --animate-fade-in: fade-in 0.6s ease-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-slide-down: slide-down 0.3s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
+  --animate-spin-slow: spin 3s linear infinite;
+  --animate-shimmer: shimmer 2s infinite;
+  --animate-bounce-in: bounce-in 0.5s ease-out;
+  --animate-fade-in-up: fade-in-up 0.4s ease-out;
+}
+
+/* =============================================
+   ?? KEYFRAMES
+   ============================================= */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes bounce-in {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes carousel-zoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+/* =============================================
+   ??? GLOBAL STYLE
+   ============================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+/* =============================================
+   ?? MULI FONT — untuk navbar
+   ============================================= */
+@font-face {
+  font-family: 'Muli';
+  src: url('/fonts/Muli-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-muli {
+  font-family: 'Muli', sans-serif;
+}
+
+.font-italiana {
+  font-family: 'Italiana', serif;
+}
+
+/* =============================================
+   ??? UTILITY CLASSES
+   ============================================= */
+
+/* Light hero — putih bersih */
+.gradient-hero {
+  background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 0.5rem;
+}
+
+/* Card hover */
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d4d4d0; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }

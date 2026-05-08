@@ -1,0 +1,40 @@
+/* =============================================
+   📐 ROOT LAYOUT — Template untuk semua halaman
+   
+   - Navbar + Footer cuma muncul di halaman public
+   - Halaman admin pake sidebar sendiri (no navbar/footer)
+   - Google Fonts: Playfair Display (display) + Inter (body)
+   ============================================= */
+
+import LayoutShell from "@/components/LayoutShell";
+import "./globals.css";
+
+export const metadata = {
+  title: "Magic Pencil | Kursus Menggambar & Melukis",
+  description:
+    "Kursus menggambar dan melukis untuk anak-anak hingga dewasa. Kembangkan kreativitas dengan bimbingan pengajar profesional.",
+  icons: {
+    icon: "/favicon.jpg",
+    apple: "/favicon.jpg",
+  },
+  manifest: "/manifest.json",
+  themeColor: "#ffffff",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="id">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Italiana&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-screen flex flex-col">
+        <LayoutShell>{children}</LayoutShell>
+      </body>
+    </html>
+  );
+}
