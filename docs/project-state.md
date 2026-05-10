@@ -12,7 +12,30 @@
 | **Versi Terdeploy** | — (belum di-deploy ke server) |
 | **Status Server** | ✅ Running (Tahap 15) |
 | **DB** | SQLite — `magic-pencil.db` |
-| **Repo** | Git lokal (belum ada remote) |
+| **Repo** | GitHub: `magicpencilid/magic-pencil` |
+
+---
+
+## Backup Infrastructure (10 Mei 2026)
+
+| Layer | Alat | Jadwal |
+|-------|------|--------|
+| 🔄 **Real-time sync** | Watcher (PowerShell) | Tiap file berubah |
+| 🔐 **DB backup** | `scripts/backup-db.js` | Tiap 6 jam + akhir sesi |
+| 📸 **Snapshot mingguan** | `scripts/snapshot-backup.ps1` | Minggu 12:00 (retensi 4 minggu) |
+| 🐙 **Git (GitHub)** | Remote: magicpencilid/magic-pencil | Tiap selesai fitur |
+
+**Struktur backup:**
+```
+E:\backup_mamat\
+├── obsidian/                   ← Watcher mirror
+├── magic_pencil/
+│   ├── openclaw/               ← Watcher mirror
+│   ├── webui/                  ← Watcher mirror (skip node_modules, .next, uploads, .env)
+│   ├── db/                     ← DB backup timestamped (retensi 30 hari)
+│   └── snapshot/               ← Snapshot folder (retensi 4 minggu)
+└── snapshot/
+    └── YYYY-MM-DD/             ← Snapshot per minggu
 
 ---
 

@@ -46,9 +46,16 @@
 
 ---
 
-### 2026-05-08: Backup & Git Setup
+### 2026-05-10: Backup Infrastructure + GitHub
 
-- Git init — 137 files, 1 commit (`init: Magic Pencil full project`)
-- `.gitignore` update (skip .db, public/uploads/)
-- Dokumen: `project-brief.md`, `project-state.md`, `changelog.md`
-- Restruktur backup 3 lapis: sync + git + drive
+**Backup system:**
+- DB backup: `scripts/backup-db.js` — WAL checkpoint + integrity check + timestamp
+- Snapshot mingguan: `scripts/snapshot-backup.ps1` — robocopy + cleanup (retensi 4 minggu)
+- Real-time watcher diperbaiki — VBScript launcher, exclude rules di-update
+
+**GitHub:**
+- Akun: `magicpencilid` — magicpencil.admin@gmail.com
+- Repo: `magicpencilid/magic-pencil`
+- Push 3 commit: 137 files
+
+**Test restore:** ✅ DB integrity OK, git clone OK, npm install OK
