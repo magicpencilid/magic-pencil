@@ -10,6 +10,7 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 import { sendPushNotification } from "@/lib/push";
+import { sendTelegram } from "@/lib/telegram";
 
 export async function GET(request) {
   try {
@@ -94,18 +95,23 @@ export async function PUT(request) {
       }
     }
 
-    // Notifikasi push ke admin kalo ada verifikasi
+    // Notifikasi ke admin kalo ada verifikasi
     if (body.status === "verified") {
       const payment = db.prepare(
         "SELECT p.registration_id, p.invoice_id, r.full_name FROM pembayaran p LEFT JOIN pendaftar r ON p.registration_id = r.id WHERE p.id = ?"
       ).get(body.id);
       
+      const notifText = payment?.full_name 
+        ? `✅ ${payment.full_name} — pembayaran diverifikasi, status aktif` 
+        : `✅ Pembayaran #${body.id} diverifikasi`;
+      
       sendPushNotification({
         title: "✅ Pembayaran Diverifikasi",
-        body: payment?.full_name ? `${payment.full_name} — status aktif` : `Pembayaran #${body.id} diverifikasi`,
+        body: notifText,
         url: "/admin/pendaftar",
         userType: "admin",
       }).catch(() => {});
+      sendTelegram(notifText).catch(() => {});
     }
 
     return NextResponse.json({ success: true, message: "Status updated" });

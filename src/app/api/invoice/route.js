@@ -6,6 +6,7 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 import { sendPushNotification } from "@/lib/push";
+import { sendTelegram } from "@/lib/telegram";
 
 /* 🔍 GET: List semua invoice */
 export async function GET() {
@@ -67,13 +68,15 @@ export async function POST(request) {
       payment_due_date: dueDate,
     });
 
-    // Notifikasi push ke admin
+    // Notifikasi ke admin via push + telegram
+    const notifText = `🧾 ${registrant.full_name} — ${invoiceNumber} (Rp ${amount.toLocaleString("id-ID")})`;
     sendPushNotification({
       title: "🧾 Invoice Baru",
-      body: `${registrant.full_name} — ${invoiceNumber} (Rp ${amount.toLocaleString("id-ID")})`,
+      body: notifText,
       url: "/admin/pembayaran",
       userType: "admin",
     }).catch(() => {});
+    sendTelegram(notifText).catch(() => {});
 
     return NextResponse.json({
       success: true,

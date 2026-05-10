@@ -13,6 +13,7 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 import { sendPushNotification } from "@/lib/push";
+import { sendTelegram } from "@/lib/telegram";
 
 export async function POST(request) {
   try {
@@ -72,13 +73,15 @@ export async function POST(request) {
       });
     }
 
-    /* 3c️⃣ Kirim notifikasi push ke admin */
+    /* 3c️⃣ Kirim notifikasi ke admin via push + telegram */
+    const notifText = `📝 ${body.fullName} — ${body.participantName} (${body.age} th) daftar ${body.className}`;
     sendPushNotification({
       title: "📝 Pendaftar Baru",
-      body: `${body.fullName} — ${body.participantName} (${body.age} th)`,      
+      body: notifText,
       url: "/admin/pendaftar",
       userType: "admin",
     }).catch(() => {});
+    sendTelegram(notifText).catch(() => {});
 
     /* 4️⃣ Kirim response sukses */
     return NextResponse.json({
