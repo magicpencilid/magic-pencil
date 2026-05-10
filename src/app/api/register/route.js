@@ -12,6 +12,7 @@
 
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
+import { sendPushNotification } from "@/lib/push";
 
 export async function POST(request) {
   try {
@@ -26,6 +27,8 @@ export async function POST(request) {
     if (!body.age || body.age < 3 || body.age > 99) errors.push("Usia harus antara 3-99");
     if (!body.className) errors.push("Pilih kelas");
 
+    if (!body.agreeTerms) errors.push("Anda harus menyetujui Syarat & Ketentuan");
+
     if (errors.length > 0) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
@@ -33,9 +36,11 @@ export async function POST(request) {
     /* 3️⃣ Simpan ke database */
     const db = getDb();
     
+    const now = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" });
+    
     const stmt = db.prepare(`
-      INSERT INTO pendaftar (full_name, participant_name, whatsapp, email, age, alamat, class_name, source, notes)
-      VALUES (@fullName, @participantName, @whatsapp, @email, @age, @alamat, @className, @source, @notes)
+      INSERT INTO pendaftar (full_name, participant_name, whatsapp, email, age, alamat, class_name, source, notes, agree_terms, agree_terms_at)
+      VALUES (@fullName, @participantName, @whatsapp, @email, @age, @alamat, @className, @source, @notes, @agreeTerms, @agreeTermsAt)
     `);
 
     const result = stmt.run({
@@ -48,6 +53,8 @@ export async function POST(request) {
       className: body.className,
       source: body.source || null,
       notes: body.notes?.trim() || null,
+      agreeTerms: body.agreeTerms ? 1 : 0,
+      agreeTermsAt: now,
     });
 
     const regId = result.lastInsertRowid;
@@ -64,6 +71,14 @@ export async function POST(request) {
         schedule_time: body.pilihJam,
       });
     }
+
+    /* 3c️⃣ Kirim notifikasi push ke admin */
+    sendPushNotification({
+      title: "📝 Pendaftar Baru",
+      body: `${body.fullName} — ${body.participantName} (${body.age} th)`,      
+      url: "/admin/pendaftar",
+      userType: "admin",
+    }).catch(() => {});
 
     /* 4️⃣ Kirim response sukses */
     return NextResponse.json({

@@ -7,7 +7,8 @@ import { validateAdminPassword, setSessionCookie } from "@/lib/auth";
 
 export async function POST(request) {
   try {
-    const body = await request.json();
+    const text = await request.text();
+    const body = JSON.parse(text);
     const { password } = body;
 
     if (!password) {

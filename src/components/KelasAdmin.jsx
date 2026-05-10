@@ -12,32 +12,45 @@ const fixedKelas = [
   {
     name: "Kelas Sketsa",
     price: 1000000,
+    type: "monthly",
     desc: "Belajar menyeket bentuk global sebagai pondasi drawing",
   },
   {
     name: "Kelas Gambar",
     price: 1000000,
+    type: "monthly",
     desc: "Mengarsir volume, proporsi, depth, hingga komposisi",
+  },
+  {
+    name: "Kelas Private",
+    price: null,
+    type: "monthly",
+    desc: "Bimbingan personal 1-on-1 dengan pengajar. Materi, jadwal, dan durasi bisa disesuaikan.",
   },
   {
     name: "Sesi Lukis Anabul",
     price: 350000,
+    type: "single",
     desc: "Lukis anabul kesayanganmu — 1x sesi, alat lengkap",
   },
   {
     name: "Sesi Sketsa",
     price: 300000,
+    type: "single",
     desc: "Sketsa sesuai keinginanmu — 1x sesi, alat lengkap",
   },
   {
     name: "Sesi Gambar",
     price: 300000,
+    type: "single",
     desc: "Gambar apapun yang kamu suka — 1x sesi, alat lengkap",
   },
 ];
 
-const formatPrice = (price) =>
-  `IDR ${price.toLocaleString("id-ID")}`;
+const formatPrice = (price) => {
+  if (price === null) return null;
+  return `IDR ${price.toLocaleString("id-ID")}`;
+};
 
 export default function KelasAdmin() {
   return (
@@ -46,10 +59,10 @@ export default function KelasAdmin() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
           <BookOpen className="w-6 h-6 text-accent" />
-          Kelola Kelas & Harga
+          Kelola Kelas & Investasi
         </h1>
         <p className="text-sm text-text-light mt-1">
-          Daftar kelas dan investasi yang tersedia — bersifat tetap.
+          Daftar kelas dan investasi yang tersedia.
         </p>
       </div>
 
@@ -71,7 +84,11 @@ export default function KelasAdmin() {
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-400">Investasi</p>
-              <p className="text-lg font-bold text-primary">{formatPrice(k.price)}</p>
+              {k.price ? (
+                <p className="text-lg font-bold text-primary">{formatPrice(k.price)}</p>
+              ) : (
+                <p className="text-sm font-semibold text-accent bg-accent/5 px-3 py-1 rounded-full">Hubungi Admin</p>
+              )}
             </div>
           </div>
         ))}
@@ -79,7 +96,7 @@ export default function KelasAdmin() {
 
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-text-light mt-6">
         <p className="font-semibold mb-1">📌 Informasi:</p>
-        <p>• Daftar kelas & harga bersifat tetap dan tidak bisa diubah dari sini.</p>
+        <p>• Daftar kelas & investasi bersifat tetap dan tidak bisa diubah dari sini.</p>
         <p>• Hubungi developer jika ada perubahan data kelas.</p>
       </div>
     </div>

@@ -8,10 +8,12 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 
-export async function POST(request, { params }) {
+export async function POST(request, props) {
   try {
+    const params = await props.params;
     const id = Number(params.id);
-    const body = await request.json();
+    const text = await request.text();
+    const body = JSON.parse(text);
     const db = getDb();
 
     if (!body.action || !["approve", "reject"].includes(body.action)) {

@@ -18,7 +18,7 @@
 import { useState, useEffect } from "react";
 import { Send, CheckCircle, AlertCircle, User, Phone, Mail, Calendar, BookOpen, MessageSquare, FileText } from "lucide-react";
 
-/* 📝 Data kelas & harga — diambil dari API pas form dimuat */
+/* 📝 Data kelas & investasi — diambil dari API pas form dimuat */
 
 /* 📝 Data sumber informasi */
 const sourceOptions = [
@@ -46,6 +46,7 @@ const initialForm = {
   notes: "",
   pilihHari: "",
   pilihJam: "",
+  agreeTerms: false,
 };
 
 export default function RegistrationForm() {
@@ -54,7 +55,7 @@ export default function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);     // status submit
   const [loading, setLoading] = useState(false);         // loading state
   const [invoiceInfo, setInvoiceInfo] = useState(null);  // invoice yg baru digenerate
-  const [kelasList, setKelasList] = useState([]);        // daftar kelas & harga
+  const [kelasList, setKelasList] = useState([]);        // daftar kelas & investasi
   const [hariList, setHariList] = useState([]);          // daftar hari
   const [jamList, setJamList] = useState([]);            // daftar jam
 
@@ -111,6 +112,7 @@ export default function RegistrationForm() {
       newErrors.age = "Usia harus antara 3-99 tahun";
     }
     if (!form.className) newErrors.className = "Pilih kelas yang diinginkan";
+    if (!form.agreeTerms) newErrors.agreeTerms = "Anda harus menyetujui Syarat & Ketentuan";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -417,7 +419,7 @@ export default function RegistrationForm() {
               <option value="">Pilih kelas...</option>
               {kelasList.map((k) => (
                 <option key={k.id} value={k.name}>
-                  {k.name} — Investasi {Number(k.price).toLocaleString("id-ID")}
+                  {k.name}{k.price ? ` — Investasi ${Number(k.price).toLocaleString("id-ID")}` : " — Hubungi Admin"}
                 </option>
               ))}
             </select>
@@ -472,6 +474,34 @@ export default function RegistrationForm() {
         </div>
       )}
 
+      {/* ===== SYARAT & KETENTUAN ===== */}
+      <div className={`p-4 rounded-xl border ${errors.agreeTerms ? "border-red-400 bg-red-50" : "border-gray-200"}`}>
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={form.agreeTerms}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, agreeTerms: e.target.checked }))
+            }
+            className="mt-0.5 w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent/50 cursor-pointer"
+          />
+          <span className="text-sm text-text-light">
+            Saya telah membaca dan menyetujui{" "}
+            <a
+              href="/syarat-ketentuan"
+              target="_blank"
+              className="text-accent hover:text-accent-dark font-semibold underline underline-offset-2"
+            >
+              Syarat & Ketentuan
+            </a>{" "}
+            yang berlaku
+          </span>
+        </label>
+        {errors.agreeTerms && (
+          <p className="text-red-500 text-xs mt-2">{errors.agreeTerms}</p>
+        )}
+      </div>
+
       {/* ===== TOMBOL SUBMIT ===== */}
       <button
         type="submit"
@@ -491,11 +521,7 @@ export default function RegistrationForm() {
         )}
       </button>
 
-      {/* ===== INFO ===== */}
-      <p className="text-xs text-text-light text-center">
-        <AlertCircle className="w-3 h-3 inline mr-1" />
-        Data kamu aman dan hanya digunakan untuk keperluan pendaftaran.
-      </p>
+
     </form>
   );
 }

@@ -27,7 +27,7 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
   { icon: UserCheck, label: "Murid", href: "/admin/murid" },
   { icon: Users, label: "Pendaftar", href: "/admin/pendaftar" },
-  { icon: BookOpen, label: "Kelas & Harga", href: "/admin/kelas" },
+  { icon: BookOpen, label: "Kelas & Investasi", href: "/admin/kelas" },
   { icon: Clock, label: "Hari & Jam", href: "/admin/jadwal-opsi" },
   { icon: Calendar, label: "Jadwal", href: "/admin/jadwal" },
   { icon: CheckCheck, label: "Absensi", href: "/admin/absensi" },

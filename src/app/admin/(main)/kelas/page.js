@@ -1,5 +1,5 @@
 /* =============================================
-   💰 ADMIN — Kelola Harga Kelas
+   💰 ADMIN — Kelola Kelas & Investasi
    ============================================= */
 
 import KelasAdmin from "@/components/KelasAdmin";

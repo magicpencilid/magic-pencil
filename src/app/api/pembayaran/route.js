@@ -9,6 +9,7 @@
 
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
+import { sendPushNotification } from "@/lib/push";
 
 export async function GET(request) {
   try {
@@ -91,6 +92,20 @@ export async function PUT(request) {
           `).run(payment.invoice_id);
         }
       }
+    }
+
+    // Notifikasi push ke admin kalo ada verifikasi
+    if (body.status === "verified") {
+      const payment = db.prepare(
+        "SELECT p.registration_id, p.invoice_id, r.full_name FROM pembayaran p LEFT JOIN pendaftar r ON p.registration_id = r.id WHERE p.id = ?"
+      ).get(body.id);
+      
+      sendPushNotification({
+        title: "✅ Pembayaran Diverifikasi",
+        body: payment?.full_name ? `${payment.full_name} — status aktif` : `Pembayaran #${body.id} diverifikasi`,
+        url: "/admin/pendaftar",
+        userType: "admin",
+      }).catch(() => {});
     }
 
     return NextResponse.json({ success: true, message: "Status updated" });

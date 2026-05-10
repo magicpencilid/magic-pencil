@@ -41,9 +41,19 @@ function initTables() {
       source TEXT,
       notes TEXT,
       status TEXT NOT NULL DEFAULT 'baru',
+      agree_terms INTEGER NOT NULL DEFAULT 0,
+      agree_terms_at TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
     );
+
+    /* Migrasi: tambah kolom kalo tabel udah ada (database lama) */
+    try {
+      db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms INTEGER NOT NULL DEFAULT 0");
+    } catch (e) { /* kolom udah ada */ }
+    try {
+      db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms_at TEXT");
+    } catch (e) { /* kolom udah ada */ }
 
     CREATE TABLE IF NOT EXISTS jadwal (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -91,11 +101,17 @@ function initTables() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL UNIQUE,
       description TEXT,
-      price REAL NOT NULL,
+      price REAL NOT NULL DEFAULT 0,
+      type TEXT NOT NULL DEFAULT 'monthly',
       duration TEXT,
       is_active INTEGER NOT NULL DEFAULT 1,
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
     );
+
+    /* Migrasi: tambah kolom type kalo tabel udah ada */
+    try {
+      db.exec("ALTER TABLE kelas ADD COLUMN type TEXT NOT NULL DEFAULT 'monthly'");
+    } catch (e) { /* kolom udah ada */ }
 
     CREATE TABLE IF NOT EXISTS schedule_config (
       id INTEGER PRIMARY KEY AUTOINCREMENT,

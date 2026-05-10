@@ -5,15 +5,15 @@ const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
 
 const classes = [
-  { name: 'Melukis Akrilik', price: 500000, description: 'Teknik melukis dengan cat akrilik di atas kanvas' },
-  { name: 'Sketsa & Drawing', price: 400000, description: 'Dasar-dasar menggambar dengan pensil dan arsiran' },
-  { name: 'Mewarnai Anak', price: 350000, description: 'Mewarnai gambar untuk anak-anak (usia 3-8 tahun)' },
-  { name: 'Ilustrasi Digital', price: 600000, description: 'Menggambar digital menggunakan tablet' },
-  { name: 'Cat Air', price: 450000, description: 'Teknik melukis dengan cat air' },
-  { name: 'Kelas Private', price: 800000, description: 'Bimbingan personal 1-on-1 dengan pengajar' },
+  { name: 'Kelas Sketsa', price: 1000000, type: 'monthly', description: 'Belajar menyeket bentuk global sebagai pondasi drawing' },
+  { name: 'Kelas Gambar', price: 1000000, type: 'monthly', description: 'Mengarsir volume, proporsi, depth, hingga komposisi' },
+  { name: 'Kelas Private', price: 0, type: 'monthly', description: 'Bimbingan personal 1-on-1 dengan pengajar. Materi, jadwal, dan durasi bisa disesuaikan.' },
+  { name: 'Sesi Lukis Anabul', price: 350000, type: 'single', description: 'Lukis anabul kesayanganmu — 1x sesi, alat lengkap' },
+  { name: 'Sesi Sketsa', price: 300000, type: 'single', description: 'Sketsa sesuai keinginanmu — 1x sesi, alat lengkap' },
+  { name: 'Sesi Gambar', price: 300000, type: 'single', description: 'Gambar apapun yang kamu suka — 1x sesi, alat lengkap' },
 ];
 
-const stmt = db.prepare("INSERT OR IGNORE INTO kelas (name, price, description) VALUES (@name, @price, @description)");
+const stmt = db.prepare("INSERT OR IGNORE INTO kelas (name, price, type, description) VALUES (@name, @price, @type, @description)");
 let count = 0;
 for (const k of classes) {
   const r = stmt.run(k);
@@ -22,6 +22,6 @@ for (const k of classes) {
 console.log(`Seeded ${count} classes`);
 
 const rows = db.prepare('SELECT * FROM kelas').all();
-console.log('Total classes:', rows.length, rows.map(r => `${r.name}: Rp ${r.price}`));
+console.log('Total classes:', rows.length, rows.map(r => `${r.name}: ${r.type} — ${r.price > 0 ? 'IDR '+r.price.toLocaleString('id-ID') : 'Hubungi Admin'}`));
 
 db.close();

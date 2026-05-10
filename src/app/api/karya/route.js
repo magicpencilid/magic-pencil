@@ -8,6 +8,7 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 import { getKarya } from "@/lib/karya";
+import { processImage } from "@/lib/process-image";
 import { writeFile } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
@@ -76,17 +77,17 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors: ["Ukuran file maksimal 10 MB"] }, { status: 400 });
     }
 
-    // Simpan file
-    const ext = path.extname(file.name) || ".jpg";
-    const filename = `karya-${murid_id}-${Date.now()}${ext}`;
+    // Simpan file — compress + watermark otomatis
     const uploadDir = path.join(process.cwd(), "public", "uploads", "karya");
     if (!existsSync(uploadDir)) {
       const { mkdir } = await import("fs/promises");
       await mkdir(uploadDir, { recursive: true });
     }
-    const filePath = path.join(uploadDir, filename);
     const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(filePath, buffer);
+    const { buffer: processedBuffer, format } = await processImage(buffer);
+    const filename = `karya-${murid_id}-${Date.now()}.${format}`;
+    const filePath = path.join(uploadDir, filename);
+    await writeFile(filePath, processedBuffer);
     const imagePath = `/uploads/karya/${filename}`;
 
     // Simpan ke database

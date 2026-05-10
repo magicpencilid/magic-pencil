@@ -29,7 +29,9 @@ export async function POST(request) {
     if (!body.name?.trim()) {
       return NextResponse.json({ success: false, errors: ["Nama kelas wajib diisi"] }, { status: 400 });
     }
-    if (!body.price || body.price < 1) {
+    // Kelas Private boleh tanpa harga (hubungi admin)
+    const isPrivate = body.name?.trim().toLowerCase().includes("private");
+    if (!isPrivate && (!body.price || body.price < 1)) {
       return NextResponse.json({ success: false, errors: ["Harga wajib diisi"] }, { status: 400 });
     }
 
@@ -44,7 +46,7 @@ export async function POST(request) {
     );
     const result = stmt.run({
       name: body.name.trim(),
-      price: Number(body.price),
+      price: isPrivate ? 0 : Number(body.price),
       description: body.description?.trim() || null,
     });
 
