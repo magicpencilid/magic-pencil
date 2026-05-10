@@ -86,24 +86,21 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile overlay + drawer */}
-      <div className={`md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`} onClick={() => setIsOpen(false)} />
-      <div className={`md:hidden fixed top-0 right-0 h-full w-72 bg-white z-40 shadow-2xl transition-transform duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
-        <div className="flex flex-col h-full pt-[6.5rem] px-6">
-          <nav className="space-y-2 flex-1">
+      {/* Mobile dropdown menu (no slide, biar WA button gak ketutupan) */}
+      {isOpen && (
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
+          <div className="px-4 py-4 space-y-2">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="block text-center bg-accent/40 text-white px-5 py-3.5 rounded-full text-sm font-semibold tracking-wide uppercase hover:bg-accent hover:text-white transition-colors">
+              <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="block text-center bg-accent/40 text-white px-5 py-3 rounded-full text-sm font-semibold tracking-wide uppercase hover:bg-accent hover:text-white transition-colors">
                 {link.label}
               </Link>
             ))}
-          </nav>
-          <div className="pb-8 pt-3">
-            <Link href="/daftar" onClick={() => setIsOpen(false)} className="block text-center bg-accent-dark text-white px-5 py-3.5 rounded-full text-sm font-semibold tracking-wide uppercase hover:bg-primary transition-colors shadow-sm">
+            <Link href="/daftar" onClick={() => setIsOpen(false)} className="block text-center bg-accent-dark text-white px-5 py-3 rounded-full text-sm font-semibold tracking-wide uppercase hover:bg-primary transition-colors shadow-sm">
               Daftar Sekarang
             </Link>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
