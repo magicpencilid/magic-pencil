@@ -7,6 +7,7 @@
    ============================================= */
 
 import LayoutShell from "@/components/LayoutShell";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import "./globals.css";
 
 export const metadata = {
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-screen flex flex-col">
         <LayoutShell>{children}</LayoutShell>
+        <WhatsAppButton />
       </body>
     </html>
   );
