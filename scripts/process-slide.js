@@ -1,108 +1,117 @@
 /**
- * Proses slide gambar: resize, webp, watermark multiply
+ * Process Slide Image — Compress + Watermark buat slide gambar
  * 
- * Usage: node scripts/process-slide.js
- * Input:
- *   - public/images/_temp_slide_resized.jpg (gambar mentah)
- *   - public/images/_temp_watermark.png (watermark)
- * Output:
- *   - public/images/slide-4.webp
+ * Aturan standar (docs/image-standards.md):
+ *   - Max lebar: 1000px
+ *   - Quality: 65%
+ *   - Watermark: multiply mode, center
+ * 
+ * Usage: node scripts/process-slide.js <input-filename> <output-name>
+ * 
+ * Contoh:
+ *   node scripts/process-slide.js foto_baru.jpg slide-7
+ *   → Input:  public/images/foto_baru.jpg
+ *   → Output: public/images/slide-7.webp (1000px, 65%, watermark multiply center)
+ * 
+ * Tanpa argumen: pake default (buat ganti slide)
+ *   → Input:  public/images/_input.jpg
+ *   → Output: public/images/_output.webp
  */
 
 const { Jimp } = require("jimp");
 const path = require("path");
+const { execSync } = require("child_process");
+const fs = require("fs");
 
+const IMAGES_DIR = path.join(__dirname, "..", "public", "images");
+const WATERMARK_PATH = path.join(IMAGES_DIR, "watermark.png");
 const MAX_WIDTH = 1000;
 const QUALITY = 65;
 
 async function main() {
-  const baseDir = path.join(__dirname, "..", "public", "images");
-  const inputPath = path.join(baseDir, "_temp_slide_resized.jpg");
-  const wmPath = path.join(baseDir, "_temp_watermark.png");
-  const outputPath = path.join(baseDir, "_temp_slide_watermarked.jpg");
-
-  // 1. Load background image
-  console.log("📷 Loading background...");
-  const bg = await Jimp.read(inputPath);
-
-  // 2. Resize to max 1000px width
-  if (bg.bitmap.width > MAX_WIDTH) {
-    bg.resize({ w: MAX_WIDTH });
-    console.log(`  → Resized to ${bg.bitmap.width}x${bg.bitmap.height}`);
+  const args = process.argv.slice(2);
+  
+  let inputFile, outputFile;
+  if (args.length >= 2) {
+    inputFile = path.join(IMAGES_DIR, args[0]);
+    outputFile = path.join(IMAGES_DIR, args[1] + ".webp");
   } else {
-    console.log(`  → Size OK: ${bg.bitmap.width}x${bg.bitmap.height}`);
+    // Default (ganti slide aja)
+    inputFile = path.join(IMAGES_DIR, "_input.jpg");
+    outputFile = path.join(IMAGES_DIR, "_output.webp");
   }
 
-  const bgW = bg.bitmap.width;
-  const bgH = bg.bitmap.height;
+  // Cek file
+  if (!fs.existsSync(inputFile)) {
+    console.error(`❌ File tidak ditemukan: ${inputFile}`);
+    console.log("Gunakan: node scripts/process-slide.js <input.jpg> <output-name>");
+    process.exit(1);
+  }
+  if (!fs.existsSync(WATERMARK_PATH)) {
+    console.error(`❌ Watermark tidak ditemukan: ${WATERMARK_PATH}`);
+    process.exit(1);
+  }
 
-  // 3. Load watermark
-  console.log("🖊️ Loading watermark...");
-  const wm = await Jimp.read(wmPath);
-  const wmW = wm.bitmap.width;
-  const wmH = wm.bitmap.height;
-  console.log(`  → Watermark size: ${wmW}x${wmH}`);
+  const tempResized = path.join(IMAGES_DIR, "_temp_resized.jpg");
+  const tempWatermarked = path.join(IMAGES_DIR, "_temp_watermarked.jpg");
 
-  // 4. Scale watermark to fit background nicely (max 60% of background width)
-  const targetWmW = Math.min(Math.round(bgW * 0.6), wmW);
-  const scale = targetWmW / wmW;
-  const targetWmH = Math.round(wmH * scale);
-  wm.resize({ w: targetWmW, h: targetWmH });
-  console.log(`  → Watermark scaled to: ${targetWmW}x${targetWmH}`);
+  try {
+    // === Step 1: Resize dengan ImageMagick ===
+    console.log("📷 Resize...");
+    execSync(`magick "${inputFile}" -resize ${MAX_WIDTH}x "${tempResized}"`, { stdio: "ignore" });
 
-  // 5. Apply watermark at center with multiply blend
-  console.log("🎨 Applying watermark (multiply)...");
-  const wmX = Math.round((bgW - targetWmW) / 2);
-  const wmY = Math.round((bgH - targetWmH) / 2);
+    // === Step 2: Watermark multiply dengan JIMP ===
+    console.log("🖊️ Watermark...");
+    const bg = await Jimp.read(tempResized);
+    const wm = await Jimp.read(WATERMARK_PATH);
+    
+    const bgW = bg.bitmap.width;
+    const bgH = bg.bitmap.height;
+    const targetWmW = Math.min(Math.round(bgW * 0.6), wm.bitmap.width);
+    const scale = targetWmW / wm.bitmap.width;
+    const targetWmH = Math.round(wm.bitmap.height * scale);
+    wm.resize({ w: targetWmW, h: targetWmH });
 
-  // Manual multiply blend pixel by pixel
-  for (let wy = 0; wy < targetWmH; wy++) {
-    for (let wx = 0; wx < targetWmW; wx++) {
-      const bgX = wmX + wx;
-      const bgY = wmY + wy;
+    const wmX = Math.round((bgW - targetWmW) / 2);
+    const wmY = Math.round((bgH - targetWmH) / 2);
 
-      // Skip if outside background bounds
-      if (bgX < 0 || bgX >= bgW || bgY < 0 || bgY >= bgH) continue;
+    for (let wy = 0; wy < targetWmH; wy++) {
+      for (let wx = 0; wx < targetWmW; wx++) {
+        const bx = wmX + wx, by = wmY + wy;
+        if (bx < 0 || bx >= bgW || by < 0 || by >= bgH) continue;
 
-      const wmHex = wm.getPixelColor(wx, wy);
-      const bgHex = bg.getPixelColor(bgX, bgY);
+        const wc = wm.getPixelColor(wx, wy).toString(16).padStart(8, "0");
+        const bc = bg.getPixelColor(bx, by).toString(16).padStart(8, "0");
 
-      // Extract RGBA (JIMP stores as hex RRGGBBAA)
-      const wmStr = wmHex.toString(16).padStart(8, "0");
-      const bgStr = bgHex.toString(16).padStart(8, "0");
+        const wr = parseInt(wc.slice(0, 2), 16), wg = parseInt(wc.slice(2, 4), 16), wb = parseInt(wc.slice(4, 6), 16), wa = parseInt(wc.slice(6, 8), 16);
+        const br = parseInt(bc.slice(0, 2), 16), bgg = parseInt(bc.slice(2, 4), 16), bb = parseInt(bc.slice(4, 6), 16);
+        const a = wa / 255;
 
-      const wr = parseInt(wmStr.slice(0, 2), 16);
-      const wg = parseInt(wmStr.slice(2, 4), 16);
-      const wb = parseInt(wmStr.slice(4, 6), 16);
-      const wa = parseInt(wmStr.slice(6, 8), 16);
+        const rr = Math.round((br * wr / 255) * a + br * (1 - a));
+        const rgg = Math.round((bgg * wg / 255) * a + bgg * (1 - a));
+        const rbb = Math.round((bb * wb / 255) * a + bb * (1 - a));
 
-      const br = parseInt(bgStr.slice(0, 2), 16);
-      const bg_ = parseInt(bgStr.slice(2, 4), 16);
-      const bb = parseInt(bgStr.slice(4, 6), 16);
-
-      // Multiply blend: result = (bg * wm) / 255
-      // If watermark has alpha, blend with alpha
-      const alpha = wa / 255;
-      const invAlpha = 1 - alpha;
-
-      const rr = Math.round((br * wr / 255) * alpha + br * invAlpha);
-      const rg = Math.round((bg_ * wg / 255) * alpha + bg_ * invAlpha);
-      const rb = Math.round((bb * wb / 255) * alpha + bb * invAlpha);
-
-      // Set pixel (JIMP expects RGBA as number)
-      const newHex = (rr << 24) | (rg << 16) | (rb << 8) | 0xff;
-      bg.setPixelColor(newHex >>> 0, bgX, bgY);
+        bg.setPixelColor(((rr << 24) | (rgg << 16) | (rbb << 8) | 0xff) >>> 0, bx, by);
+      }
     }
+
+    await bg.write(tempWatermarked, { quality: QUALITY });
+
+    // === Step 3: Convert ke WebP ===
+    console.log("💾 Convert WebP...");
+    execSync(`magick "${tempWatermarked}" -quality ${QUALITY} "${outputFile}"`, { stdio: "ignore" });
+
+    const stats = fs.statSync(outputFile);
+    console.log(`✅ Selesai! ${path.basename(outputFile)} (${(stats.size / 1024).toFixed(1)} KB)`);
+
+    // Bersihin temp
+    try { fs.unlinkSync(tempResized); } catch {}
+    try { fs.unlinkSync(tempWatermarked); } catch {}
+
+  } catch (err) {
+    console.error("❌ Error:", err.message);
+    process.exit(1);
   }
-
-  // 6. Save as WebP quality 65%
-  console.log(`💾 Saving to slide-4.webp (quality ${QUALITY}%)...`);
-  await bg.write(outputPath, { quality: QUALITY });
-
-  console.log("✅ Done! slide-4.webp siap.");
 }
 
-main().catch((err) => {
-  console.error("❌ Error:", err);
-  process.exit(1);
-});
+main();

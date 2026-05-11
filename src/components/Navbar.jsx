@@ -38,7 +38,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`bg-white/70 backdrop-blur-md sticky top-0 z-50 font-muli transition-shadow ${
+    <header className={`bg-white/70 backdrop-blur-md sticky top-0 z-50 transition-shadow ${
       scrolled ? "shadow-md" : ""
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
