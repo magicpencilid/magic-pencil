@@ -38,8 +38,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`bg-white/95 backdrop-blur-md sticky top-0 z-50 font-muli transition-shadow ${
-      scrolled ? "shadow-md" : "shadow-sm"
+    <header className={`bg-white/70 backdrop-blur-md sticky top-0 z-50 font-muli transition-shadow ${
+      scrolled ? "shadow-md" : ""
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-28">

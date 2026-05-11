@@ -8,9 +8,9 @@
 
 | Item | Status |
 |------|--------|
-| **Tahap Terakhir** | 16 — Galeri Karya Murid |
-| **Versi Terdeploy** | — (belum di-deploy ke server) |
-| **Status Server** | ✅ Running (Tahap 15) |
+| **Tahap Terakhir** | 18c — WhatsApp wa.me Floating Button |
+| **Versi Terdeploy** | ✅ Tahap 16-18 (10 Mei 2026) |
+| **Status Server** | ✅ PM2 online 17h, 80.9MB RAM |
 | **DB** | SQLite — `magic-pencil.db` |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
 
@@ -28,14 +28,15 @@
 **Struktur backup:**
 ```
 E:\backup_mamat\
-├── obsidian/                   ← Watcher mirror
+├── obsidian/
 ├── magic_pencil/
-│   ├── openclaw/               ← Watcher mirror
-│   ├── webui/                  ← Watcher mirror (skip node_modules, .next, uploads, .env)
-│   ├── db/                     ← DB backup timestamped (retensi 30 hari)
-│   └── snapshot/               ← Snapshot folder (retensi 4 minggu)
-└── snapshot/
-    └── YYYY-MM-DD/             ← Snapshot per minggu
+│   ├── openclaw/
+│   ├── webui/
+│   ├── db/               ← DB backup timestamped (retensi 30 hari)
+│   └── snapshot/         ← Snapshot folder (retensi 4 minggu)
+I:\My Drive\backup_mamat\
+└── (struktur sama)
+```
 
 ---
 
@@ -43,8 +44,35 @@ E:\backup_mamat\
 
 | Lokasi | Status | Versi | Catatan |
 |--------|--------|-------|---------|
-| Lokal (laptop) | ✅ Ready | Tahap 15b + 16 | Build siap |
-| Server (aaPanel) | ✅ Running | Tahap 15 | Belum diupdate ke 16 |
+| Lokal (laptop) | ✅ Ready | Tahap 18 | Build siap |
+| Server (aaPanel) | ✅ Running | Tahap 18 (10 Mei 2026) | 53 routes, 9 pages |
+
+---
+
+## Fitur Terdeploy (Tahap 16-18)
+
+| Tahap | Fitur | Tanggal |
+|-------|-------|---------|
+| 16 | Upload Karya + Galeri Publik + Watermark (jimp) | 10 Mei |
+| 17 | Syarat & Ketentuan + checkbox daftar | 10 Mei |
+| 18a | Push Notification (register, invoice, pembayaran) | 10 Mei |
+| 18b | Telegram Bot (@magicpencil_notif_bot) | 10 Mei |
+| 18c | WhatsApp Floating Button (wa.me/628111150563) | 10 Mei |
+
+---
+
+## Data Server
+
+| Item | Jumlah |
+|------|--------|
+| Kelas | 6 |
+| Pendaftar | 11 |
+| Aktif | 3 |
+| Karya | 1 |
+| Absensi | 1 |
+| Invoice | 11 |
+| Jadwal | 7 |
+| Uploads | 2.2MB |
 
 ---
 
@@ -52,10 +80,10 @@ E:\backup_mamat\
 
 | # | Issue | Prioritas | Status |
 |---|-------|-----------|--------|
-| 1 | Deploy Tahap 16 ke server (Galeri) | Tinggi | ⏳ Pending |
-| 2 | Testing fitur Galeri (upload → approve → tampil publik) | Tinggi | ⏳ Pending |
-| 3 | Watermark kecil di upload karya (opsional) | Rendah | 📝 Catatan |
-| - | Integrasi WA/Email notifikasi | Rendah | 📝 Butuh API pihak ketiga |
+| 1 | Tahap 18d — Mobile Class Events | Sedang | ⏸️ Hold (nunggu WA) |
+| 2 | Tahap 19 — Testimoni Landing | Sedang | 🔵 Planning |
+| 3 | Tahap 20 — Payment Gateway | Sedang | ⚪ Ide |
+| 4 | Tahap 21 — Progress Dashboard | Rendah | ⚪ Ide |
 
 ---
 
@@ -63,6 +91,9 @@ E:\backup_mamat\
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
-| 2026-05-08 | Setup Git (init, 137 files) |
-| 2026-05-08 | project-brief.md + docs selesai |
-| 2026-05-08 | Restruktur backup (3 lapis) |
+| 2026-05-10 | Tahap 18a/b/c — Push, Telegram, WA Button, Mobile Menu |
+| 2026-05-10 | Tahap 17 — Syarat & Ketentuan |
+| 2026-05-10 | Tahap 16 — Deploy + Watermark + Galeri |
+| 2026-05-10 | WP Config & Cheat Sheet + State |
+| 2026-05-09 | Backup Restruktur + Watcher |
+| 2026-05-08 | Setup Git + Docs |
