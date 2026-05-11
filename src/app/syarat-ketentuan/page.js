@@ -1,10 +1,16 @@
 /* =============================================
-   📄 SYARAT & KETENTUAN — Halaman Syket
+   📄 SYARAT & KETENTUAN — Halaman Syket + Alur Daftar
    
-   Static page — ngga perlu client component
+   Fungsi ganda:
+   - Biasanya: static page buat baca syarat & ketentuan
+   - Dari daftar: plus scroll detection + tombol setuju/tidak
    ============================================= */
 
-import { Scale, ChevronRight } from "lucide-react";
+"use client";
+
+import { useState, useEffect, useRef, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Scale, ChevronRight, CheckCircle, FileText } from "lucide-react";
 
 const sections = [
   {
@@ -67,7 +73,156 @@ Jika ada yang menyenangi karya kamu dan ingin membelinya, kami akan memfasilitas
   }
 ];
 
-export default function SyaratKetentuanPage() {
+function SyaratKetentuanContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const bottomRef = useRef(null);
+
+  const [fromDaftar, setFromDaftar] = useState(false);
+  const [scrolledToBottom, setScrolledToBottom] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [invoiceInfo, setInvoiceInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // Cek parameter ?from=daftar — ambil data dari sessionStorage
+  useEffect(() => {
+    if (searchParams.get("from") === "daftar") {
+      const saved = sessionStorage.getItem("pendaftaran_data");
+      if (saved) {
+        setFormData(JSON.parse(saved));
+        setFromDaftar(true);
+      } else {
+        // Safety: data gak ada, balikin ke daftar
+        router.replace("/daftar");
+      }
+    }
+  }, [searchParams, router]);
+
+  // IntersectionObserver — deteksi scroll ke bagian paling bawah
+  useEffect(() => {
+    if (!fromDaftar || !bottomRef.current || submitted) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setScrolledToBottom(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3, rootMargin: "0px 0px 100px 0px" }
+    );
+
+    observer.observe(bottomRef.current);
+    return () => observer.disconnect();
+  }, [fromDaftar, submitted]);
+
+  // Handle "Saya Setuju"
+  const handleSetuju = async () => {
+    if (!formData) return;
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, agreeTerms: true }),
+      });
+
+      const result = await res.json();
+
+      if (!result.success) {
+        setError(result.errors?.join(", ") || "Gagal mendaftar");
+        setLoading(false);
+        return;
+      }
+
+      const regId = result.data.id;
+
+      // Generate invoice otomatis
+      let invoiceData = null;
+      try {
+        const invRes = await fetch("/api/invoice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ registration_id: regId }),
+        });
+        const invResult = await invRes.json();
+        if (invResult.success) invoiceData = invResult.data;
+      } catch {
+        // Invoice gagal, tapi daftar tetap berhasil
+      }
+
+      setInvoiceInfo(invoiceData);
+      setLoading(false);
+      setSubmitted(true);
+      sessionStorage.removeItem("pendaftaran_data");
+    } catch (err) {
+      setError("Koneksi gagal, coba lagi");
+      setLoading(false);
+    }
+  };
+
+  // Handle "Tidak Setuju"
+  const handleTidakSetuju = () => {
+    sessionStorage.removeItem("pendaftaran_data");
+    router.push("/daftar");
+  };
+
+  // =============================================
+  // SUCCESS VIEW — setelah berhasil daftar
+  // =============================================
+  if (submitted && formData) {
+    return (
+      <div className="min-h-screen bg-surface-alt flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-10 h-10 text-green-600" />
+            </div>
+            <h2 className="text-2xl font-bold text-primary mb-2">Pendaftaran Berhasil! 🎉</h2>
+            <p className="text-text-light mb-2">
+              Terima kasih {formData.fullName}! Data kamu sudah kami terima dan kamu telah menyetujui Syarat & Ketentuan yang berlaku.
+            </p>
+
+            {invoiceInfo && (
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-left text-sm mb-6 mt-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <FileText className="w-4 h-4 text-accent" />
+                  <span className="font-semibold text-primary">Invoice Tagihan</span>
+                </div>
+                <div className="space-y-1 text-text-light">
+                  <p>No. Invoice: <strong className="text-primary">{invoiceInfo.invoice_number}</strong></p>
+                  <p>Total: <strong className="text-primary text-lg">Investasi {Number(invoiceInfo.amount).toLocaleString("id-ID")}</strong></p>
+                  <p>Batas Bayar: <strong className="text-primary">{invoiceInfo.payment_due_date}</strong></p>
+                </div>
+                <div className="mt-3 pt-3 border-t border-gray-200 text-xs text-gray-500">
+                  Transfer ke <strong>BLU BY BCA DIGITAL</strong> a.n. <strong>D Willy Ardhany</strong>
+                </div>
+              </div>
+            )}
+
+            <p className="text-text-light text-sm mb-6">
+              Kamu bisa cek status pendaftaran &amp; konfirmasi pembayaran di halaman <strong>Cek Status</strong> dengan nomor WhatsApp kamu.
+            </p>
+
+            <a
+              href="/status"
+              className="inline-block bg-accent text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent-dark transition-colors"
+            >
+              Cek Status Pendaftaran →
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // =============================================
+  // TAMPILAN UTAMA — konten syarat & ketentuan
+  // =============================================
   return (
     <div className="min-h-screen bg-surface-alt">
       {/* ===== HEADER ===== */}
@@ -80,7 +235,9 @@ export default function SyaratKetentuanPage() {
             Syarat & Ketentuan
           </h1>
           <p className="text-primary/70 mt-3 max-w-2xl mx-auto">
-            Mohon baca dengan saksama sebelum melakukan pendaftaran.
+            {fromDaftar
+              ? "Silakan baca dengan saksama, lalu pilih di bagian bawah."
+              : "Mohon baca dengan saksama sebelum melakukan pendaftaran."}
           </p>
         </div>
       </div>
@@ -88,7 +245,7 @@ export default function SyaratKetentuanPage() {
       {/* ===== KONTEN ===== */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 pb-16">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
-          
+
           {/* Info update */}
           <div className="bg-gray-50 rounded-xl p-4 mb-8 text-sm text-text-light">
             Berlaku sejak: <strong className="text-primary">Mei 2026</strong>
@@ -131,17 +288,81 @@ export default function SyaratKetentuanPage() {
             ))}
           </div>
 
-          {/* Footer note */}
-          <div className="mt-12 pt-8 border-t border-gray-100 text-sm text-text-light">
-            <p className="mb-2">
-              Dengan mendaftar, Anda menyatakan telah membaca dan menyetujui seluruh Syarat & Ketentuan di atas.
-            </p>
-            <p>
-              — <strong>Magic Pencil</strong>
-            </p>
-          </div>
+          {/* ===== Sentinel: pemicu scroll-to-bottom ===== */}
+          <div ref={bottomRef} className="h-4" />
+
+          {/* ===== TOMBOL SETUJU / TIDAK SETUJU (hanya dari daftar) ===== */}
+          {fromDaftar && scrolledToBottom && !submitted && (
+            <div className="mt-10 pt-8 border-t border-gray-100 animate-fade-in">
+              <p className="text-center text-sm text-text-light mb-6">
+                Dengan menekan <strong>Saya Setuju</strong>, Anda menyatakan telah membaca dan menyetujui seluruh Syarat & Ketentuan di atas.
+              </p>
+
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-red-600 text-sm mb-4 text-center">
+                  {error}
+                </div>
+              )}
+
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  onClick={handleSetuju}
+                  disabled={loading}
+                  className="flex items-center justify-center gap-2 bg-accent text-white px-10 py-3.5 rounded-full font-semibold hover:bg-accent-dark transition-all hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 shadow-lg"
+                >
+                  {loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Mendaftarkan...
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle className="w-5 h-5" />
+                      Saya Setuju
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={handleTidakSetuju}
+                  disabled={loading}
+                  className="flex items-center justify-center gap-2 border-2 border-gray-300 text-primary px-10 py-3.5 rounded-full font-semibold hover:border-gray-400 hover:bg-gray-50 transition-all disabled:opacity-50"
+                >
+                  Tidak Setuju
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ===== Indikator scroll dulu (kalo dari daftar, belum sampai bawah) ===== */}
+          {fromDaftar && !scrolledToBottom && !submitted && (
+            <div className="mt-10 pt-8 border-t border-gray-100 text-center">
+              <p className="text-sm text-gray-400 animate-pulse">
+                ⬇ Scroll ke bawah untuk melanjutkan
+              </p>
+            </div>
+          )}
+
+          {/* ===== Footer note (kalo akses langsung) ===== */}
+          {!fromDaftar && (
+            <div className="mt-12 pt-8 border-t border-gray-100 text-sm text-text-light">
+              <p className="mb-2">
+                Dengan mendaftar, Anda menyatakan telah membaca dan menyetujui seluruh Syarat & Ketentuan di atas.
+              </p>
+              <p>
+                — <strong>Magic Pencil</strong>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SyaratKetentuanPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-surface-alt" />}>
+      <SyaratKetentuanContent />
+    </Suspense>
   );
 }

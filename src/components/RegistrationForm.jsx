@@ -16,7 +16,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Send, CheckCircle, AlertCircle, User, Phone, Mail, Calendar, BookOpen, MessageSquare, FileText } from "lucide-react";
+import { Send, AlertCircle, User, Phone, Mail, Calendar, BookOpen, MessageSquare } from "lucide-react";
 
 /* 📝 Data kelas & investasi — diambil dari API pas form dimuat */
 
@@ -46,15 +46,11 @@ const initialForm = {
   notes: "",
   pilihHari: "",
   pilihJam: "",
-  agreeTerms: false,
 };
 
 export default function RegistrationForm() {
   const [form, setForm] = useState(initialForm);        // data form
   const [errors, setErrors] = useState({});              // error validasi
-  const [submitted, setSubmitted] = useState(false);     // status submit
-  const [loading, setLoading] = useState(false);         // loading state
-  const [invoiceInfo, setInvoiceInfo] = useState(null);  // invoice yg baru digenerate
   const [kelasList, setKelasList] = useState([]);        // daftar kelas & investasi
   const [hariList, setHariList] = useState([]);          // daftar hari
   const [jamList, setJamList] = useState([]);            // daftar jam
@@ -112,7 +108,6 @@ export default function RegistrationForm() {
       newErrors.age = "Usia harus antara 3-99 tahun";
     }
     if (!form.className) newErrors.className = "Pilih kelas yang diinginkan";
-    if (!form.agreeTerms) newErrors.agreeTerms = "Anda harus menyetujui Syarat & Ketentuan";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -121,114 +116,21 @@ export default function RegistrationForm() {
   /* =============================================
      Handle submit form
      ============================================= */
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!validate()) return;
 
-    setLoading(true);
-
-    try {
-      /* 📡 Panggil API /api/register */
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      const result = await res.json();
-
-      if (!result.success) {
-        setErrors({ api: result.errors?.join(", ") || "Gagal mendaftar" });
-        setLoading(false);
-        return;
-      }
-
-      const regId = result.data.id;
-
-      /* 🆕 Otomatis generate invoice */
-      let invoiceData = null;
-      try {
-        const invRes = await fetch("/api/invoice", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ registration_id: regId }),
-        });
-        const invResult = await invRes.json();
-        if (invResult.success) invoiceData = invResult.data;
-      } catch (err) {
-        console.warn("Invoice auto-gen gagal, lanjut aja:", err);
-      }
-
-      setInvoiceInfo(invoiceData);
-      setLoading(false);
-      setSubmitted(true);
-    } catch (err) {
-      console.error("❌ Error:", err);
-      setErrors({ api: "Koneksi gagal, coba lagi" });
-      setLoading(false);
-    }
+    // Simpan data ke sessionStorage, redirect ke syarat-ketentuan
+    sessionStorage.setItem("pendaftaran_data", JSON.stringify(form));
+    window.location.href = "/syarat-ketentuan?from=daftar";
   };
 
   /* =============================================
      Tampilan form
      ============================================= */
 
-  // 🔔 SUCCESS MESSAGE — muncul kalo submit berhasil
-  if (submitted) {
-    return (
-      <div className="text-center py-16 animate-fade-in max-w-md mx-auto">
-        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
-          <CheckCircle className="w-10 h-10 text-green-600" />
-        </div>
-        <h2 className="text-2xl font-bold text-primary mb-2">Pendaftaran Berhasil! 🎉</h2>
-        <p className="text-text-light mb-2">
-          Terima kasih {form.fullName}! Data kamu sudah kami terima.
-        </p>
-
-        {/* Invoice yang langsung digenerate */}
-        {invoiceInfo && (
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-left text-sm mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <FileText className="w-4 h-4 text-accent" />
-              <span className="font-semibold text-primary">Invoice Tagihan</span>
-            </div>
-            <div className="space-y-1 text-text-light">
-              <p>No. Invoice: <strong className="text-primary">{invoiceInfo.invoice_number}</strong></p>
-              <p>Total: <strong className="text-primary text-lg">Investasi {Number(invoiceInfo.amount).toLocaleString("id-ID")}</strong></p>
-              <p>Batas Bayar: <strong className="text-primary">{invoiceInfo.payment_due_date}</strong></p>
-            </div>
-            <div className="mt-3 pt-3 border-t border-gray-200 text-xs text-gray-500">
-              Transfer ke <strong>BLU BY BCA DIGITAL</strong> a.n. <strong>D Willy Ardhany</strong>
-            </div>
-          </div>
-        )}
-
-        <p className="text-text-light text-sm mb-6">
-          Kamu bisa cek status pendaftaran &amp; konfirmasi pembayaran di halaman <strong>Cek Status</strong> dengan nomor WhatsApp kamu.
-        </p>
-
-        <button
-          onClick={() => {
-            setForm(initialForm);
-            setSubmitted(false);
-            setInvoiceInfo(null);
-          }}
-          className="bg-accent text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent-dark transition-colors"
-        >
-          Daftar Lagi
-        </button>
-
-        <a
-          href="/status"
-          className="block mt-3 text-sm text-accent hover:text-accent-dark transition-colors"
-        >
-          Cek Status Pendaftaran →
-        </a>
-      </div>
-    );
-  }
-
+  // Form utama — langsung tampilin form, gak ada success view lagi
+  // (success view pindah ke halaman syarat-ketentuan)
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
       
@@ -474,51 +376,15 @@ export default function RegistrationForm() {
         </div>
       )}
 
-      {/* ===== SYARAT & KETENTUAN ===== */}
-      <div className={`p-4 rounded-xl border ${errors.agreeTerms ? "border-red-400 bg-red-50" : "border-gray-200"}`}>
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={form.agreeTerms}
-            onChange={(e) =>
-              setForm((prev) => ({ ...prev, agreeTerms: e.target.checked }))
-            }
-            className="mt-0.5 w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent/50 cursor-pointer"
-          />
-          <span className="text-sm text-text-light">
-            Saya telah membaca dan menyetujui{" "}
-            <a
-              href="/syarat-ketentuan"
-              target="_blank"
-              className="text-accent hover:text-accent-dark font-semibold underline underline-offset-2"
-            >
-              Syarat & Ketentuan
-            </a>{" "}
-            yang berlaku
-          </span>
-        </label>
-        {errors.agreeTerms && (
-          <p className="text-red-500 text-xs mt-2">{errors.agreeTerms}</p>
-        )}
-      </div>
+
 
       {/* ===== TOMBOL SUBMIT ===== */}
       <button
         type="submit"
-        disabled={loading}
-        className="w-full bg-accent text-white font-bold py-3.5 rounded-xl hover:bg-accent-dark transition-all hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 shadow-lg flex items-center justify-center gap-2"
+        className="w-full bg-accent text-white font-bold py-3.5 rounded-xl hover:bg-accent-dark transition-all hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2"
       >
-        {loading ? (
-          <>
-            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            Mengirim...
-          </>
-        ) : (
-          <>
-            <Send className="w-5 h-5" />
-            Daftar Sekarang
-          </>
-        )}
+        <Send className="w-5 h-5" />
+        Lanjut ke Syarat & Ketentuan
       </button>
 
 
