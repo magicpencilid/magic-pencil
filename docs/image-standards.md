@@ -10,13 +10,14 @@
 | Aturan | Nilai | Keterangan |
 |--------|-------|------------|
 | **Max Lebar** | 1000px | Aspect ratio otomatis terjaga |
-| **Format Output** | WebP | Kecil, kualitas optimal |
-| **Quality** | 65% | JPEG/WebP quality |
-| **Watermark** | ✅ WAJIB | Mulai 11 Mei 2026 |
-| **Mode** | Multiply | Tipis, nyatu sama gambar |
+| **Format Output** | JPEG | WebP butuh ImageMagick tambahan |
+| **Quality** | 65% | JPEG quality |
+| **Watermark** | ✅ WAJIB | watermark.png multiply blend pixel-level |
+| **Opasitas Watermark** | 100% | Multiply penuh |
+| **Ukuran Watermark** | 80% lebar gambar | Proporsional |
 | **Posisi** | Center | Ditengah gambar |
 | **File Watermark** | `public/images/watermark.png` | |
-| **Library** | JIMP (multiply) + ImageMagick (WebP) | |
+| **Library** | JIMP (dynamic import) | |
 
 ---
 
@@ -92,4 +93,31 @@ magick watermarked.jpg -quality 65 output.webp
 
 ---
 
+## 🖼️ Testimonial Images (B&W)
+
+Foto testimoni diproses otomatis pas upload:
+- **Max size:** 300px (kotak)
+- **B&W:** `image.greyscale()` (Jimp)
+- **Crop:** Kotak dari tengah
+- **Format:** JPEG
+- **Simpan:** `public/uploads/testimonials/`
+- **Serve via:** `/api/testimonials/image/[...segments]` (proxy)
+
+### Programmatic:
+```javascript
+const { processTestimonialImage } = require("@/lib/process-testimonial-image");
+const result = await processTestimonialImage(buffer);
+```
+
+---
+
 > **Catatan:** Semua gambar baru WAJIB melalui proses ini sebelum di-upload ke server.
+
+## 📂 Uploads Directories
+
+| Folder | Untuk |
+|--------|-------|
+| `public/uploads/bukti-bayar/` | Bukti pembayaran murid |
+| `public/uploads/karya/` | Karya murid (admin approve) |
+| `public/uploads/gallery/` | Galeri foto owner |
+| `public/uploads/testimonials/` | Foto testimoni (otomatis B&W) |

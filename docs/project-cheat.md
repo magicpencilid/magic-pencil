@@ -55,12 +55,14 @@ magic-pencil-app/
 | **Jadwal kelas** | ✅ |
 | **Absensi check-in/out** | ✅ |
 | **Galeri karya murid** | ✅ (upload + approve + publik) |
-| **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%) |
+| **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
+| **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
+| **Testimoni** | ✅ (admin upload, foto B&W otomatis, section di beranda) |
 | **PWA + notifikasi push** | ✅ |
 | **Telegram Bot** | ✅ (@magicpencil_notif_bot) |
 | **WA floating button** | ✅ (wa.me/628111150563) |
 | **Dashboard murid** | ✅ (jadwal, absensi, karya) |
-| **Dashboard admin** | ✅ (9 sub-halaman) |
+| **Dashboard admin** | ✅ (12 sub-halaman: Dashboard, Murid, Pendaftar, Kelas, Hari & Jam, Jadwal, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran) |
 
 ---
 

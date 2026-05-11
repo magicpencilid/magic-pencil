@@ -21,6 +21,8 @@ import {
   PanelRightOpen,
   Palette,
   CheckCheck,
+  ImageIcon,
+  MessageSquare,
 } from "lucide-react";
 
 const menuItems = [
@@ -32,6 +34,8 @@ const menuItems = [
   { icon: Calendar, label: "Jadwal", href: "/admin/jadwal" },
   { icon: CheckCheck, label: "Absensi", href: "/admin/absensi" },
   { icon: Palette, label: "Karya", href: "/admin/karya" },
+  { icon: ImageIcon, label: "Galeri Foto", href: "/admin/galeri-foto" },
+  { icon: MessageSquare, label: "Testimoni", href: "/admin/testimoni" },
   { icon: DollarSign, label: "Pembayaran", href: "/admin/pembayaran" },
 ];
 

@@ -8,9 +8,9 @@
 
 | Item | Status |
 |------|--------|
-| **Tahap Terakhir** | 18c — WhatsApp wa.me Floating Button |
-| **Versi Terdeploy** | ✅ Tahap 16-18 (10 Mei 2026) |
-| **Status Server** | ✅ PM2 online 17h, 80.9MB RAM |
+| **Tahap Terakhir** | 18c + Galeri Foto + Watermark + Testimoni + Optimasi |
+| **Versi Terdeploy** | ✅ 11 Mei 2026 — 60 routes, 11 pages |
+| **Status Server** | ✅ PM2 online |
 | **DB** | SQLite — `magic-pencil.db` |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
 
@@ -49,10 +49,14 @@ I:\My Drive\backup_mamat\
 
 ---
 
-## Fitur Terdeploy (Tahap 16-18)
+## Fitur Terdeploy
 
 | Tahap | Fitur | Tanggal |
 |-------|-------|---------|
+| — | Navbar white glass + font Inter + mobile dropdown minimal | 11 Mei |
+| — | Gallery lightbox (click-to-zoom) | 11 Mei |
+| — | Flow daftar baru (form → syket → setuju/tidak) | 11 Mei |
+| — | Standar gambar default (watermark, script, docs) + Slide #4 baru | 11 Mei |
 | 16 | Upload Karya + Galeri Publik + Watermark (jimp) | 10 Mei |
 | 17 | Syarat & Ketentuan + checkbox daftar | 10 Mei |
 | 18a | Push Notification (register, invoice, pembayaran) | 10 Mei |
@@ -81,7 +85,7 @@ I:\My Drive\backup_mamat\
 | # | Issue | Prioritas | Status |
 |---|-------|-----------|--------|
 | 1 | Tahap 18d — Mobile Class Events | Sedang | ⏸️ Hold (nunggu WA) |
-| 2 | Tahap 19 — Testimoni Landing | Sedang | 🔵 Planning |
+| 2 | Tahap 19 — Testimoni Landing | Sedang | 🔵 Planning (hold karena navbar/gallery/flow) |
 | 3 | Tahap 20 — Payment Gateway | Sedang | ⚪ Ide |
 | 4 | Tahap 21 — Progress Dashboard | Rendah | ⚪ Ide |
 
@@ -91,6 +95,7 @@ I:\My Drive\backup_mamat\
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
+| 2026-05-11 | Navbar glass + font Inter, Gallery lightbox, Flow daftar baru, Standar gambar + Slide #4, Galeri Foto + Watermark + Upload Fixes, Testimoni + Optimasi |
 | 2026-05-10 | Tahap 18a/b/c — Push, Telegram, WA Button, Mobile Menu |
 | 2026-05-10 | Tahap 17 — Syarat & Ketentuan |
 | 2026-05-10 | Tahap 16 — Deploy + Watermark + Galeri |

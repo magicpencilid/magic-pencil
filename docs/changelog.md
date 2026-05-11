@@ -4,6 +4,72 @@
 
 ---
 
+### 2026-05-11: Testimoni + Optimasi + Navbar Ringkas
+
+**Testimoni Baru:**
+- Tabel `testimonials` + API CRUD + Proxy image
+- Foto otomatis B&W (greyscale + crop tengah)
+- Admin panel `/admin/testimoni`
+- Section di beranda (setelah galeri, server-side data)
+
+**Optimasi Performa:**
+- HeroCarousel: `loading=lazy` + `decoding=async`
+- Testimoni: ganti client fetch → server-side data
+
+**Navbar Ringkas:**
+- Hapus "Kelas" dan "Cek Status" dari navbar
+- Navbar sekarang: Beranda | Galeri | Masuk + [Daftar]
+
+---
+
+### 2026-05-11: Watermark Multiply + Upload Fixes + Galeri Foto
+
+**Galeri Foto Baru:**
+- Halaman `/gallery` grid Instagram (lightbox, tab filter)
+- Admin upload `/admin/galeri-foto`
+- API `/api/gallery` + proxy image
+
+**Upload Fixes:**
+- Fix Jimp decoders + mime export + await params (Next.js 16)
+- Fix DB migration di dalam SQL exec (Turbopack bug)
+
+**Watermark Upgrade:**
+- rounded rect → watermark.png multiply blend pixel-level
+- 100% opacity, 80% lebar
+
+---
+
+### 2026-05-11: Navbar Glass + Gallery Lightbox + Standar Gambar + Flow Daftar
+
+**Perubahan UI:**
+- Navbar white glass: `bg-white/95` → `bg-white/70`, shadow ilang di awal, muncul pas scroll
+- Navbar mobile dropdown: link text transparan, CTA outline (border), glass bg
+- Navbar font: Muli → Inter (konsisten sama body)
+- Gallery lightbox: hover text dihapus, klik gambar zoom full-screen, backdrop gelap, nav panah + keyboard
+
+**Flow Daftar Baru:**
+- Isi form → redirect ke `/syarat-ketentuan?from=daftar`
+- Scroll ke bawah → tombol "Saya Setuju" / "Tidak Setuju"
+- Setuju → API call + invoice + success view di halaman syket
+- Tidak setuju → balik ke `/daftar`
+- Checkbox syket di form dihapus
+
+**Gambar & Standar:**
+- Slide #4 baru: 4429x6496 px → resize 1000px → watermark multiply center → webp 65%
+- Standar gambar default: `public/images/watermark.png`, `scripts/process-slide.js`, `docs/image-standards.md`
+
+**File diubah:**
+- `src/components/Navbar.jsx` — glass effect, mobile dropdown, font Inter
+- `src/components/RegistrationForm.jsx` — ilangin checkbox, redirect ke syket
+- `src/app/syarat-ketentuan/page.js` — client component + interaktif
+- `src/components/Gallery.jsx` — lightbox, hapus hover text
+- `public/images/slide-4.webp` — gambar baru watermark multiply
+- `public/images/watermark.png` — 🆕 file watermark default
+- `scripts/process-slide.js` — 🆕 script proses slide reusable
+- `docs/image-standards.md` — 🆕 dokumentasi standar gambar
+
+---
+
 ### 2026-05-10: Tahap 18c — WhatsApp wa.me Floating Button
 
 **File baru:**

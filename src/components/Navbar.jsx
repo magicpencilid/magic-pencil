@@ -12,9 +12,7 @@ import Image from "next/image";
 
 const navLinks = [
   { label: "Beranda", href: "/" },
-  { label: "Kelas", href: "/#kelas" },
-  { label: "Galeri", href: "/#galeri" },
-  { label: "Cek Status", href: "/status" },
+  { label: "Galeri", href: "/gallery" },
   { label: "Masuk", href: "/login" },
 ];
 

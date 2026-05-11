@@ -28,6 +28,7 @@ export function getDb() {
    Buat tabel kalo belum ada
    ============================================= */
 function initTables() {
+  // Semua DDL pake SATU db.exec biar Turbopack gak merge sama migration try/catch
   db.exec(`
     CREATE TABLE IF NOT EXISTS pendaftar (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,14 +47,6 @@ function initTables() {
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
     );
-
-    /* Migrasi: tambah kolom kalo tabel udah ada (database lama) */
-    try {
-      db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms INTEGER NOT NULL DEFAULT 0");
-    } catch (e) { /* kolom udah ada */ }
-    try {
-      db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms_at TEXT");
-    } catch (e) { /* kolom udah ada */ }
 
     CREATE TABLE IF NOT EXISTS jadwal (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -107,11 +100,6 @@ function initTables() {
       is_active INTEGER NOT NULL DEFAULT 1,
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
     );
-
-    /* Migrasi: tambah kolom type kalo tabel udah ada */
-    try {
-      db.exec("ALTER TABLE kelas ADD COLUMN type TEXT NOT NULL DEFAULT 'monthly'");
-    } catch (e) { /* kolom udah ada */ }
 
     CREATE TABLE IF NOT EXISTS schedule_config (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -180,10 +168,30 @@ function initTables() {
       p256dh TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
     );
+
+    CREATE TABLE IF NOT EXISTS gallery_photos (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      deskripsi TEXT,
+      image_path TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS testimonials (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nama TEXT NOT NULL,
+      teks TEXT NOT NULL,
+      rating INTEGER NOT NULL DEFAULT 5,
+      photo_path TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
+    );
   `);
 
   // Migrasi: tambah kolom kalo belum ada (untuk DB lama)
   try { db.exec("ALTER TABLE pendaftar ADD COLUMN alamat TEXT"); } catch {}
+  try { db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms INTEGER NOT NULL DEFAULT 0"); } catch (e) { /* kolom udah ada */ }
+  try { db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms_at TEXT"); } catch (e) { /* kolom udah ada */ }
+  try { db.exec("ALTER TABLE kelas ADD COLUMN type TEXT NOT NULL DEFAULT 'monthly'"); } catch (e) { /* kolom udah ada */ }
 
   // Seed data kelas (kalo tabelnya baru dibuat)
   const kelasCount = db.prepare("SELECT COUNT(*) as count FROM kelas").get();

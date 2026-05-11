@@ -75,7 +75,7 @@ export default function HeroCarousel() {
     <section className="relative bg-white overflow-hidden">
       <div className="relative w-full h-[85vh] md:h-screen min-h-[500px] max-h-[900px]">
         
-        {/* Slides */}
+        {/* Slides — gambar non-aktif pake loading=lazy biar gak semua di-load bareng */}
         {sketches.map((sketch, index) => (
           <div
             key={sketch.id}
@@ -89,25 +89,27 @@ export default function HeroCarousel() {
               <div className="w-full h-full flex items-start justify-center px-8 md:px-16 pt-4 md:pt-8 pb-8 md:pb-16">
                 <div className="relative w-full max-w-5xl">
                   <div className="w-full rounded-2xl overflow-hidden relative flex items-center justify-center select-none">
-                      <img
-                        src={`/images/slide-${sketch.id}.webp`}
-                        alt={sketch.title}
-                        className="w-full h-full object-contain max-h-[75vh] pointer-events-none"
-                        draggable="false"
-                        onContextMenu={(e) => e.preventDefault()}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-br ${sketch.gradient} flex items-center justify-center" style={{display: 'none'}}>
-                        <p className="text-gray-400 text-sm uppercase tracking-wider">{sketch.title}</p>
-                      </div>
-                      {/* Overlay anti-save */}
-                      <div className="absolute inset-0 z-10" onContextMenu={(e) => e.preventDefault()} />
+                    <img
+                      src={`/images/slide-${sketch.id}.webp`}
+                      alt={sketch.title}
+                      className="w-full h-full object-contain max-h-[75vh] pointer-events-none"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      draggable="false"
+                      onContextMenu={(e) => e.preventDefault()}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br ${sketch.gradient} flex items-center justify-center" style={{display: 'none'}}>
+                      <p className="text-gray-400 text-sm uppercase tracking-wider">{sketch.title}</p>
                     </div>
+                    {/* Overlay anti-save */}
+                    <div className="absolute inset-0 z-10" onContextMenu={(e) => e.preventDefault()} />
                   </div>
                 </div>
+              </div>
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/10 to-transparent h-32 pointer-events-none" />
           </div>

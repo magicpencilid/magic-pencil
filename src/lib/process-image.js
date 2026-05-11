@@ -1,21 +1,31 @@
 /**
- * Process Image — Compress + Watermark untuk upload karya
+ * Process Image — Compress + Watermark untuk upload
  * Pake JIMP v1 (ESM via dynamic import)
  * 
  * Aturan:
  *   - Resize: max 1000 px
  *   - Quality: 65% (JPEG)
- *   - Watermark: teks "Magic Pencil" semi-transparan di tengah
+ *   - Watermark: gambar watermark.png dikomposite di tengah (30% opacity)
  */
 
+const fs = require("fs");
+const path = require("path");
+
 const MAX_WIDTH = 1000;
-const WATERMARK_TEXT = "Magic Pencil";
 
 /**
  * Proses buffer gambar: resize + kompresi + watermark
  */
 async function processImage(inputBuffer) {
   const { Jimp } = await import("jimp");
+
+  // Naikin memory limit decoder biar HP 12MP+ muat
+  if (Jimp.decoders) {
+    if (Jimp.decoders["image/jpeg"]) Jimp.decoders["image/jpeg"].maxMemoryUsageInMB = 1024;
+    if (Jimp.decoders["image/png"]) Jimp.decoders["image/png"].maxMemoryUsageInMB = 1024;
+    if (Jimp.decoders["image/webp"]) Jimp.decoders["image/webp"].maxMemoryUsageInMB = 1024;
+  }
+
   const image = await Jimp.read(inputBuffer);
 
   // Resize kalo terlalu lebar
@@ -26,39 +36,56 @@ async function processImage(inputBuffer) {
   const w = image.bitmap.width;
   const h = image.bitmap.height;
 
-  // Buat layer watermark semi-transparan
-  const fontSize = Math.max(16, Math.round(w * 0.04));
-  const padding = Math.round(fontSize * 0.8);
-  const textW = WATERMARK_TEXT.length * fontSize * 0.55;
-  const boxW = Math.round(Math.min(textW + padding * 2, w * 0.9));
-  const boxH = Math.floor(fontSize * 1.6 + padding * 2);
-  const radius = Math.round(fontSize * 0.3);
+  // Load watermark image
+  const wmPath = path.join(process.cwd(), "public", "images", "watermark.png");
+  if (fs.existsSync(wmPath)) {
+    let wmImage = await Jimp.read(wmPath);
 
-  // Bikin watermark sebagai image baru dengan background gelap transparan
-  const wmLayer = new Jimp({ width: boxW, height: boxH, color: 0x00000000 });
+    // Resize watermark — maks 80% lebar gambar
+    const maxWmW = Math.round(w * 0.8);
+    if (wmImage.bitmap.width > maxWmW) {
+      wmImage.resize({ w: maxWmW });
+    }
 
-  // Fill dengan rounded rect semi-transparan (25% opacity black)
-  for (let y = 0; y < boxH; y++) {
-    for (let x = 0; x < boxW; x++) {
-      const inRect = (
-        x >= 0 && x < boxW && y >= 0 && y < boxH &&
-        (x >= radius && x < boxW - radius ||
-         y >= radius && y < boxH - radius ||
-         (x < radius && y < radius && Math.hypot(x - radius + 0.5, y - radius + 0.5) <= radius) ||
-         (x >= boxW - radius && y < radius && Math.hypot(x - (boxW - radius - 1), y - radius + 0.5) <= radius) ||
-         (x < radius && y >= boxH - radius && Math.hypot(x - radius + 0.5, y - (boxH - radius - 1)) <= radius) ||
-         (x >= boxW - radius && y >= boxH - radius && Math.hypot(x - (boxW - radius - 1), y - (boxH - radius - 1)) <= radius))
-      );
-      if (inRect) {
-        wmLayer.setPixelColor(0x40000000, x, y); // RGBA 25% hitam
+    const wmW = wmImage.bitmap.width;
+    const wmH = wmImage.bitmap.height;
+
+    // Posisi tengah
+    const wmX = Math.round((w - wmW) / 2);
+    const wmY = Math.round((h - wmH) / 2);
+
+    // Watermark pake Multiply blend mode
+    // - Area putih watermark → transparan (gak ngefek) — rumus: area * (opacity + (1-opacity) * w/255)
+    // - Area gelap watermark → ngegelapin gambar
+    // - Opacity 40% biar keliatan natural
+    const wmOpacity = 1.0;
+    for (let y = 0; y < wmH; y++) {
+      for (let x = 0; x < wmW; x++) {
+        const baseColor = image.getPixelColor(wmX + x, wmY + y);
+        const wmColor = wmImage.getPixelColor(x, y);
+
+        // Ekstrak RGB (format Jimp: R << 24 | G << 16 | B << 8 | A)
+        const br = (baseColor >> 24) & 0xff;
+        const bg = (baseColor >> 16) & 0xff;
+        const bb = (baseColor >> 8) & 0xff;
+        const ba = baseColor & 0xff;
+
+        const wr = (wmColor >> 24) & 0xff;
+        const wg = (wmColor >> 16) & 0xff;
+        const wb = (wmColor >> 8) & 0xff;
+
+        // Multiply + opacity control
+        // br * (1 - wmOpacity + wmOpacity * wr/255)
+        // = br * (1 - wmOpacity) + br * wmOpacity * wr/255
+        const r = Math.round(br * (1 - wmOpacity) + br * wmOpacity * wr / 255);
+        const g = Math.round(bg * (1 - wmOpacity) + bg * wmOpacity * wg / 255);
+        const b = Math.round(bb * (1 - wmOpacity) + bb * wmOpacity * wb / 255);
+
+        const newColor = ((r << 24) | (g << 16) | (b << 8) | ba) >>> 0;
+        image.setPixelColor(newColor, wmX + x, wmY + y);
       }
     }
   }
-
-  // Overlay watermark ke tengah gambar
-  const wmX = Math.round((w - boxW) / 2);
-  const wmY = Math.round((h - boxH) / 2);
-  image.composite(wmLayer, wmX, wmY);
 
   // Output JPEG kualitas 65%
   const buffer = await image.getBuffer("image/jpeg", { quality: 65 });

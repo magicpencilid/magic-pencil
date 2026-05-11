@@ -10,10 +10,19 @@
 import HeroCarousel from "@/components/HeroCarousel";
 import ClassInfo from "@/components/ClassInfo";
 import Gallery from "@/components/Gallery";
+import TestimoniSection from "@/components/TestimoniSection";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getDb } from "@/lib/database";
 
 export default function Home() {
+  // Fetch testimoni pas render — gak perlu client-side fetch
+  let testimonials = [];
+  try {
+    const db = getDb();
+    testimonials = db.prepare("SELECT * FROM testimonials ORDER BY created_at ASC").all();
+  } catch {}
+
   return (
     <>
       <HeroCarousel />
@@ -47,6 +56,7 @@ export default function Home() {
       </section>
 
       <Gallery />
+      <TestimoniSection initialData={testimonials} />
     </>
   );
 }

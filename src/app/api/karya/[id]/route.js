@@ -12,8 +12,9 @@ import { getKaryaById } from "@/lib/karya";
 import { unlink } from "fs/promises";
 import path from "path";
 
-export async function GET(request, { params }) {
+export async function GET(request, props) {
   try {
+    const params = await props.params;
     const id = Number(params.id);
     const karya = getKaryaById(id);
 
@@ -28,8 +29,9 @@ export async function GET(request, { params }) {
   }
 }
 
-export async function PATCH(request, { params }) {
+export async function PATCH(request, props) {
   try {
+    const params = await props.params;
     const id = Number(params.id);
     const body = await request.json();
     const db = getDb();
@@ -73,8 +75,9 @@ export async function PATCH(request, { params }) {
   }
 }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request, props) {
   try {
+    const params = await props.params;
     const id = Number(params.id);
     const db = getDb();
 

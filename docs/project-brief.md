@@ -114,8 +114,10 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Invoice + Pembayaran | ✅ | Upload bukti transfer |
 | Login murid + Dashboard | ✅ | Jadwal, absensi, karya |
 | Admin panel | ✅ | 9 sub-halaman |
-| Watermark otomatis | ✅ | jimp (resize 1000px + JPEG 65%) |
+| Watermark otomatis | ✅ | jimp (resize 1000px + JPEG 65% + multiply blend) |
 | Galeri publik | ✅ | Lightbox + keyboard nav |
+| Galeri Foto Owner | ✅ | Instagram grid + admin upload + proxy image |
+| Testimoni | ✅ | Admin upload + foto B&W + section beranda |
 | PWA + Push notif | ✅ | VAPID keys |
 | Telegram Bot | ✅ | @magicpencil_notif_bot |
 | WA floating button | ✅ | wa.me/628111150563 |
@@ -136,7 +138,8 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 18b | Telegram Bot | ✅ Selesai, deployed |
 | 18c | WA Floating Button | ✅ Selesai, deployed |
 | 18d | Mobile Class Events | ⏸️ Hold (nunggu WA) |
-| 19 | Testimoni | 🔵 Planning |
+| 19 | Testimoni | ✅ Selesai, deployed |
+| 19a | Galeri Foto + Watermark Multiply | ✅ Selesai, deployed |
 | 20 | Payment Gateway | ⚪ Ide |
 | 21 | Progress Dashboard | ⚪ Ide |
 | Store | Merch Karya Murid | ⚪ Ide |
