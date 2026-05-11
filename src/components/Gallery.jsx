@@ -124,9 +124,7 @@ export default function Gallery() {
               alt={selected.title}
               className="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl"
             />
-            <p className="text-white/70 text-sm mt-3 tracking-wide">
-              {selected.title} · {selectedIdx + 1} / {galleryItems.length}
-            </p>
+
           </div>
         </div>
       )}
