@@ -86,18 +86,20 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile dropdown menu (no slide, biar WA button gak ketutupan) */}
+      {/* Mobile dropdown — minimal, transparan, ukuran sedang */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
-          <div className="px-4 py-4 space-y-2">
+        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100/50 shadow-lg">
+          <div className="px-6 py-5 space-y-1">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="block text-center bg-accent/40 text-white px-5 py-3 rounded-full text-sm font-semibold tracking-wide uppercase hover:bg-accent hover:text-white transition-colors">
+              <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="block text-primary hover:text-accent font-medium text-sm tracking-wide uppercase py-2.5 px-3 rounded-lg hover:bg-gray-100 transition-colors">
                 {link.label}
               </Link>
             ))}
-            <Link href="/daftar" onClick={() => setIsOpen(false)} className="block text-center bg-accent-dark text-white px-5 py-3 rounded-full text-sm font-semibold tracking-wide uppercase hover:bg-primary transition-colors shadow-sm">
-              Daftar Sekarang
-            </Link>
+            <div className="pt-4 pb-1 flex justify-center">
+              <Link href="/daftar" onClick={() => setIsOpen(false)} className="inline-block border border-accent text-accent bg-transparent px-8 py-2.5 rounded-full text-sm font-semibold tracking-wide uppercase hover:bg-accent hover:text-white transition-all">
+                Daftar Sekarang
+              </Link>
+            </div>
           </div>
         </div>
       )}
