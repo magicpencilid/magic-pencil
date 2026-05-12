@@ -1,8 +1,7 @@
-// API: /api/testimonials — GET (public) + POST (admin upload)
+// API: /api/testimonials — GET (public) + POST (admin)
 
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
-import { processTestimonialImage } from "@/lib/process-testimonial-image";
 
 export async function GET() {
   try {
@@ -17,27 +16,18 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const formData = await request.formData();
-    const nama = formData.get("nama")?.trim();
-    const teks = formData.get("teks")?.trim();
-    const foto = formData.get("foto");
+    const body = await request.json();
+    const nama = body.nama?.trim();
+    const teks = body.teks?.trim();
 
     if (!nama || !teks) {
       return NextResponse.json({ success: false, errors: ["Nama dan teks wajib diisi"] }, { status: 400 });
     }
 
     const db = getDb();
-    let photo_path = null;
-
-    if (foto && foto instanceof Blob) {
-      const buffer = Buffer.from(await foto.arrayBuffer());
-      const result = await processTestimonialImage(buffer);
-      photo_path = `/api/testimonials/image/${result.filename}`;
-    }
-
     const info = db.prepare(
-      "INSERT INTO testimonials (nama, teks, photo_path) VALUES (@nama, @teks, @photo_path)"
-    ).run({ nama, teks, photo_path });
+      "INSERT INTO testimonials (nama, teks) VALUES (@nama, @teks)"
+    ).run({ nama, teks });
 
     return NextResponse.json({
       success: true,

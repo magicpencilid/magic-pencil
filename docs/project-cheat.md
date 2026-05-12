@@ -57,7 +57,7 @@ magic-pencil-app/
 | **Galeri karya murid** | ✅ (upload + approve + publik) |
 | **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
 | **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
-| **Testimoni** | ✅ (admin upload, foto B&W otomatis, section di beranda) |
+| **Testimoni** | ✅ (no foto, no bintang, section beranda) |
 | **PWA + notifikasi push** | ✅ |
 | **Telegram Bot** | ✅ (@magicpencil_notif_bot) |
 | **WA floating button** | ✅ (wa.me/628111150563) |

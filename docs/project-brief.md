@@ -138,8 +138,9 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 18b | Telegram Bot | ✅ Selesai, deployed |
 | 18c | WA Floating Button | ✅ Selesai, deployed |
 | 18d | Mobile Class Events | ⏸️ Hold (nunggu WA) |
-| 19 | Testimoni | ✅ Selesai, deployed |
+| 19 | Testimoni | ✅ Selesai, deployed (simplified: no foto, no bintang) |
 | 19a | Galeri Foto + Watermark Multiply | ✅ Selesai, deployed |
+| — | Auto Akun Murid | 🔵 Rencana (email + mpXXXX) |
 | 20 | Payment Gateway | ⚪ Ide |
 | 21 | Progress Dashboard | ⚪ Ide |
 | Store | Merch Karya Murid | ⚪ Ide |

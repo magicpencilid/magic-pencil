@@ -4,6 +4,20 @@
 
 ---
 
+### 2026-05-12: Testimoni Simplifikasi + Auto Akun Rencana
+
+**Testimoni Simplified:**
+- Hapus foto & bintang — cuma nama + quote
+- Admin panel monochrome gray
+- Judul: "Mereka dan Gambar"
+- Fix: `force-dynamic` biar data fresh tiap render
+
+**Rencana Fitur Baru:**
+- Auto akun murid pas daftar (email + mpXXXX)
+- Share medsos, swipe down, like — di tunda
+
+---
+
 ### 2026-05-11: Testimoni + Optimasi + Navbar Ringkas
 
 **Testimoni Baru:**

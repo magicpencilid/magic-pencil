@@ -15,6 +15,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getDb } from "@/lib/database";
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   // Fetch testimoni pas render — gak perlu client-side fetch
   let testimonials = [];

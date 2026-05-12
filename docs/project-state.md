@@ -95,6 +95,7 @@ I:\My Drive\backup_mamat\
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
+| 2026-05-12 | Testimoni simplified (no foto, no bintang), force-dynamic, auto akun rencana |
 | 2026-05-11 | Navbar glass + font Inter, Gallery lightbox, Flow daftar baru, Standar gambar + Slide #4, Galeri Foto + Watermark + Upload Fixes, Testimoni + Optimasi |
 | 2026-05-10 | Tahap 18a/b/c — Push, Telegram, WA Button, Mobile Menu |
 | 2026-05-10 | Tahap 17 — Syarat & Ketentuan |
