@@ -16,7 +16,7 @@
 | **Warna** | `--color-primary: #1a1a1a`, `--color-accent: #666`, `--color-accent-dark: #444` |
 | **Mata uang** | "Investasi" (bukan "Rp") |
 | **WA nomor** | `628111150563` |
-| **Transfer** | BLU BY BCA DIGITAL a.n D Willy Ardhany |
+| **Transfer** | BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182) |
 | **Telegram** | @magicpencil_notif_bot |
 
 ---

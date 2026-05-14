@@ -118,7 +118,7 @@ Admin → Login → Dashboard
 
 ## 📝 NOTES
 
-- **Transfer:** BLU BY BCA DIGITAL a.n D Willy Ardhany
+- **Transfer:** BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182)
 - **Telegram Bot:** @magicpencil_notif_bot
 - **Admin password:** `Pencil@dmin`
 - **Server CPU:** KVM tua — gak support `sharp`, pake `jimp`
