@@ -116,7 +116,9 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess })
           <div className="space-y-1 text-gray-600">
             <p>Invoice: <strong>{invoice?.invoice_number}</strong></p>
             <p>Total: <strong>Investasi {Number(invoice?.amount).toLocaleString("id-ID")}</strong></p>
-            <p>Transfer ke <strong>BLU BY BCA DIGITAL</strong> a.n. <strong>D Willy Ardhany</strong> (No.Rek: 001662116182)</p>
+            <p>Transfer ke <strong>BLU BY BCA DIGITAL</strong>
+            Atas nama <strong>D Willy Ardhany</strong>
+            No.Rek 001662116182</p>
             {notes && <p className="mt-2">Catatan: <em>{notes}</em></p>}
             {preview && (
               <div className="mt-2">
@@ -189,7 +191,9 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess })
           <div className="space-y-1 text-gray-600">
             <p>Invoice: <strong>{invoice.invoice_number}</strong></p>
             <p>Total: <strong>Investasi {Number(invoice.amount).toLocaleString("id-ID")}</strong></p>
-            <p className="mt-2">Transfer ke <strong>BLU BY BCA DIGITAL</strong> a.n. <strong>D Willy Ardhany</strong> (No.Rek: 001662116182)</p>
+            <p className="mt-2">Transfer ke <strong>BLU BY BCA DIGITAL</strong></p>
+            <p className="text-xs mt-1">Atas nama <strong>D Willy Ardhany</strong></p>
+            <p className="text-xs mt-1">No.Rek 001662116182</p>
           </div>
         </div>
       )}

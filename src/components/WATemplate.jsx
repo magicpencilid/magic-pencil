@@ -39,7 +39,9 @@ Total: *Investasi ${Number(inv.amount).toLocaleString("id-ID")}*
 Batas Bayar: *${inv.payment_due_date}*
 
 Silakan transfer ke:
-BLU BY BCA DIGITAL a.n. D Willy Ardhany (No.Rek: 001662116182)
+BLU BY BCA DIGITAL
+Atas nama D Willy Ardhany
+No.Rek 001662116182
 
 Konfirmasi setelah transfer. Terima kasih.
 

@@ -146,7 +146,9 @@ export default function InvoiceLookup() {
             {/* Info pembayaran */}
             <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm">
               <p className="font-semibold mb-1">Cara Pembayaran</p>
-              <p>Transfer ke <strong>BLU BY BCA DIGITAL</strong> a.n. <strong>D Willy Ardhany</strong> (No.Rek: 001662116182)</p>
+              <p>Transfer ke <strong>BLU BY BCA DIGITAL</strong></p>
+              <p>Atas nama <strong>D Willy Ardhany</strong></p>
+              <p>No.Rek 001662116182</p>
               <p className="mt-2 text-gray-500">
                 Konfirmasi pembayaran via WhatsApp setelah transfer.
               </p>
