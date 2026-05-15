@@ -112,13 +112,13 @@ export default function StorePage() {
                 className="group text-left bg-[var(--color-surface-alt)] rounded-lg overflow-hidden border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-colors"
               >
                 {/* Foto */}
-                <div className="aspect-square bg-[var(--color-border)] relative overflow-hidden">
+                <div className="w-full h-56 bg-[var(--color-surface-alt)] relative overflow-hidden">
                   {p.gambar ? (
                     <Image
                       src={p.gambar}
                       alt={p.nama}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="object-contain p-2"
                       sizes="(max-width: 768px) 50vw, 25vw"
                     />
                   ) : (
@@ -156,13 +156,13 @@ export default function StorePage() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Gambar */}
-            <div className="relative w-full aspect-square bg-[var(--color-surface-alt)]">
+            <div className="relative w-full h-72 sm:h-80 md:h-96 bg-[var(--color-surface-alt)]">
               {selected.gambar ? (
                 <Image
                   src={selected.gambar}
                   alt={selected.nama}
                   fill
-                  className="object-cover"
+                  className="object-contain p-4"
                   sizes="500px"
                 />
               ) : (
