@@ -7,7 +7,7 @@
 
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { ArrowLeft, ImageIcon, Loader2, ChevronLeft, ChevronRight, X, Share2 } from "lucide-react";
 import ShareModal from "@/components/ShareModal";
@@ -50,6 +50,9 @@ export default function GalleryPage() {
   };
 
   const [shareOpen, setShareOpen] = useState(false);
+  const touchStartY = useRef(0);
+  const [swipeDelta, setSwipeDelta] = useState(0);
+  const [closing, setClosing] = useState(false);
 
   function handleShareClick(item) {
     const shareUrl = window.location.href;
@@ -65,7 +68,27 @@ export default function GalleryPage() {
   const closeDetail = useCallback(() => {
     setSelected(null);
     setSelectedIdx(-1);
+    setSwipeDelta(0);
+    setClosing(false);
   }, []);
+
+  function handleTouchStart(e) {
+    touchStartY.current = e.touches[0].clientY;
+  }
+
+  function handleTouchMove(e) {
+    const delta = e.touches[0].clientY - touchStartY.current;
+    if (delta > 0) setSwipeDelta(delta);
+  }
+
+  function handleTouchEnd() {
+    if (swipeDelta > 50) {
+      setClosing(true);
+      setTimeout(() => { closeDetail(); }, 250);
+    } else {
+      setSwipeDelta(0);
+    }
+  }
 
   const prev = useCallback(() => {
     const newIdx = selectedIdx > 0 ? selectedIdx - 1 : filtered.length - 1;
@@ -78,6 +101,20 @@ export default function GalleryPage() {
     setSelectedIdx(newIdx);
     setSelected(filtered[newIdx]);
   }, [selectedIdx, filtered]);
+
+  const imgStyle = swipeDelta || closing
+    ? {
+        transform: closing
+          ? "translateY(100vh)"
+          : "translateY(" + swipeDelta + "px)",
+        transition: closing
+          ? "transform 0.25s ease-in, opacity 0.25s ease-in"
+          : "none",
+        opacity: closing ? 0 : Math.max(0, 1 - swipeDelta / 300),
+      }
+    : {
+        transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
+      };
 
   // Keyboard
   useEffect(() => {
@@ -181,10 +218,13 @@ export default function GalleryPage() {
       </main>
 
       {/* ===== LIGHTBOX ===== */}
-      {selected && (
+      {selected && !closing && (
         <div
           className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
           onClick={closeDetail}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
 
 
@@ -225,6 +265,7 @@ export default function GalleryPage() {
           <div
             className="relative z-[5] max-w-[90vw] max-h-[90vh] flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
+            style={imgStyle}
           >
             <img
               src={selected.image_path}
@@ -255,6 +296,11 @@ export default function GalleryPage() {
         item={selected}
         shareUrl={typeof window !== "undefined" ? window.location.href : ""}
       />
+
+      {/* Closing animation overlay */}
+      {closing && (
+        <div className="fixed inset-0 z-50 bg-black/90" style={{ opacity: 0, transition: "opacity 0.25s ease-in" }} />
+      )}
     </div>
   );
 }

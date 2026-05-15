@@ -6,7 +6,7 @@
 
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { X, ChevronLeft, ChevronRight, Share2 } from "lucide-react";
 import ShareModal from "./ShareModal";
 
@@ -28,6 +28,27 @@ export default function Gallery() {
   const prev = useCallback(() => setSelectedIdx((p) => (p - 1 + galleryItems.length) % galleryItems.length), []);
   const next = useCallback(() => setSelectedIdx((p) => (p + 1) % galleryItems.length), []);
   const [shareOpen, setShareOpen] = useState(false);
+  const touchStartY = useRef(0);
+  const [swipeDelta, setSwipeDelta] = useState(0);
+  const [closing, setClosing] = useState(false);
+
+  function handleTouchStart(e) {
+    touchStartY.current = e.touches[0].clientY;
+  }
+
+  function handleTouchMove(e) {
+    const delta = e.touches[0].clientY - touchStartY.current;
+    if (delta > 0) setSwipeDelta(delta);
+  }
+
+  function handleTouchEnd() {
+    if (swipeDelta > 50) {
+      setClosing(true);
+      setTimeout(() => { close(); setClosing(false); setSwipeDelta(0); }, 250);
+    } else {
+      setSwipeDelta(0);
+    }
+  }
 
   function handleShareClick(item) {
     const shareUrl = window.location.href;
@@ -39,6 +60,25 @@ export default function Gallery() {
       setShareOpen(true);
     }
   }
+
+  const imgStyle = swipeDelta || closing
+    ? {
+        transform: closing
+          ? "translateY(100vh)"
+          : "translateY(" + swipeDelta + "px)",
+        transition: closing
+          ? "transform 0.25s ease-in, opacity 0.25s ease-in"
+          : "none",
+        opacity: closing ? 0 : Math.max(0, 1 - swipeDelta / 300),
+      }
+    : {
+        transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
+      };
+
+  const bgStyle = {
+    opacity: swipeDelta ? Math.max(0, 1 - swipeDelta / 500) : 1,
+    transition: swipeDelta ? "none" : "opacity 0.3s ease-out",
+  };
 
   // Keyboard navigation
   useEffect(() => {
@@ -98,13 +138,19 @@ export default function Gallery() {
       </div>
 
       {/* ===== LIGHTBOX ===== */}
-      {selected && (
+      {selected && !closing && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           onClick={close}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            style={bgStyle}
+          />
 
 
 
@@ -142,7 +188,11 @@ export default function Gallery() {
           </button>
 
           {/* Image */}
-          <div className="relative z-[5] max-w-full max-h-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="relative z-[5] max-w-full max-h-full flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+            style={imgStyle}
+          >
             <img
               src={selected.image}
               alt={selected.title}
@@ -160,6 +210,11 @@ export default function Gallery() {
         item={selected}
         shareUrl={typeof window !== "undefined" ? window.location.href : ""}
       />
+
+      {/* Closing animation overlay */}
+      {closing && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm" style={{ opacity: 0, transition: "opacity 0.25s ease-in" }} />
+      )}
     </section>
   );
 }

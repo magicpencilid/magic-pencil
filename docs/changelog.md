@@ -4,6 +4,20 @@
 
 ---
 
+### 2026-05-15: Tahap 20 — Share ke Medsos + Istilah Investasi
+
+**Share Modal (ShareModal.jsx):**
+- Komponen modal share ke: Instagram, TikTok, Facebook, WhatsApp, Twitter/X, Copy Link
+- Integrasi di /gallery (GalleriPage) dan /galeri (Gallery lightbox)
+- HP: native `navigator.share()` — muncul apps sesuai yg terinstall
+- Desktop: fallback ShareModal dengan platform buttons
+
+**Istilah Investasi:**
+- Login murid: logo dihapus, "tagihan" → "investasi"
+- Dashboard murid: "Tagihan" → "Investasi", "Cek status pembayaran" → "Cek status investasi"
+
+---
+
 ### 2026-05-14: No.Rek BLU BY BCA DIGITAL
 
 **Tambah No.Rekening (001662116182):**

@@ -1,7 +1,7 @@
 # 📘 Project Brief — Magic Pencil
 
 > File ini pegangan utama mamat. Update tiap kali ada perubahan besar.
-> Dibuat: 2026-05-08 | Update terakhir: 2026-05-14
+> Dibuat: 2026-05-08 | Update terakhir: 2026-05-15
 
 ---
 
@@ -138,7 +138,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 18b | Telegram Bot | ✅ Selesai, deployed |
 | 18c | WA Floating Button | ✅ Selesai, deployed |
 | 19 | Testimoni (Simplified) | ✅ Selesai, deployed |
-| 20 | Share ke Medsos | 🟢 Siap gas (10 menit) |
+| 20 | Share ke Medsos (ShareModal) | ✅ Selesai, deployed |
 | 21 | Swipe Down Tutup Preview | 🟢 Siap gas (20 menit) |
 | 22 | Like + Reaction | 🟢 Siap gas (30 menit) |
 | 23 | Auto Akun Murid | 🟢 Siap gas (30 menit) |
@@ -157,3 +157,4 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **Tanya dulu** sebelum edit/delete/add/rename file
 - **Server CPU KVM** tua — gak support sharp, pake jimp
 - **Next.js 16** — route handler params wajib di-await
+- **ShareModal** — native share di HP, modal platform di desktop

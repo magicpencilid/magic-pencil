@@ -8,8 +8,8 @@
 
 | Item | Status |
 |------|--------|
-| **Tahap Terakhir** | 18c + Galeri Foto + Watermark + Testimoni + No.Rek |
-| **Versi Terdeploy** | ✅ 14 Mei 2026 — No.Rek BLU BY BCA |
+| **Tahap Terakhir** | 20 — Share ke Medsos (ShareModal) |
+| **Versi Terdeploy** | ✅ 15 Mei 2026 — ShareModal + Istilah Investasi |
 | **Status Server** | ✅ PM2 online |
 | **DB** | SQLite — `magic-pencil.db` |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
@@ -29,8 +29,8 @@ Backup manual via `update mat`:
 
 | Lokasi | Status | Versi | Catatan |
 |--------|--------|-------|---------|
-| Lokal (laptop) | ✅ Ready | Tahap 18 | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (14 Mei) | No.Rek ditambahkan |
+| Lokal (laptop) | ✅ Ready | Tahap 20 | Build siap |
+| Server (aaPanel) | ✅ Running | Terkini (15 Mei) | Tahap 20 + istilah investasi |
 
 ---
 
@@ -48,6 +48,7 @@ Backup manual via `update mat`:
 | 18b | Telegram Bot (@magicpencil_notif_bot) | 10 Mei |
 | 18c | WhatsApp Floating Button (wa.me/628111150563) | 10 Mei |
 | 19 | Testimoni (simplified: no foto, no bintang) | 12 Mei |
+| 20 | Share ke Medsos (ShareModal + Native Share) | 15 Mei |
 
 ---
 
@@ -73,7 +74,7 @@ Backup manual via `update mat`:
 | 1 | Tahap 25 — Mobile Class Events | Sedang | ⏸️ Hold (nunggu WA API) |
 | 2 | Tahap 26 — Payment Gateway | Sedang | ⏸️ Hold (nunggu WA API) |
 | 3 | Tahap 27 — Progress Dashboard | Rendah | 🔵 Rencana |
-| 4 | Tahap 20-24 — Galeri Sosial + Auto Akun + Testimoni | Rendah | 🟢 Siap gas
+| 4 | Tahap 21-24 — Galeri Sosial + Auto Akun + Testimoni | Rendah | 🟢 Siap gas
 
 ---
 
@@ -82,6 +83,7 @@ Backup manual via `update mat`:
 | Item | Detail |
 |------|--------|
 | **No.Rek BLU BY BCA** | 001662116182 (14 Mei 2026) |
+| **ShareModal** | Modal share IG, TikTok, FB, WA, Twitter/X, Copy Link |
 
 ---
 
@@ -89,6 +91,7 @@ Backup manual via `update mat`:
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
+| 2026-05-15 | Tahap 20 — ShareModal + Native Share fallback + Istilah Investasi
 | 2026-05-14 | No.Rek BLU BY BCA (001662116182) — 3 file component + docs + deploy
 | 2026-05-11 | Navbar glass + font Inter, Gallery lightbox, Flow daftar baru, Standar gambar + Slide #4, Galeri Foto + Watermark + Upload Fixes, Testimoni + Optimasi |
 | 2026-05-10 | Tahap 18a/b/c — Push, Telegram, WA Button, Mobile Menu |
