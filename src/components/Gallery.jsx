@@ -7,7 +7,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Share2 } from "lucide-react";
 
 /* 📝 Data gallery — tambahin image: "/images/gallery-N.webp" kalo ada gambar */
 const galleryItems = [
@@ -26,6 +26,30 @@ export default function Gallery() {
   const close = useCallback(() => setSelectedIdx(-1), []);
   const prev = useCallback(() => setSelectedIdx((p) => (p - 1 + galleryItems.length) % galleryItems.length), []);
   const next = useCallback(() => setSelectedIdx((p) => (p + 1) % galleryItems.length), []);
+  const [toast, setToast] = useState("");
+
+  async function handleShare(item) {
+    const shareUrl = window.location.href;
+    const shareText = `Lihat "${item.title}" — Karya Sketsa Magic Pencil`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: item.title, text: shareText, url: shareUrl });
+      } catch {
+        // user cancel — abaikan
+      }
+    } else {
+      // Desktop: copy link
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        setToast("✅ Link disalin!");
+        setTimeout(() => setToast(""), 2500);
+      } catch {
+        setToast("❌ Gagal menyalin link");
+        setTimeout(() => setToast(""), 2500);
+      }
+    }
+  }
 
   // Keyboard navigation
   useEffect(() => {
@@ -92,6 +116,22 @@ export default function Gallery() {
         >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+
+          {/* Toast */}
+          {toast && (
+            <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 bg-black/70 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full shadow-lg">
+              {toast}
+            </div>
+          )}
+
+          {/* Share button */}
+          <button
+            onClick={(e) => { e.stopPropagation(); handleShare(selected); }}
+            className="absolute top-4 right-16 z-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all"
+            title="Bagikan"
+          >
+            <Share2 className="w-5 h-5" />
+          </button>
 
           {/* Close button */}
           <button
