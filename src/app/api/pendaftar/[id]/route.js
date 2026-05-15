@@ -19,7 +19,7 @@ export async function PUT(request, { params }) {
     const db = getDb();
 
     /* Cek apakah data ada */
-    const existing = db.prepare("SELECT id, participant_name, full_name, status FROM pendaftar WHERE id = ?").get(id);
+    const existing = db.prepare("SELECT id, participant_name, full_name, email, status FROM pendaftar WHERE id = ?").get(id);
     if (!existing) {
       return NextResponse.json(
         { success: false, errors: ["Data tidak ditemukan"] },
@@ -71,7 +71,23 @@ export async function PUT(request, { params }) {
       const sudahPunyaAkun = db.prepare("SELECT id, email FROM akun_murid WHERE murid_id = ?").get(id);
       if (!sudahPunyaAkun) {
         const nama = existing.participant_name || existing.full_name || "Murid";
-        const email = generateEmail(nama, db);
+        // Pake email yang udah diisi user waktu daftar, kalo kosong baru generate
+        let email;
+        if (existing.email && existing.email.includes("@")) {
+          email = existing.email;
+          // Kalo email udah dipake akun lain, tambah angka di belakang
+          const emailDipake = db.prepare("SELECT id FROM akun_murid WHERE email = ?").get(email);
+          if (emailDipake) {
+            const [local, domain] = email.split("@");
+            let counter = 1;
+            while (db.prepare("SELECT id FROM akun_murid WHERE email = ?").get(`${local}${counter}@${domain}`)) {
+              counter++;
+            }
+            email = `${local}${counter}@${domain}`;
+          }
+        } else {
+          email = generateEmail(nama, db);
+        }
         const passwordPlain = generatePassword();
         const passwordHash = hashPassword(passwordPlain);
 

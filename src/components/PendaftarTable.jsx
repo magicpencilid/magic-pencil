@@ -327,12 +327,14 @@ export default function PendaftarTable() {
                           <button
                             onClick={async () => {
                               try {
+                                console.log("Buat akun:", row.id, row.participant_name);
                                 const res = await fetch(`/api/pendaftar/${row.id}`, {
                                   method: "PUT",
                                   headers: { "Content-Type": "application/json" },
                                   body: JSON.stringify({ status: "aktif" }),
                                 });
                                 const result = await res.json();
+                                console.log("Response:", result);
                                 if (result.success) {
                                   if (result.akun) {
                                     setAkunBaru({
@@ -344,8 +346,11 @@ export default function PendaftarTable() {
                                   } else {
                                     setNotif({ type: "error", message: `${row.participant_name} sudah punya akun. Reset di halaman Murid.` });
                                   }
+                                } else {
+                                  setNotif({ type: "error", message: `Gagal: ${result.errors?.[0] || result.error || "Unknown"}` });
                                 }
-                              } catch {
+                              } catch (err) {
+                                console.error("Error buat akun:", err);
                                 setNotif({ type: "error", message: "Gagal membuat akun. Coba refresh." });
                               }
                             }}

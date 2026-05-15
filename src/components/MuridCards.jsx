@@ -221,16 +221,23 @@ export default function MuridCards() {
                             e.stopPropagation();
                             setResetLoading(true);
                             try {
+                              console.log("Reset password:", m.id, m.participant_name);
                               const res = await fetch(`/api/murid/${m.id}/reset-password`, { method: "POST" });
                               const json = await res.json();
+                              console.log("Response reset:", json);
                               if (json.success) {
                                 setResetModal({
                                   email: json.data.email,
                                   password_plain: json.data.password_plain,
                                   nama: m.participant_name,
                                 });
+                              } else {
+                                alert("Gagal: " + (json.error || "Unknown"));
                               }
-                            } catch {}
+                            } catch (err) {
+                              console.error("Reset error:", err);
+                              alert("Gagal reset password. Cek console.");
+                            }
                             setResetLoading(false);
                           }}
                           disabled={resetLoading}
