@@ -4,7 +4,7 @@
 ## APP
 nama:Magic Pencil
 tujuan:Landing page + pendaftaran + galeri karya murid + online store
-tahap:24 (Online Store - perencanaan)
+tahap:24 (Online Store - katalog + order WA)
 server:PM2 online (↺ 39)
 
 ## STATS
@@ -27,12 +27,12 @@ invoice:?
 - Tahap 24-27 (roadmap lama) di-skip — nunggu WhatsApp API
 
 ## NEXT
-- Tahap 24 — Online Store (katalog + order WA manual)
+- (nanti dulu) — nunggu arahan willy
 
 ## ROADMAP
 - Tahap 20 - Dashboard Murid (✅)
 - Tahap 21 - Gallery Lightbox (✅)
 - Tahap 22 - Like + Reaction (✅)
 - Tahap 23 - Auto Akun Murid (✅)
-- Tahap 24 - Online Store (⬅️ SKRG)
+- Tahap 24 - Online Store ✅
 - ~~Tahap 24-27 (lama) — di-skip~~

@@ -6,7 +6,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Pencil, Trash2, Package, X } from "lucide-react";
+import { Plus, Pencil, Trash2, Package, X, Upload, Loader2 } from "lucide-react";
+import { useRef } from "react";
 
 const KATEGORI_OPTIONS = ["totebag", "kaos", "mug", "lainnya"];
 
@@ -26,6 +27,10 @@ export default function AdminProdukPage() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ ...emptyForm });
   const [ukuranInput, setUkuranInput] = useState("");
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef(null);
 
   useEffect(() => { fetchData(); }, []);
 
@@ -40,6 +45,8 @@ export default function AdminProdukPage() {
     setForm({ ...emptyForm });
     setUkuranInput("");
     setEditingId(null);
+    setFile(null);
+    setPreview(null);
   }
 
   function openAdd() {
@@ -56,6 +63,8 @@ export default function AdminProdukPage() {
       ukuran_tersedia: p.ukuran_tersedia || [],
     });
     setUkuranInput("");
+    setFile(null);
+    setPreview(null);
     setEditingId(p.id);
     setShowForm(true);
   }
@@ -63,6 +72,27 @@ export default function AdminProdukPage() {
   function closeForm() {
     setShowForm(false);
     resetForm();
+  }
+
+  function handleFileChange(e) {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    setFile(f);
+    const reader = new FileReader();
+    reader.onload = (ev) => setPreview(ev.target.result);
+    reader.readAsDataURL(f);
+  }
+
+  async function uploadGambar(produkId) {
+    if (!file) return;
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("produk_id", produkId);
+    formData.append("file", file);
+    try {
+      await fetch("/api/produk/upload", { method: "POST", body: formData });
+    } catch {}
+    setUploading(false);
   }
 
   function addUkuran() {
@@ -102,6 +132,10 @@ export default function AdminProdukPage() {
     const json = await res.json();
 
     if (json.success) {
+      const newId = editingId || json.data?.id;
+      if (file && newId) {
+        await uploadGambar(newId);
+      }
       setMsg(editingId ? "Produk berhasil diupdate" : "Produk berhasil ditambahkan");
       closeForm();
       fetchData();
@@ -292,6 +326,44 @@ export default function AdminProdukPage() {
                 </div>
               </div>
 
+              {/* Gambar */}
+              <div>
+                <label className="block text-xs text-[var(--color-text-light)] uppercase tracking-wider mb-1">
+                  Foto Produk
+                </label>
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+                {preview ? (
+                  <div className="relative inline-block">
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="h-32 rounded-lg object-cover border border-[var(--color-border)]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => { setFile(null); setPreview(null); }}
+                      className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[var(--color-error)] text-white flex items-center justify-center text-xs hover:opacity-80"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => fileRef.current?.click()}
+                    className="flex items-center gap-2 px-4 py-3 rounded-lg border-2 border-dashed border-[var(--color-border)] text-[var(--color-text-light)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors text-sm"
+                  >
+                    <Upload className="w-4 h-4" /> Pilih Gambar
+                  </button>
+                )}
+              </div>
+
               {/* Submit */}
               <div className="flex justify-end gap-3 pt-3 border-t border-[var(--color-border)]">
                 <button
@@ -378,6 +450,15 @@ export default function AdminProdukPage() {
                   </td>
                   <td className="py-3 px-3 text-right">
                     <div className="flex items-center justify-end gap-1">
+                      {!p.gambar && (
+                        <button
+                          onClick={() => { openEdit(p); }}
+                          className="p-2 rounded-lg hover:bg-[var(--color-surface-alt)] text-[var(--color-text-light)] hover:text-[var(--color-accent)] transition-colors"
+                          title="Upload Gambar"
+                        >
+                          <Upload className="w-4 h-4" />
+                        </button>
+                      )}
                       <button
                         onClick={() => openEdit(p)}
                         className="p-2 rounded-lg hover:bg-[var(--color-surface-alt)] text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors"
