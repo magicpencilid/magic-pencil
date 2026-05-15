@@ -20,6 +20,7 @@ export async function GET(request, props) {
       return NextResponse.json({ success: false, errors: ["Produk tidak ditemukan"] }, { status: 404 });
     }
 
+    produk.gambar = produk.gambar ? `/api/produk/image${produk.gambar}` : null;
     produk.ukuran_tersedia = JSON.parse(produk.ukuran_tersedia || "[]");
     produk.warna_tersedia = JSON.parse(produk.warna_tersedia || "[]");
 

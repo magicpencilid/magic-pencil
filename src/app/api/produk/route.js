@@ -21,9 +21,10 @@ export async function GET(request) {
       rows = db.prepare("SELECT * FROM produk WHERE status = 'aktif' ORDER BY created_at DESC").all();
     }
 
-    // Parse JSON string fields
+    // Parse JSON string fields + proxy image
     rows = rows.map((r) => ({
       ...r,
+      gambar: r.gambar ? `/api/produk/image${r.gambar}` : null,
       ukuran_tersedia: JSON.parse(r.ukuran_tersedia || "[]"),
       warna_tersedia: JSON.parse(r.warna_tersedia || "[]"),
     }));
