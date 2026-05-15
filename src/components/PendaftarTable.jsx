@@ -30,6 +30,7 @@ export default function PendaftarTable() {
   const [akunForm, setAkunForm] = useState({ email: "", password: "" });
   const [akunLoading, setAkunLoading] = useState(false);
   const [akunBaru, setAkunBaru] = useState(null); // { email, password_plain, nama } — dari auto-create
+  const [notif, setNotif] = useState(null); // { type: "success"|"error", message }
   const [kelasList, setKelasList] = useState([]);
   const ITEMS_PER_PAGE = 20;
   const [currentPage, setCurrentPage] = useState(1);
@@ -333,19 +334,19 @@ export default function PendaftarTable() {
                                 });
                                 const result = await res.json();
                                 if (result.success) {
-                                  fetchData();
                                   if (result.akun) {
                                     setAkunBaru({
                                       email: result.akun.email,
                                       password_plain: result.akun.password_plain,
                                       nama: row.participant_name || row.full_name || "Murid",
                                     });
+                                    fetchData();
                                   } else {
-                                    alert("Murid ini sudah punya akun. Klik Reset Password di halaman Murid.");
+                                    setNotif({ type: "error", message: `${row.participant_name} sudah punya akun. Reset di halaman Murid.` });
                                   }
                                 }
                               } catch {
-                                alert("Gagal membuat akun");
+                                setNotif({ type: "error", message: "Gagal membuat akun. Coba refresh." });
                               }
                             }}
                             className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
@@ -547,6 +548,25 @@ export default function PendaftarTable() {
           </div>
         );
       })()}
+
+      {/* 🔔 Notifikasi Toast */}
+      {notif && (
+        <div className="fixed bottom-6 right-6 z-50 animate-fade-in">
+          <div className={`rounded-2xl px-5 py-4 shadow-lg border max-w-sm ${
+            notif.type === "error"
+              ? "bg-red-50 border-red-200 text-red-800"
+              : "bg-green-50 border-green-200 text-green-800"
+          }`}>
+            <div className="flex items-start gap-3">
+              <span className="text-lg">{notif.type === "error" ? "❌" : "✅"}</span>
+              <p className="text-sm font-medium">{notif.message}</p>
+              <button onClick={() => setNotif(null)} className="shrink-0 -mr-1 -mt-1 text-gray-400 hover:text-gray-600">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 🎉 Modal Sukses — Auto-create Akun */}
       {akunBaru && (
