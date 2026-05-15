@@ -14,6 +14,7 @@ import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 import { sendPushNotification } from "@/lib/push";
 import { sendTelegram } from "@/lib/telegram";
+import { hashPassword, generatePassword, generateEmail } from "@/lib/auth-murid";
 
 export async function POST(request) {
   try {
@@ -60,6 +61,34 @@ export async function POST(request) {
 
     const regId = result.lastInsertRowid;
 
+    /* 🔐 Auto-create akun murid */
+    const rawPassword = generatePassword();
+    const passwordHash = hashPassword(rawPassword);
+
+    // Login email = email yang diisi user waktu daftar
+    let loginEmail = body.email?.trim();
+    if (!loginEmail || !loginEmail.includes("@")) {
+      // Fallback kalo user gak isi email
+      loginEmail = generateEmail(body.participantName || body.fullName, db);
+    } else {
+      // Unik-in kalo email udah dipake akun lain
+      const emailExists = db.prepare("SELECT id FROM akun_murid WHERE email = ?").get(loginEmail);
+      if (emailExists) {
+        const [local, domain] = loginEmail.split("@");
+        let counter = 1;
+        while (db.prepare("SELECT id FROM akun_murid WHERE email = ?").get(`${local}${counter}@${domain}`)) {
+          counter++;
+        }
+        loginEmail = `${local}${counter}@${domain}`;
+      }
+    }
+
+    db.prepare("INSERT INTO akun_murid (murid_id, email, password_hash) VALUES (?, ?, ?)").run(
+      regId,
+      loginEmail,
+      passwordHash
+    );
+
     /* 3b️⃣ Simpan jadwal pilihan kalo ada */
     if (body.pilihHari && body.pilihJam) {
       db.prepare(`
@@ -83,12 +112,16 @@ export async function POST(request) {
     }).catch(() => {});
     sendTelegram(notifText).catch(() => {});
 
-    /* 4️⃣ Kirim response sukses */
+    /* 4️⃣ Kirim response sukses — include akun credentials */
     return NextResponse.json({
       success: true,
       data: {
         id: regId,
         message: "Pendaftaran berhasil!",
+        akun: {
+          email: loginEmail,
+          password: rawPassword,
+        },
       },
     });
   } catch (error) {

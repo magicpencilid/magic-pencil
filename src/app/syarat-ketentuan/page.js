@@ -85,6 +85,7 @@ function SyaratKetentuanContent() {
   const [invoiceInfo, setInvoiceInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [akunInfo, setAkunInfo] = useState(null);
 
   // Cek parameter ?from=daftar — ambil data dari sessionStorage
   useEffect(() => {
@@ -141,6 +142,11 @@ function SyaratKetentuanContent() {
 
       const regId = result.data.id;
 
+      // Simpan info akun (kalo dari result ada)
+      if (result.data?.akun) {
+        setAkunInfo(result.data.akun);
+      }
+
       // Generate invoice otomatis
       let invoiceData = null;
       try {
@@ -187,8 +193,22 @@ function SyaratKetentuanContent() {
               Terima kasih {formData.fullName}! Data kamu sudah kami terima dan kamu telah menyetujui Syarat & Ketentuan yang berlaku.
             </p>
 
+            {/* 🔑 AKUN LOGIN */}
+            {akunInfo && (
+              <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 text-left text-sm mb-6 mt-6">
+                <p className="font-semibold text-primary mb-2">🔑 Akun Login Kamu</p>
+                <div className="space-y-1 text-text-light">
+                  <p>Email: <strong className="text-primary font-mono">{akunInfo.email}</strong></p>
+                  <p>Password: <strong className="text-primary font-mono">{akunInfo.password}</strong></p>
+                </div>
+                <div className="mt-3 pt-3 border-t border-accent/20 text-xs text-amber-600">
+                  ⚠️ Simpan password ini! Kalo lupa, hubungi admin.
+                </div>
+              </div>
+            )}
+
             {invoiceInfo && (
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-left text-sm mb-6 mt-6">
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-left text-sm mb-6">
                 <div className="flex items-center gap-2 mb-3">
                   <FileText className="w-4 h-4 text-accent" />
                   <span className="font-semibold text-primary">Invoice Tagihan</span>
@@ -208,12 +228,22 @@ function SyaratKetentuanContent() {
               Kamu bisa cek status pendaftaran &amp; konfirmasi pembayaran di halaman <strong>Cek Status</strong> dengan nomor WhatsApp kamu.
             </p>
 
-            <a
-              href="/status"
-              className="inline-block bg-accent text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent-dark transition-colors"
-            >
-              Cek Status Pendaftaran →
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              {akunInfo && (
+                <a
+                  href="/login"
+                  className="inline-flex items-center justify-center bg-accent text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent-dark transition-colors"
+                >
+                  Login Sekarang →
+                </a>
+              )}
+              <a
+                href="/status"
+                className="inline-flex items-center justify-center border-2 border-gray-300 text-primary px-6 py-2.5 rounded-full font-semibold hover:border-gray-400 hover:bg-gray-50 transition-colors"
+              >
+                Cek Status Pendaftaran →
+              </a>
+            </div>
           </div>
         </div>
       </div>
