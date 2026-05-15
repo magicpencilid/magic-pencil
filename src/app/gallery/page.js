@@ -56,11 +56,7 @@ export default function GalleryPage() {
 
     if (navigator.share) {
       try {
-        await navigator.share({
-          title: item.title,
-          text: shareText,
-          url: shareUrl,
-        });
+        await navigator.share({ title: item.title, text: shareText, url: shareUrl });
       } catch {
         // user cancel
       }
@@ -71,6 +67,31 @@ export default function GalleryPage() {
         setTimeout(() => setToast(""), 2500);
       } catch {
         setToast("❌ Gagal menyalin link");
+        setTimeout(() => setToast(""), 2500);
+      }
+    }
+  }
+
+  async function handleSharePlatform(item, platform) {
+    const shareUrl = window.location.href;
+    const tags = platform === "instagram"
+      ? "#MagicPencil #Galeri #FotoKarya"
+      : "#MagicPencil #Galeri #FYP";
+    const shareText = `Lihat "${item.title}" ${tags}\n${shareUrl}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: item.title, text: shareText, url: shareUrl });
+      } catch {
+        // user cancel
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareText);
+        setToast(`✅ Link + hashtags siap di-paste ke ${platform === "instagram" ? "Instagram" : "TikTok"}!`);
+        setTimeout(() => setToast(""), 3000);
+      } catch {
+        setToast("❌ Gagal");
         setTimeout(() => setToast(""), 2500);
       }
     }
@@ -207,14 +228,32 @@ export default function GalleryPage() {
             </div>
           )}
 
-          {/* Share */}
-          <button
-            onClick={(e) => { e.stopPropagation(); handleShare(selected); }}
-            className="absolute top-4 right-16 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
-            title="Bagikan"
-          >
-            <Share2 className="w-5 h-5" />
-          </button>
+          {/* Share buttons */}
+          <div className="absolute top-4 right-16 z-10 flex gap-2">
+            <button
+              onClick={(e) => { e.stopPropagation(); handleShare(selected); }}
+              className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
+              title="Bagikan"
+            >
+              <Share2 className="w-5 h-5" />
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); handleSharePlatform(selected, "instagram"); }}
+              className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-all text-sm font-bold"
+              title="Share ke Instagram"
+              style={{ color: "#E4405F" }}
+            >
+              IG
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); handleSharePlatform(selected, "tiktok"); }}
+              className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-all text-sm font-bold"
+              title="Share ke TikTok"
+              style={{ color: "#fff" }}
+            >
+              TT
+            </button>
+          </div>
 
           {/* Close */}
           <button
