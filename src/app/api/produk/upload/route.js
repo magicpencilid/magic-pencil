@@ -7,8 +7,9 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 import { writeFile } from "fs/promises";
-import { existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, unlinkSync } from "fs";
 import path from "path";
+import { Jimp } from "jimp";
 
 export async function POST(request) {
   try {
@@ -46,12 +47,30 @@ export async function POST(request) {
       mkdirSync(uploadDir, { recursive: true });
     }
 
-    const ext = file.name.split(".").pop() || "jpg";
-    const filename = `produk-${produkId}-${Date.now()}.${ext}`;
+    // Simpan file sementara + kompres ke JPEG
+    const rawExt = file.name.split(".").pop() || "jpg";
+    const rawFilename = `produk-${produkId}-${Date.now()}.${rawExt}`;
+    const rawPath = path.join(uploadDir, rawFilename);
     const buffer = Buffer.from(await file.arrayBuffer());
-    const filePath = path.join(uploadDir, filename);
-    await writeFile(filePath, buffer);
-    const imagePath = `/uploads/produk/${filename}`;
+    await writeFile(rawPath, buffer);
+
+    // Kompres pake Jimp: resize max 800px + quality 80
+    let compressedPath = rawPath;
+    let imagePath = `/uploads/produk/${rawFilename}`;
+    try {
+      const image = await Jimp.read(rawPath);
+      if (image.bitmap.width > 800) image.resize({ w: 800 });
+      const jpgFilename = rawFilename.replace(/\.[^.]+$/, ".jpg");
+      const jpgPath = path.join(uploadDir, jpgFilename);
+      const compressed = await image.getBuffer("image/jpeg", { quality: 80 });
+      await writeFile(jpgPath, compressed);
+      unlinkSync(rawPath); // hapus file asli
+      compressedPath = jpgPath;
+      imagePath = `/uploads/produk/${jpgFilename}`;
+    } catch (jimpErr) {
+      console.error("Jimp compression failed, saving raw:", jimpErr.message);
+      // fallback: pake file asli kalo kompresi gagal
+    }
 
     // Update produk
     db.prepare("UPDATE produk SET gambar = ? WHERE id = ?").run(imagePath, Number(produkId));
