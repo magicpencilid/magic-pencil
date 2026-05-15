@@ -202,12 +202,14 @@ function initTables() {
       gambar TEXT,
       kategori TEXT NOT NULL DEFAULT 'lainnya',
       ukuran_tersedia TEXT DEFAULT '[]',
+      warna_tersedia TEXT DEFAULT '[]',
       status TEXT NOT NULL DEFAULT 'aktif',
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
     );
   `);
 
   // Migrasi: tambah kolom kalo belum ada (untuk DB lama)
+  try { db.exec("ALTER TABLE produk ADD COLUMN warna_tersedia TEXT DEFAULT '[]'"); } catch {}
   try { db.exec("ALTER TABLE pendaftar ADD COLUMN alamat TEXT"); } catch {}
   try { db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms INTEGER NOT NULL DEFAULT 0"); } catch (e) { /* kolom udah ada */ }
   try { db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms_at TEXT"); } catch (e) { /* kolom udah ada */ }

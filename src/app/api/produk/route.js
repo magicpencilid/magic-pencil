@@ -25,6 +25,7 @@ export async function GET(request) {
     rows = rows.map((r) => ({
       ...r,
       ukuran_tersedia: JSON.parse(r.ukuran_tersedia || "[]"),
+      warna_tersedia: JSON.parse(r.warna_tersedia || "[]"),
     }));
 
     return NextResponse.json({ success: true, data: rows });
@@ -50,7 +51,7 @@ export async function POST(request) {
     }
 
     const stmt = db.prepare(
-      "INSERT INTO produk (nama, deskripsi, harga, gambar, kategori, ukuran_tersedia) VALUES (@nama, @deskripsi, @harga, @gambar, @kategori, @ukuran_tersedia)"
+      "INSERT INTO produk (nama, deskripsi, harga, gambar, kategori, ukuran_tersedia, warna_tersedia) VALUES (@nama, @deskripsi, @harga, @gambar, @kategori, @ukuran_tersedia, @warna_tersedia)"
     );
     const result = stmt.run({
       nama: body.nama.trim(),
@@ -59,6 +60,7 @@ export async function POST(request) {
       gambar: body.gambar || null,
       kategori: body.kategori || "lainnya",
       ukuran_tersedia: JSON.stringify(body.ukuran_tersedia || []),
+      warna_tersedia: JSON.stringify(body.warna_tersedia || []),
     });
 
     return NextResponse.json({

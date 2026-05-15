@@ -15,6 +15,7 @@ export default function StorePage() {
   const [kategoriAktif, setKategoriAktif] = useState("Semua");
   const [selected, setSelected] = useState(null); // produk yang diklik
   const [ukuranDipilih, setUkuranDipilih] = useState("");
+  const [warnaDipilih, setWarnaDipilih] = useState("");
   const [jumlah, setJumlah] = useState(1);
   const [namaPemesan, setNamaPemesan] = useState("");
   const [waPemesan, setWaPemesan] = useState("");
@@ -37,6 +38,7 @@ export default function StorePage() {
   function openDetail(p) {
     setSelected(p);
     setUkuranDipilih(p.ukuran_tersedia?.[0] || "");
+    setWarnaDipilih(p.warna_tersedia?.[0] || "");
     setJumlah(1);
     setNamaPemesan("");
     setWaPemesan("");
@@ -50,8 +52,9 @@ export default function StorePage() {
     if (!selected) return "#";
     const namaBarang = `${selected.nama}`;
     const ukuranTeks = ukuranDipilih ? `📏 Ukuran: ${ukuranDipilih}\n` : "";
+    const warnaTeks = warnaDipilih ? `🎨 Warna: ${warnaDipilih}\n` : "";
     const text = encodeURIComponent(
-      `Halo kak, saya mau pesan:\n📦 ${namaBarang} - ${jumlah}x\n${ukuranTeks}👤 Nama: ${namaPemesan || "(isi nama)"}\n📱 WA: ${waPemesan || "(isi WA)"}\n\nMohon info biaya + ongkir. Terima kasih 🙏`
+      `Halo kak, saya mau pesan:\n📦 ${namaBarang} - ${jumlah}x\n${ukuranTeks}${warnaTeks}👤 Nama: ${namaPemesan || "(isi nama)"}\n📱 WA: ${waPemesan || "(isi WA)"}\n\nMohon info biaya + ongkir. Terima kasih 🙏`
     );
     return `https://wa.me/628111150563?text=${text}`;
   }
@@ -193,6 +196,30 @@ export default function StorePage() {
                 <p className="text-sm text-[var(--color-text-light)] leading-relaxed">
                   {selected.deskripsi}
                 </p>
+              )}
+
+              {/* Pilih Warna */}
+              {selected.warna_tersedia?.length > 0 && (
+                <div>
+                  <p className="text-xs text-[var(--color-text-light)] uppercase tracking-wider mb-2">
+                    Pilih Warna
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {selected.warna_tersedia.map((w) => (
+                      <button
+                        key={w}
+                        onClick={() => setWarnaDipilih(w)}
+                        className={`px-4 py-1.5 text-sm rounded-full border transition-colors ${
+                          warnaDipilih === w
+                            ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
+                            : "bg-white text-[var(--color-text-light)] border-[var(--color-border)] hover:border-[var(--color-accent)]"
+                        }`}
+                      >
+                        {w}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               )}
 
               {/* Pilih Ukuran */}

@@ -17,6 +17,7 @@ const emptyForm = {
   harga: "",
   kategori: "lainnya",
   ukuran_tersedia: [],
+  warna_tersedia: [],
 };
 
 export default function AdminProdukPage() {
@@ -27,6 +28,7 @@ export default function AdminProdukPage() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ ...emptyForm });
   const [ukuranInput, setUkuranInput] = useState("");
+  const [warnaInput, setWarnaInput] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -44,6 +46,7 @@ export default function AdminProdukPage() {
   function resetForm() {
     setForm({ ...emptyForm });
     setUkuranInput("");
+    setWarnaInput("");
     setEditingId(null);
     setFile(null);
     setPreview(null);
@@ -61,8 +64,10 @@ export default function AdminProdukPage() {
       harga: String(p.harga),
       kategori: p.kategori,
       ukuran_tersedia: p.ukuran_tersedia || [],
+      warna_tersedia: p.warna_tersedia || [],
     });
     setUkuranInput("");
+    setWarnaInput("");
     setFile(null);
     setPreview(null);
     setEditingId(p.id);
@@ -317,6 +322,47 @@ export default function AdminProdukPage() {
                       <button
                         type="button"
                         onClick={() => removeUkuran(u)}
+                        className="text-[var(--color-text-light)] hover:text-[var(--color-error)]"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Warna */}
+              <div>
+                <label className="block text-xs text-[var(--color-text-light)] uppercase tracking-wider mb-1">
+                  Warna Tersedia
+                </label>
+                <div className="flex gap-2 mb-2">
+                  <input
+                    type="text"
+                    value={warnaInput}
+                    onChange={(e) => setWarnaInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), setForm({ ...form, warna_tersedia: [...form.warna_tersedia, warnaInput.trim()] }), setWarnaInput(""))}
+                    className="flex-1 px-3 py-2 text-sm border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)]"
+                    placeholder="Contoh: Hitam"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => { if (warnaInput.trim()) { setForm({ ...form, warna_tersedia: [...form.warna_tersedia, warnaInput.trim()] }); setWarnaInput(""); } }}
+                    className="px-3 py-2 text-sm border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-surface-alt)] transition-colors"
+                  >
+                    + Tambah
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {form.warna_tersedia.map((w, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs bg-[var(--color-surface-alt)] border border-[var(--color-border)] rounded-full"
+                    >
+                      {w}
+                      <button
+                        type="button"
+                        onClick={() => setForm({ ...form, warna_tersedia: form.warna_tersedia.filter((_, j) => j !== i) })}
                         className="text-[var(--color-text-light)] hover:text-[var(--color-error)]"
                       >
                         <X className="w-3 h-3" />

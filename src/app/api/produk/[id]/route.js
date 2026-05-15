@@ -21,6 +21,7 @@ export async function GET(request, props) {
     }
 
     produk.ukuran_tersedia = JSON.parse(produk.ukuran_tersedia || "[]");
+    produk.warna_tersedia = JSON.parse(produk.warna_tersedia || "[]");
 
     return NextResponse.json({ success: true, data: produk });
   } catch (error) {
@@ -53,6 +54,7 @@ export async function PUT(request, props) {
     if (body.gambar !== undefined) { updates.push("gambar = @gambar"); values.gambar = body.gambar || null; }
     if (body.kategori !== undefined) { updates.push("kategori = @kategori"); values.kategori = body.kategori; }
     if (body.ukuran_tersedia !== undefined) { updates.push("ukuran_tersedia = @ukuran_tersedia"); values.ukuran_tersedia = JSON.stringify(body.ukuran_tersedia); }
+    if (body.warna_tersedia !== undefined) { updates.push("warna_tersedia = @warna_tersedia"); values.warna_tersedia = JSON.stringify(body.warna_tersedia); }
     if (body.status !== undefined) { updates.push("status = @status"); values.status = body.status; }
 
     if (updates.length === 0) {
