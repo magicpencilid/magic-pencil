@@ -9,7 +9,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, ImageIcon, Loader2, ChevronRight, X, Heart, Repeat2, Share2 } from "lucide-react";
+import { ArrowLeft, ImageIcon, Loader2, ChevronRight, X, Heart, Repeat2, Share2, ShoppingBag } from "lucide-react";
 import ShareModal from "@/components/ShareModal";
 
 const tabs = [
@@ -304,6 +304,16 @@ export default function GalleryPage() {
                     >
                       <Share2 className="w-5 h-5" />
                     </button>
+
+                    {/* Beli Merch */}
+                    <a
+                      href="/store"
+                      className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors"
+                      title="Beli Merch"
+                    >
+                      <ShoppingBag className="w-5 h-5" />
+                      <span className="text-xs font-medium">Beli Merch</span>
+                    </a>
                   </div>
 
                   {/* Caption */}
