@@ -9,7 +9,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, ImageIcon, Loader2, ChevronLeft, ChevronRight, X, Share2 } from "lucide-react";
+import { ArrowLeft, ImageIcon, Loader2, ChevronRight, X, Share2 } from "lucide-react";
 import ShareModal from "@/components/ShareModal";
 
 const tabs = [
@@ -50,9 +50,7 @@ export default function GalleryPage() {
   };
 
   const [shareOpen, setShareOpen] = useState(false);
-  const touchStartY = useRef(0);
-  const [swipeDelta, setSwipeDelta] = useState(0);
-  const [closing, setClosing] = useState(false);
+  const feedRef = useRef(null);
 
   function handleShareClick(item) {
     const shareUrl = window.location.href;
@@ -68,65 +66,25 @@ export default function GalleryPage() {
   const closeDetail = useCallback(() => {
     setSelected(null);
     setSelectedIdx(-1);
-    setSwipeDelta(0);
-    setClosing(false);
   }, []);
 
-  function handleTouchStart(e) {
-    touchStartY.current = e.touches[0].clientY;
-  }
-
-  function handleTouchMove(e) {
-    const delta = e.touches[0].clientY - touchStartY.current;
-    if (delta > 0) setSwipeDelta(delta);
-  }
-
-  function handleTouchEnd() {
-    if (swipeDelta > 50) {
-      setClosing(true);
-      setTimeout(() => { closeDetail(); }, 250);
-    } else {
-      setSwipeDelta(0);
+  // Auto-scroll to selected photo on open
+  useEffect(() => {
+    if (selectedIdx >= 0 && feedRef.current) {
+      const target = feedRef.current.children[selectedIdx];
+      if (target) target.scrollIntoView({ behavior: "instant", block: "center" });
     }
-  }
-
-  const prev = useCallback(() => {
-    const newIdx = selectedIdx > 0 ? selectedIdx - 1 : filtered.length - 1;
-    setSelectedIdx(newIdx);
-    setSelected(filtered[newIdx]);
-  }, [selectedIdx, filtered]);
-
-  const next = useCallback(() => {
-    const newIdx = selectedIdx < filtered.length - 1 ? selectedIdx + 1 : 0;
-    setSelectedIdx(newIdx);
-    setSelected(filtered[newIdx]);
-  }, [selectedIdx, filtered]);
-
-  const imgStyle = swipeDelta || closing
-    ? {
-        transform: closing
-          ? "translateY(100vh)"
-          : "translateY(" + swipeDelta + "px)",
-        transition: closing
-          ? "transform 0.25s ease-in, opacity 0.25s ease-in"
-          : "none",
-        opacity: closing ? 0 : Math.max(0, 1 - swipeDelta / 300),
-      }
-    : {
-        transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
-      };
+  }, [selectedIdx]);
 
   // Keyboard
   useEffect(() => {
     if (!selected) return;
     const handler = (e) => {
       if (e.key === "Escape") closeDetail();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [selected, closeDetail, prev, next]);
+  }, [selected, closeDetail]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -217,74 +175,55 @@ export default function GalleryPage() {
         )}
       </main>
 
-      {/* ===== LIGHTBOX ===== */}
-      {selected && !closing && (
-        <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
-          onClick={closeDetail}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-
-
-          {/* Share button */}
-          <button
-            onClick={(e) => { e.stopPropagation(); handleShareClick(selected); }}
-            className="absolute top-4 right-16 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
-            title="Bagikan"
-          >
-            <Share2 className="w-5 h-5" />
-          </button>
-
-          {/* Close */}
+      {/* ===== LIGHTBOX — VERTICAL FEED ===== */}
+      {selected && (
+        <div className="fixed inset-0 z-50 bg-black overflow-y-auto overscroll-contain">
+          {/* Fixed close button */}
           <button
             onClick={closeDetail}
-            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
+            className="fixed top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/70 transition-all"
           >
             <X className="w-5 h-5" />
           </button>
 
-          {/* Prev */}
-          <button
-            onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          {/* Next */}
-          <button
-            onClick={(e) => { e.stopPropagation(); next(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Image + Info */}
-          <div
-            className="relative z-[5] max-w-[90vw] max-h-[90vh] flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
-            style={imgStyle}
-          >
-            <img
-              src={selected.image_path}
-              alt={selected.title}
-              className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg"
-            />
-            <div className="mt-3 text-center text-white/80">
-              <p className="font-semibold text-sm">{selected.title}</p>
-              {selected.deskripsi && (
-                <p className="text-xs text-white/60 mt-1">{selected.deskripsi}</p>
-              )}
-              <p className="text-[10px] text-white/40 mt-1">
-                {selected.source === "willy" ? "Foto Studio" : `Karya ${selected.participant_name || "Murid"}`}
-              </p>
-            </div>
-            {/* Counter */}
-            <p className="text-[10px] text-white/30 mt-1">
-              {selectedIdx + 1} / {filtered.length}
-            </p>
+          {/* Vertical feed */}
+          <div ref={feedRef} className="min-h-full flex flex-col items-center pt-4 pb-20">
+            {filtered.map((item, idx) => (
+              <div
+                key={`${item.source}-${item.id}`}
+                className="w-full max-w-2xl min-h-screen flex flex-col items-center justify-center px-4 py-4"
+              >
+                <img
+                  src={item.image_path}
+                  alt={item.title}
+                  className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg"
+                  loading={idx === 0 ? "eager" : "lazy"}
+                />
+                <div className="mt-4 text-white text-center">
+                  <p className="font-semibold text-sm">{item.title}</p>
+                  {item.deskripsi && (
+                    <p className="text-xs text-white/60 mt-1">{item.deskripsi}</p>
+                  )}
+                  <p className="text-[10px] text-white/40 mt-2">
+                    {item.source === "willy" ? "Foto Studio" : `Karya ${item.participant_name || "Murid"}`}
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center gap-3">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShareClick(item);
+                    }}
+                    className="text-white/40 hover:text-white/80 text-xs transition-colors flex items-center gap-1"
+                  >
+                    <Share2 className="w-3.5 h-3.5" /> Bagikan
+                  </button>
+                  <span className="text-[10px] text-white/30">
+                    {idx + 1} / {filtered.length}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -296,11 +235,6 @@ export default function GalleryPage() {
         item={selected}
         shareUrl={typeof window !== "undefined" ? window.location.href : ""}
       />
-
-      {/* Closing animation overlay */}
-      {closing && (
-        <div className="fixed inset-0 z-50 bg-black/90" style={{ opacity: 0, transition: "opacity 0.25s ease-in" }} />
-      )}
     </div>
   );
 }
