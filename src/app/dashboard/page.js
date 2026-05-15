@@ -256,8 +256,8 @@ export default function DashboardPage() {
           </Link>
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 text-center">
             <CreditCard className="w-7 h-7 text-gray-400 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-primary">Tagihan</p>
-            <p className="text-xs text-text-light">Cek status pembayaran</p>
+            <p className="text-sm font-semibold text-primary">Investasi</p>
+            <p className="text-xs text-text-light">Cek status investasi</p>
           </div>
         </div>
 
