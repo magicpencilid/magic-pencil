@@ -246,12 +246,7 @@ export default function Gallery() {
                     </a>
                   </div>
 
-                  {/* Caption */}
-                  {item.deskripsi && (
-                    <p className="mt-2 w-full text-xs text-white/60 px-1 leading-relaxed">
-                      {item.deskripsi}
-                    </p>
-                  )}
+
                 </div>
               );
             })}
