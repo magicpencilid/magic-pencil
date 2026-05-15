@@ -17,7 +17,7 @@
 | Layer | Teknologi |
 |-------|-----------|
 | **Frontend** | Next.js 16.2.4 + React 19 + Tailwind CSS 4 |
-| **Backend** | Next.js API Routes (server-side, 40 routes) |
+| **Backend** | Next.js API Routes (server-side, 46 routes) |
 | **DB** | SQLite (better-sqlite3) - `magic-pencil.db` |
 | **Font** | Playfair Display (heading), Inter (body), Italiana |
 | **Warna** | Monochrome grey - `--color-primary: #1a1a1a` |
@@ -30,7 +30,7 @@
 ```
 magic-pencil-app/
 ├── src/
-│   ├── app/              ← 25 pages + 40 API routes
+│   ├── app/              ← 26 pages + 46 API routes
 │   ├── components/       ← 27 UI components
 │   └── lib/              ← DB, auth, helpers
 ├── public/
@@ -58,6 +58,7 @@ magic-pencil-app/
 | **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
 | **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
 | **Testimoni** | ✅ (no foto, no bintang, section beranda) |
+| **Online Store** | ✅ (katalog `/store`, order WA, admin CRUD, upload gambar, proxy API, beli merch di gallery) |
 | **Auto Akun Murid** | ✅ (auto-create pas daftar, kredensial setelah bayar, password di kartu murid) |
 | **ShareModal + Native Share** | ✅ (navigator.share HP / modal desktop) |
 | **Vertical Feed Lightbox** | ✅ (scroll feed kayak IG, ganti prev/next) |
@@ -66,7 +67,7 @@ magic-pencil-app/
 | **Telegram Bot** | ✅ (@magicpencil_notif_bot) |
 | **WA floating button** | ✅ (wa.me/628111150563) |
 | **Dashboard murid** | ✅ (jadwal, absensi, karya) |
-| **Dashboard admin** | ✅ (10 sub: Dashboard, Murid, Pendaftar, Kelas, Jadwal+Opsi, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran) |
+| **Dashboard admin** | ✅ (11 sub: Dashboard, Murid, Pendaftar, Kelas, Hari&Jam, Jadwal, Absensi, Karya, Galeri Foto, **Produk**, Testimoni, Pembayaran) |
 
 ---
 
@@ -83,7 +84,10 @@ User → Landing → Daftar + setuju Syket → Invoice → Bayar
 
 Admin → Login → Dashboard
               ↓
-  Pendaftar | Murid | Kelas | Jadwal | Absensi | Pembayaran | Karya
+  Pendaftar | Murid | Kelas | Jadwal | Absensi | Pembayaran | Karya | Produk
+
+Pelanggan → `/store` → Lihat produk → Pilih ukuran/warna/jumlah →
+             Isi form (nama, WA) → Klik Pesan WA → wa.me/628111150563
 ```
 
 ---
@@ -140,5 +144,5 @@ Admin → Login → Dashboard
 
 - [x] Tahap 22 - Like + Reaction
 - [x] Tahap 23 - Auto Akun Murid
-- [ ] **Tahap 24 - Online Store** (merch karya murid, order WA) ⬅️ SKRG
+- [x] **Tahap 24 - Online Store** (katalog, order WA, admin CRUD, upload + proxy image) ✅
 - [ ] ~~Testimoni Full, Events, Payment, Dashboard~~ — skip, nunggu WA API

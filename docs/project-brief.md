@@ -42,7 +42,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 ```
 /www/wwwroot/magic-pencil/
 ├── .next/                ← Build output
-├── public/uploads/       ← Uploaded files (2.2MB)
+├── public/uploads/       ← Uploaded files (3.3MB)
 ├── magic-pencil.db       ← Database (live)
 ├── package.json
 └── .env.local
@@ -84,10 +84,14 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | `kelas` | Daftar kelas + harga (7 kelas) |
 | `schedule_config` | Hari & jam yang tersedia |
 | `notifikasi` | Log notifikasi terkirim |
-| `akun_murid` | Akun login murid |
+| `akun_murid` | Akun login murid + password_plain |
 | `absensi` | Check-in/out per murid |
 | `push_subscriptions` | Subscriber PWA |
 | `karya_murid` | Upload karya (watermark otomatis) |
+| `gallery_photos` | Galeri foto owner (admin upload) |
+| `gallery_likes` | Like foto gallery (fingerprint-based) |
+| `testimonials` | Testimoni (nama + teks) |
+| `produk` | Online store merchandise |
 
 ### Data (per 15 Mei)
 - Kelas: 7 | Pendaftar: 0 (fresh start) | Aktif: 0
@@ -113,7 +117,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Pendaftaran + Syket | ✅ | Wajib setuju syarat & ketentuan |
 | Invoice + Pembayaran | ✅ | Upload bukti transfer |
 | Login murid + Dashboard | ✅ | Jadwal, absensi, karya |
-| Admin panel | ✅ | Dashboard, Murid, Pendaftar, Kelas, Jadwal, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran (+ Hari & Jam) |
+| Admin panel | ✅ | 11 sub: Dashboard, Murid, Pendaftar, Kelas, Hari&Jam, Jadwal, Absensi, Karya, Galeri Foto, Produk, Testimoni, Pembayaran |
 | Watermark otomatis | ✅ | jimp (resize 1000px + JPEG 65% + multiply blend) |
 | Galeri publik | ✅ | Lightbox + keyboard nav |
 | Galeri Foto Owner | ✅ | Instagram grid + admin upload + proxy image |
@@ -121,6 +125,11 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | PWA + Push notif | ✅ | VAPID keys |
 | Telegram Bot | ✅ | @magicpencil_notif_bot |
 | WA floating button | ✅ | wa.me/628111150563 |
+| ShareModal | ✅ | Native share HP / modal desktop |
+| Vertical Feed Lightbox | ✅ | Scroll feed kayak IG |
+| Like + Reaction | ✅ | ❤️ gallery_likes, fingerprint-based |
+| Auto Akun Murid | ✅ | Auto-create pas daftar, kredensial setelah bayar |
+| Online Store | ✅ | Katalog `/store`, order WA, admin CRUD, upload + proxy image |
 
 ---
 
@@ -140,10 +149,10 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 19 | Testimoni (Simplified) | ✅ Selesai, deployed |
 | 20 | Share ke Medsos (ShareModal) | ✅ Selesai, deployed |
 | 21 | Vertical Feed Lightbox (Instagram-style) | ✅ Selesai, deployed |
-| 22 | Like + Reaction | 🟢 Siap gas (30 menit) |
+| 22 | Like + Reaction | ✅ Selesai, deployed |
 | 23 | Auto Akun Murid | ✅ Selesai, deployed |
-| 24 | Online Store — katalog + WA order | ⬅️ **Sekarang** |
-| ~24-27~ | Testimoni Full, Events, Payment, Dashboard | ⏸️ Skip — nunggu WA API |
+| 24 | Online Store — katalog + order WA + admin CRUD | ✅ Selesai, deployed |
+| ~25-27~ | Testimoni Full, Events, Payment, Dashboard | ⏸️ Skip — nunggu WA API |
 
 ---
 
@@ -155,3 +164,6 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **Server CPU KVM** tua — gak support sharp, pake jimp
 - **Next.js 16** — route handler params wajib di-await
 - **ShareModal** — native share di HP, modal platform di desktop
+- **Proxy image produk** — `/api/produk/image/[...segments]` anti cache issue (gak perlu restart PM2)
+- **Online Store** — semua order lewat WA (gak perlu payment gateway)
+- **password_plain** — disimpan di DB buat display admin + user setelah bayar

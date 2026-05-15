@@ -8,10 +8,10 @@
 
 | Item | Status |
 |------|--------|
-| **Tahap Terakhir** | 23 — Auto Akun Murid ✅ |
-| **Versi Terdeploy** | ✅ 15 Mei 2026 — Auto Akun Murid (PM2 ↺ 39) |
+| **Tahap Terakhir** | 24 — Online Store ✅ |
+| **Versi Terdeploy** | ✅ 15 Mei 2026 — Online Store (PM2 ↺ 47) |
 | **Status Server** | ✅ PM2 online |
-| **DB** | SQLite — `magic-pencil.db` (fresh, 0 pendaftar) |
+| **DB** | SQLite — `magic-pencil.db` (fresh, 0 pendaftar, 2 produk) |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
 
 ---
@@ -21,7 +21,7 @@
 | Lokasi | Status | Catatan |
 |--------|--------|---------|
 | Lokal (laptop) | ✅ Ready | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (15 Mei) — 8 commit, PM2 ↺ 39 |
+| Server (aaPanel) | ✅ Running | Terkini (15 Mei) — 14 commit, PM2 ↺ 47 |
 
 ---
 
@@ -39,6 +39,7 @@
 | 21 | Vertical Feed Lightbox (Instagram-style) | 15 Mei |
 | 22 | Like + Reaction (❤️, gallery_likes, fingerprint) | 15 Mei |
 | 23 | Auto Akun Murid (create pas daftar, kredensial setelah bayar, password di kartu murid) | 15 Mei |
+| **24** | **Online Store** (katalog `/store`, order WA, admin CRUD, upload gambar, beli merch di gallery) | **15 Mei** |
 
 ### Fitur Kecil (tanpa nomor tahap)
 | Fitur | Tanggal |
@@ -61,7 +62,7 @@
 | Karya | 0 |
 | Absensi | 0 |
 | Invoice | 0 |
-| Uploads | 2.2MB (gambar background, watermark, dll) |
+| Uploads | 3.3MB (gambar background, watermark, 2 foto produk) |
 
 ---
 
@@ -70,7 +71,7 @@
 | Tahap | Fitur | Status |
 |-------|-------|--------|
 | 23 | Auto Akun Murid | ✅ Selesai, deployed |
-| **24** | **Online Store** (merch karya murid, order WA) | **⬅️ Sekarang** |
+| **24** | **Online Store** (katalog, order WA, admin CRUD, upload + proxy image) | **✅ Selesai, deployed** |
 | ~~25-27~~ | ~~Testimoni Full, Events, Payment, Dashboard~~ | ⏸️ Skip — nunggu WA API |
 
 ---
@@ -85,6 +86,9 @@
 | **Auto Akun** | Akun auto-create pas daftar, kredensial muncul setelah "Ya, Saya Sudah Transfer" |
 | **MuridCards** | User ID + Password langsung tampil di kartu (gak ada tombol reset) |
 | **password_plain** | Disimpan di DB (hash + plain) buat display admin & user |
+| **Store** | Katalog `/store` — grid produk, filter, modal detail, pilih ukuran/warna, WA order |
+| **Proxy Image** | `/api/produk/image/[...segments]` — anti cache issue, gak perlu restart PM2 |
+| **Beli Merch** | Tombol 🛍️ di Gallery lightbox → WA langsung |
 
 ---
 
@@ -92,6 +96,7 @@
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
+| 2026-05-15 | **Tahap 24** — Online Store (katalog, order WA, admin CRUD, upload gambar, proxy API, beli merch, fitur warna). PM2 ↺ 47. |
 | 2026-05-15 | **Tahap 23** — Auto Akun Murid (8 commit, ↺ 39). DB fresh (0 pendaftar). |
 | 2026-05-15 | **Tahap 22** — Like + Reaction (gallery_likes, fingerprint) |
 | 2026-05-15 | Tahap 21 — Vertical Feed Lightbox (scroll feed, layout judul+bagikan) |

@@ -237,13 +237,12 @@ export default function Gallery() {
 
                     {/* Beli Merch */}
                     <a
-                      href={`https://wa.me/628111150563?text=${encodeURIComponent(`Halo kak, saya mau pesan merch dengan desain "${item.title}" — Magic Pencil. Mohon info ketersediaan dan harga. Terima kasih 🙏`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/70 hover:text-white transition-colors"
+                      href="/store"
+                      className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors"
                       title="Beli Merch"
                     >
                       <ShoppingBag className="w-5 h-5" />
+                      <span className="text-xs font-medium">Beli Merch</span>
                     </a>
                   </div>
 
