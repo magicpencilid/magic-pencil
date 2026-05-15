@@ -9,7 +9,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { ArrowLeft, ImageIcon, Loader2, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowLeft, ImageIcon, Loader2, ChevronLeft, ChevronRight, X, Share2 } from "lucide-react";
 
 const tabs = [
   { id: "all", label: "Semua" },
@@ -47,6 +47,34 @@ export default function GalleryPage() {
     setSelectedIdx(idx);
     setSelected(filtered[idx]);
   };
+
+  const [toast, setToast] = useState("");
+
+  async function handleShare(item) {
+    const shareUrl = window.location.href;
+    const shareText = `Lihat "${item.title}" — Galeri Magic Pencil`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: item.title,
+          text: shareText,
+          url: shareUrl,
+        });
+      } catch {
+        // user cancel
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        setToast("✅ Link disalin!");
+        setTimeout(() => setToast(""), 2500);
+      } catch {
+        setToast("❌ Gagal menyalin link");
+        setTimeout(() => setToast(""), 2500);
+      }
+    }
+  }
 
   const closeDetail = useCallback(() => {
     setSelected(null);
@@ -172,6 +200,22 @@ export default function GalleryPage() {
           className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
           onClick={closeDetail}
         >
+          {/* Toast */}
+          {toast && (
+            <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 bg-black/70 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full shadow-lg">
+              {toast}
+            </div>
+          )}
+
+          {/* Share */}
+          <button
+            onClick={(e) => { e.stopPropagation(); handleShare(selected); }}
+            className="absolute top-4 right-16 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all"
+            title="Bagikan"
+          >
+            <Share2 className="w-5 h-5" />
+          </button>
+
           {/* Close */}
           <button
             onClick={closeDetail}
