@@ -194,6 +194,14 @@ function initTables() {
       UNIQUE(photo_id, fingerprint)
     );
 
+    CREATE TABLE IF NOT EXISTS karya_likes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      karya_id INTEGER NOT NULL,
+      fingerprint TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+      UNIQUE(karya_id, fingerprint)
+    );
+
     CREATE TABLE IF NOT EXISTS produk (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nama TEXT NOT NULL,

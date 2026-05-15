@@ -78,6 +78,12 @@ export default function GalleryPage() {
     }
   }
 
+  function getLikeApi(item) {
+    return item.source === "murid"
+      ? `/api/karya/${item.id}/like`
+      : `/api/gallery/${item.id}/like`;
+  }
+
   // Fetch likes pas buka lightbox
   useEffect(() => {
     if (selectedIdx < 0) return;
@@ -85,7 +91,7 @@ export default function GalleryPage() {
     if (!fp) return;
 
     filtered.forEach((item) => {
-      fetch(`/api/gallery/${item.id}/like?fingerprint=${encodeURIComponent(fp)}`)
+      fetch(`${getLikeApi(item)}?fingerprint=${encodeURIComponent(fp)}`)
         .then((r) => r.json())
         .then((res) => {
           if (res.success) {
@@ -97,11 +103,11 @@ export default function GalleryPage() {
     });
   }, [selectedIdx]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function handleLike(photoId) {
+  function handleLike(item) {
     const fp = getFingerprint();
     if (!fp) return;
 
-    fetch(`/api/gallery/${photoId}/like`, {
+    fetch(getLikeApi(item), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fingerprint: fp }),
@@ -109,8 +115,8 @@ export default function GalleryPage() {
       .then((r) => r.json())
       .then((res) => {
         if (res.success) {
-          setLikes((prev) => ({ ...prev, [photoId]: res.count }));
-          setUserLikes((prev) => ({ ...prev, [photoId]: res.liked }));
+          setLikes((prev) => ({ ...prev, [item.id]: res.count }));
+          setUserLikes((prev) => ({ ...prev, [item.id]: res.liked }));
         }
       })
       .catch(() => {});
@@ -270,7 +276,7 @@ export default function GalleryPage() {
                   <div className="mt-3 w-full flex items-center gap-5 px-1">
                     {/* Love */}
                     <button
-                      onClick={() => handleLike(item.id)}
+                      onClick={() => handleLike(item)}
                       className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors"
                     >
                       <Heart
@@ -278,9 +284,7 @@ export default function GalleryPage() {
                           isLiked ? "fill-red-500 text-red-500" : ""
                         }`}
                       />
-                      {likeCount > 0 && (
-                        <span className="text-xs font-medium text-white/70">{likeCount}</span>
-                      )}
+                      <span className="text-xs font-medium text-white/70 min-w-[1.2rem] text-left">{likeCount}</span>
                     </button>
 
                     {/* Repost */}

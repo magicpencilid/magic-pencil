@@ -9,14 +9,29 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Loader2, ImageIcon, ArrowLeft, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Loader2, ImageIcon, ArrowLeft, ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
 import { STATUS_LABEL } from "@/lib/karya-constants";
+
+/* 🔑 Dapetin fingerprint */
+function getFingerprint() {
+  if (typeof window === "undefined") return "";
+  let fp = localStorage.getItem("galeri_fp");
+  if (!fp) {
+    fp = crypto.randomUUID();
+    localStorage.setItem("galeri_fp", fp);
+  }
+  return fp;
+}
 
 export default function GaleriPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [selectedIdx, setSelectedIdx] = useState(-1);
+
+  // — Like state —
+  const [likes, setLikes] = useState({});
+  const [userLikes, setUserLikes] = useState({});
 
   useEffect(() => {
     fetch("/api/karya?status=approved")
@@ -47,6 +62,44 @@ export default function GaleriPage() {
     setSelectedIdx(newIdx);
     setSelected(data[newIdx]);
   };
+
+  // Fetch likes pas buka lightbox
+  useEffect(() => {
+    if (selectedIdx < 0) return;
+    const fp = getFingerprint();
+    if (!fp) return;
+
+    data.forEach((karya) => {
+      fetch(`/api/karya/${karya.id}/like?fingerprint=${encodeURIComponent(fp)}`)
+        .then((r) => r.json())
+        .then((res) => {
+          if (res.success) {
+            setLikes((prev) => ({ ...prev, [karya.id]: res.count }));
+            setUserLikes((prev) => ({ ...prev, [karya.id]: res.liked }));
+          }
+        })
+        .catch(() => {});
+    });
+  }, [selectedIdx]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  function handleLike(karyaId) {
+    const fp = getFingerprint();
+    if (!fp) return;
+
+    fetch(`/api/karya/${karyaId}/like`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fingerprint: fp }),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.success) {
+          setLikes((prev) => ({ ...prev, [karyaId]: res.count }));
+          setUserLikes((prev) => ({ ...prev, [karyaId]: res.liked }));
+        }
+      })
+      .catch(() => {});
+  }
 
   // Keyboard navigation
   useEffect(() => {
@@ -159,6 +212,21 @@ export default function GaleriPage() {
                 alt={selected.judul}
                 className="max-w-full max-h-[60vh] object-contain"
               />
+            </div>
+
+            {/* Like button */}
+            <div className="px-4 pt-3 flex items-center gap-2">
+              <button
+                onClick={() => handleLike(selected.id)}
+                className="flex items-center gap-1.5 text-primary/60 hover:text-primary transition-colors"
+              >
+                <Heart
+                  className={`w-5 h-5 transition-all ${
+                    userLikes[selected.id] ? "fill-red-500 text-red-500" : ""
+                  }`}
+                />
+                <span className="text-xs font-medium min-w-[1.2rem]">{likes[selected.id] || 0}</span>
+              </button>
             </div>
 
             {/* Desc + nav */}

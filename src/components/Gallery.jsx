@@ -208,9 +208,7 @@ export default function Gallery() {
                           isLiked ? "fill-red-500 text-red-500" : ""
                         }`}
                       />
-                      {likeCount > 0 && (
-                        <span className="text-xs font-medium text-white/70">{likeCount}</span>
-                      )}
+                      <span className="text-xs font-medium text-white/70 min-w-[1.2rem] text-left">{likeCount}</span>
                     </button>
 
                     {/* Repost */}
