@@ -7,7 +7,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { X, Heart, Repeat2, Share2 } from "lucide-react";
+import { X, Heart, Repeat2, Share2, ShoppingBag } from "lucide-react";
 import ShareModal from "./ShareModal";
 
 /* 📝 Data gallery — tambahin image: "/images/gallery-N.webp" kalo ada gambar */
@@ -234,6 +234,17 @@ export default function Gallery() {
                     >
                       <Share2 className="w-5 h-5" />
                     </button>
+
+                    {/* Beli Merch */}
+                    <a
+                      href={`https://wa.me/628111150563?text=${encodeURIComponent(`Halo kak, saya mau pesan merch dengan desain "${item.title}" — Magic Pencil. Mohon info ketersediaan dan harga. Terima kasih 🙏`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/70 hover:text-white transition-colors"
+                      title="Beli Merch"
+                    >
+                      <ShoppingBag className="w-5 h-5" />
+                    </a>
                   </div>
 
                   {/* Caption */}

@@ -23,6 +23,7 @@ import {
   CheckCheck,
   ImageIcon,
   MessageSquare,
+  ShoppingBag,
 } from "lucide-react";
 
 const menuItems = [
@@ -35,6 +36,7 @@ const menuItems = [
   { icon: CheckCheck, label: "Absensi", href: "/admin/absensi" },
   { icon: Palette, label: "Karya", href: "/admin/karya" },
   { icon: ImageIcon, label: "Galeri Foto", href: "/admin/galeri-foto" },
+  { icon: ShoppingBag, label: "Produk", href: "/admin/produk" },
   { icon: MessageSquare, label: "Testimoni", href: "/admin/testimoni" },
   { icon: DollarSign, label: "Pembayaran", href: "/admin/pembayaran" },
 ];

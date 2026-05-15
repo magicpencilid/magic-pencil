@@ -58,9 +58,10 @@ magic-pencil-app/
 | **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
 | **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
 | **Testimoni** | ✅ (no foto, no bintang, section beranda) |
-| **Auto Akun Murid** | ✅ (auto-create pas status aktif, kredensial toast, reset password) |
+| **Auto Akun Murid** | ✅ (auto-create pas daftar, kredensial setelah bayar, password di kartu murid) |
 | **ShareModal + Native Share** | ✅ (navigator.share HP / modal desktop) |
 | **Vertical Feed Lightbox** | ✅ (scroll feed kayak IG, ganti prev/next) |
+| **Like + Reaction** | ✅ (❤️ gallery_likes, fingerprint-based) |
 | **PWA + notifikasi push** | ✅ |
 | **Telegram Bot** | ✅ (@magicpencil_notif_bot) |
 | **WA floating button** | ✅ (wa.me/628111150563) |
@@ -139,7 +140,5 @@ Admin → Login → Dashboard
 
 - [x] Tahap 22 - Like + Reaction
 - [x] Tahap 23 - Auto Akun Murid
-- [ ] Tahap 24 - Testimoni Full Version
-- [ ] Tahap 25 - Mobile Class Events (hold — nunggu WA API)
-- [ ] Tahap 26 - Payment Gateway (hold — nunggu WA API)
-- [ ] Tahap 27 - Progress Dashboard
+- [ ] **Tahap 24 - Online Store** (merch karya murid, order WA) ⬅️ SKRG
+- [ ] ~~Testimoni Full, Events, Payment, Dashboard~~ — skip, nunggu WA API

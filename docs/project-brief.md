@@ -89,9 +89,9 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | `push_subscriptions` | Subscriber PWA |
 | `karya_murid` | Upload karya (watermark otomatis) |
 
-### Data (per 11 Mei)
-- Kelas: 7 | Pendaftar: 11 | Aktif: 3
-- Karya: 1 | Absen: 1 | Invoice: 11 | Jadwal: 7
+### Data (per 15 Mei)
+- Kelas: 7 | Pendaftar: 0 (fresh start) | Aktif: 0
+- DB dibersihin setelah Tahap 23 selesai
 
 ---
 
@@ -142,11 +142,8 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 21 | Vertical Feed Lightbox (Instagram-style) | ✅ Selesai, deployed |
 | 22 | Like + Reaction | 🟢 Siap gas (30 menit) |
 | 23 | Auto Akun Murid | ✅ Selesai, deployed |
-| 24 | Testimoni Full Version | 🟡 Siap gas (1 jam) |
-| 25 | Mobile Class Events | ⏸️ Hold (nunggu WA API) |
-| 26 | Payment Gateway | ⏸️ Hold (nunggu WA API) |
-| 27 | Progress Dashboard | 🔴 Siap gas (2-4 jam) |
-| Store | Merch Karya Murid | ⚪ Ide |
+| 24 | Online Store — katalog + WA order | ⬅️ **Sekarang** |
+| ~24-27~ | Testimoni Full, Events, Payment, Dashboard | ⏸️ Skip — nunggu WA API |
 
 ---
 

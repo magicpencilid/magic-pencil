@@ -8,20 +8,20 @@
 
 | Item | Status |
 |------|--------|
-| **Tahap Terakhir** | 21 — Vertical Feed Lightbox |
-| **Versi Terdeploy** | ✅ 15 Mei 2026 — Vertical Feed Lightbox |
+| **Tahap Terakhir** | 23 — Auto Akun Murid ✅ |
+| **Versi Terdeploy** | ✅ 15 Mei 2026 — Auto Akun Murid (PM2 ↺ 39) |
 | **Status Server** | ✅ PM2 online |
-| **DB** | SQLite — `magic-pencil.db` |
+| **DB** | SQLite — `magic-pencil.db` (fresh, 0 pendaftar) |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
 
 ---
 
 ## Deploy Status
 
-| Lokasi | Status | Versi | Catatan |
-|--------|--------|-------|---------|
-| Lokal (laptop) | ✅ Ready | Tahap 21 | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (15 Mei) | Tahap 21 — Vertical Feed Lightbox |
+| Lokasi | Status | Catatan |
+|--------|--------|---------|
+| Lokal (laptop) | ✅ Ready | Build siap |
+| Server (aaPanel) | ✅ Running | Terkini (15 Mei) — 8 commit, PM2 ↺ 39 |
 
 ---
 
@@ -29,44 +29,49 @@
 
 | Tahap | Fitur | Tanggal |
 |-------|-------|---------|
-| — | Navbar white glass + font Inter + mobile dropdown minimal | 11 Mei |
-| — | Gallery lightbox (click-to-zoom) | 11 Mei |
-| — | Flow daftar baru (form → syket → setuju/tidak) | 11 Mei |
-| — | Standar gambar default (watermark, script, docs) + Slide #4 baru | 11 Mei |
 | 16 | Upload Karya + Galeri Publik + Watermark (jimp) | 10 Mei |
 | 17 | Syarat & Ketentuan + checkbox daftar | 10 Mei |
 | 18a | Push Notification (register, invoice, pembayaran) | 10 Mei |
 | 18b | Telegram Bot (@magicpencil_notif_bot) | 10 Mei |
 | 18c | WhatsApp Floating Button (wa.me/628111150563) | 10 Mei |
 | 19 | Testimoni (simplified: no foto, no bintang) | 12 Mei |
-| 20 | Share ke Medsos (ShareModal + Native Share) | 15 Mei |
+| 20 | Share ke Medsos (ShareModal + Native Share) + Istilah Investasi | 15 Mei |
 | 21 | Vertical Feed Lightbox (Instagram-style) | 15 Mei |
+| 22 | Like + Reaction (❤️, gallery_likes, fingerprint) | 15 Mei |
+| 23 | Auto Akun Murid (create pas daftar, kredensial setelah bayar, password di kartu murid) | 15 Mei |
+
+### Fitur Kecil (tanpa nomor tahap)
+| Fitur | Tanggal |
+|-------|---------|
+| Navbar white glass + font Inter + mobile dropdown | 11 Mei |
+| Gallery lightbox (click-to-zoom) | 11 Mei |
+| Flow daftar baru (form → syket → setuju/tidak) | 11 Mei |
+| Standar gambar default (watermark, script, docs) | 11 Mei |
+| No.Rek BLU BY BCA DIGITAL (001662116182) | 14 Mei |
 
 ---
 
-## Data Server *(per 11 Mei 2026)*
+## Data Server *(per 15 Mei 2026 — DB fresh)*
 
 | Item | Jumlah |
 |------|--------|
-| Kelas | 6 |
-| Pendaftar | 11 |
-| Aktif | 3 |
-| Karya | 1 |
-| Absensi | 1 |
-| Invoice | 11 |
-| Jadwal | 7 |
-| Uploads | 2.2MB |
+| Kelas | 7 |
+| Pendaftar | **0** (fresh start setelah Tahap 23) |
+| Aktif | 0 |
+| Karya | 0 |
+| Absensi | 0 |
+| Invoice | 0 |
+| Uploads | 2.2MB (gambar background, watermark, dll) |
 
 ---
 
-## Known Issues / Pending
+## Progress Tahap
 
-| # | Issue | Prioritas | Status |
-|---|-------|-----------|--------|
-| 1 | Tahap 25 — Mobile Class Events | Sedang | ⏸️ Hold (nunggu WA API) |
-| 2 | Tahap 26 — Payment Gateway | Sedang | ⏸️ Hold (nunggu WA API) |
-| 3 | Tahap 27 — Progress Dashboard | Rendah | 🔵 Rencana |
-| 4 | Tahap 22-24 — Like + Auto Akun + Testimoni Full | Tinggi | 🟢 Siap gas
+| Tahap | Fitur | Status |
+|-------|-------|--------|
+| 23 | Auto Akun Murid | ✅ Selesai, deployed |
+| **24** | **Online Store** (merch karya murid, order WA) | **⬅️ Sekarang** |
+| ~~25-27~~ | ~~Testimoni Full, Events, Payment, Dashboard~~ | ⏸️ Skip — nunggu WA API |
 
 ---
 
@@ -77,6 +82,9 @@
 | **No.Rek BLU BY BCA** | 001662116182 (14 Mei 2026) |
 | **ShareModal** | Modal share IG, TikTok, FB, WA, Twitter/X, Copy Link |
 | **Vertical Feed** | Lightbox scroll vertikal kayak IG — judul kiri, bagikan kanan |
+| **Auto Akun** | Akun auto-create pas daftar, kredensial muncul setelah "Ya, Saya Sudah Transfer" |
+| **MuridCards** | User ID + Password langsung tampil di kartu (gak ada tombol reset) |
+| **password_plain** | Disimpan di DB (hash + plain) buat display admin & user |
 
 ---
 
@@ -84,13 +92,12 @@
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
-| 2026-05-15 | Tahap 21 — Vertical Feed Lightbox (scroll feed, layout judul+bagikan) + Polish
-| 2026-05-15 | Tahap 20 — ShareModal + Native Share fallback + Istilah Investasi
-| 2026-05-14 | No.Rek BLU BY BCA (001662116182) — 3 file component + docs + deploy
-| 2026-05-11 | Navbar glass + font Inter, Gallery lightbox, Flow daftar baru, Standar gambar + Slide #4, Galeri Foto + Watermark + Upload Fixes, Testimoni + Optimasi |
-| 2026-05-10 | Tahap 18a/b/c — Push, Telegram, WA Button, Mobile Menu |
+| 2026-05-15 | **Tahap 23** — Auto Akun Murid (8 commit, ↺ 39). DB fresh (0 pendaftar). |
+| 2026-05-15 | **Tahap 22** — Like + Reaction (gallery_likes, fingerprint) |
+| 2026-05-15 | Tahap 21 — Vertical Feed Lightbox (scroll feed, layout judul+bagikan) |
+| 2026-05-15 | Tahap 20 — ShareModal + Native Share fallback + Istilah Investasi |
+| 2026-05-14 | No.Rek BLU BY BCA (001662116182) — 3 file component + docs + deploy |
+| 2026-05-11 | Navbar glass, Gallery lightbox, Flow daftar baru, Standar gambar, Testimoni + Optimasi |
+| 2026-05-10 | Tahap 18a/b/c — Push, Telegram, WA Button |
 | 2026-05-10 | Tahap 17 — Syarat & Ketentuan |
 | 2026-05-10 | Tahap 16 — Deploy + Watermark + Galeri |
-| 2026-05-10 | WP Config & Cheat Sheet + State |
-| 2026-05-09 | Backup Restruktur |
-| 2026-05-08 | Setup Git + Docs |

@@ -193,6 +193,18 @@ function initTables() {
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
       UNIQUE(photo_id, fingerprint)
     );
+
+    CREATE TABLE IF NOT EXISTS produk (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nama TEXT NOT NULL,
+      deskripsi TEXT,
+      harga INTEGER NOT NULL,
+      gambar TEXT,
+      kategori TEXT NOT NULL DEFAULT 'lainnya',
+      ukuran_tersedia TEXT DEFAULT '[]',
+      status TEXT NOT NULL DEFAULT 'aktif',
+      created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
+    );
   `);
 
   // Migrasi: tambah kolom kalo belum ada (untuk DB lama)

@@ -4,6 +4,42 @@
 
 ---
 
+### 2026-05-15: Tahap 23 — Auto Akun Murid ✅
+
+**Flow baru:**
+- Akun auto-create pas daftar (email user + password mp + 4 random)
+- Kredensial disimpan di DB (hash + password_plain)
+- Gak tampil di halaman sukses — muncul **setelah** user klik "Ya, Saya Sudah Transfer"
+- Halaman /status → akunInfo + tombol Login
+
+**Admin changes:**
+- MuridCards langsung tampilin User ID + Password (gak ada tombol reset/backfill)
+- PendaftarTable: hapus tombol Buat Akun (➕)
+- Admin masih bisa reset password via API
+
+**DB clean:**
+- Kolom password_plain ditambah
+- Semua data pendaftar dihapus (fresh start, 0 pendaftar)
+
+**Files:** auth-murid.js (baru), register, pendaftar, status, murid API + KonfirmasiPembayaran, MuridCards, PendaftarTable
+
+**Deploy:** 8 commits, PM2 ↺ 39
+
+---
+
+### 2026-05-15: Tahap 22 — Like + Reaction IG-style
+
+**Fitur:**
+- Like heart button + counter di Gallery publik
+- DB `gallery_likes` + fingerprint-based (no login needed)
+- GET count & POST toggle via API
+
+**Files:** Gallery.jsx, gallery/page.js, /api/gallery/[id]/like (baru)
+
+**Deploy:** PM2 ↺ 31
+
+---
+
 ### 2026-05-15: Tahap 21 — Vertical Feed Lightbox (Instagram-style)
 
 **Lightbox redesign:**
