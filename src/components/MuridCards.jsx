@@ -206,18 +206,16 @@ export default function MuridCards() {
                     <span className="text-xs">{m.created_at}</span>
                   </div>
 
-                  {/* 🔑 Status Akun */}
-                  <div className="pt-2 mt-2 border-t border-gray-100">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1.5 min-w-0">
-                        <Key className="w-3.5 h-3.5 shrink-0 text-gray-400" />
-                        {m.akun_email ? (
-                          <span className="text-xs text-gray-500 truncate">{m.akun_email}</span>
-                        ) : (
-                          <span className="text-xs text-gray-400 italic">Belum punya akun</span>
-                        )}
-                      </div>
-                      {m.akun_email ? (
+                  {/* 🔑 User ID & Password */}
+                  <div className="pt-3 mt-3 border-t border-gray-100">
+                    {m.akun_email ? (
+                      <>
+                        {/* User ID (email) */}
+                        <div className="bg-gray-50 rounded-lg px-3 py-2 mb-2">
+                          <p className="text-xs font-semibold text-gray-500">🆔 User ID</p>
+                          <p className="text-sm font-mono text-primary font-medium break-all">{m.akun_email}</p>
+                        </div>
+                        {/* Tombol Reset Password */}
                         <button
                           onClick={async (e) => {
                             e.stopPropagation();
@@ -236,16 +234,21 @@ export default function MuridCards() {
                             setResetLoading(false);
                           }}
                           disabled={resetLoading}
-                          className="text-xs text-accent hover:text-accent-dark font-medium shrink-0"
-                          title="Reset Password"
+                          className="w-full bg-white border border-gray-200 text-xs font-semibold text-gray-600 py-2 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
                         >
                           <RefreshCw className={`w-3.5 h-3.5 ${resetLoading ? "animate-spin" : ""}`} />
+                          {resetLoading ? "Memproses..." : "🔄 Reset / Lihat Password"}
                         </button>
-                      ) : m.status === "aktif" ? (
+                      </>
+                    ) : m.status === "aktif" ? (
+                      <>
+                        <div className="bg-amber-50 rounded-lg px-3 py-2 mb-2">
+                          <p className="text-xs text-amber-700 font-medium">⚠️ Belum punya akun</p>
+                        </div>
                         <button
                           onClick={async (e) => {
                             e.stopPropagation();
-                            // Trigger auto-create via PUT status
+                            setResetLoading(true);
                             try {
                               const res = await fetch(`/api/pendaftar/${m.id}`, {
                                 method: "PUT",
@@ -253,25 +256,29 @@ export default function MuridCards() {
                                 body: JSON.stringify({ status: "aktif" }),
                               });
                               const json = await res.json();
-                              if (json.success) {
-                                if (json.akun) {
-                                  setResetModal({
-                                    email: json.akun.email,
-                                    password_plain: json.akun.password_plain,
-                                    nama: m.participant_name,
-                                  });
-                                }
+                              if (json.success && json.akun) {
+                                setResetModal({
+                                  email: json.akun.email,
+                                  password_plain: json.akun.password_plain,
+                                  nama: m.participant_name,
+                                });
                                 fetchData();
                               }
                             } catch {}
+                            setResetLoading(false);
                           }}
-                          className="text-xs text-accent hover:text-accent-dark font-medium shrink-0 flex items-center gap-1"
-                          title="Buat Akun"
+                          disabled={resetLoading}
+                          className="w-full bg-accent text-white text-xs font-semibold py-2 rounded-lg hover:bg-accent-dark transition-colors flex items-center justify-center gap-1.5"
                         >
                           <UserPlus className="w-3.5 h-3.5" />
+                          {resetLoading ? "Memproses..." : "🎉 Buatkan Akun"}
                         </button>
-                      ) : null}
-                    </div>
+                      </>
+                    ) : (
+                      <div className="bg-gray-50 rounded-lg px-3 py-2">
+                        <p className="text-xs text-gray-400 italic">🔑 Akun akan dibuat setelah terdaftar</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
