@@ -3,6 +3,8 @@
    
    User upload bukti transfer + konfirmasi.
    3 step: form → confirm → done
+   
+   Setelah done, tampilin akun login (email + password).
    ============================================= */
 
 "use client";
@@ -19,7 +21,7 @@ import {
   X,
 } from "lucide-react";
 
-export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess }) {
+export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, akunInfo }) {
   const [step, setStep] = useState("form"); // form → confirm → done
   const [notes, setNotes] = useState("");
   const [file, setFile] = useState(null);
@@ -84,7 +86,7 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess })
     }
   };
 
-  // ✅ STEP: DONE
+  // ✅ STEP: DONE (show credentials setelah bayar)
   if (step === "done" && result) {
     return (
       <div className="bg-white rounded-2xl border border-green-200 p-6 shadow-sm animate-fade-in">
@@ -94,6 +96,27 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess })
           </div>
           <h3 className="text-lg font-bold text-primary mb-2">Konfirmasi Terkirim! 🎉</h3>
           <p className="text-sm text-text-light mb-4">{result.message}</p>
+
+          {/* 🔑 AKUN LOGIN — muncul setelah konfirmasi bayar */}
+          {akunInfo && (
+            <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 text-left text-sm mb-4">
+              <p className="font-semibold text-primary mb-2">🔑 Akun Login Kamu</p>
+              <div className="space-y-1 text-text-light">
+                <p>User ID: <strong className="text-primary font-mono">{akunInfo.email}</strong></p>
+                <p>Password: <strong className="text-primary font-mono">{akunInfo.password_plain}</strong></p>
+              </div>
+              <div className="mt-3 pt-3 border-t border-accent/20 text-xs text-amber-600">
+                ⚠️ Simpan password ini! Kalo lupa, hubungi admin.
+              </div>
+              <a
+                href="/login"
+                className="mt-3 inline-flex items-center justify-center bg-accent text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-accent-dark transition-colors"
+              >
+                Login Sekarang →
+              </a>
+            </div>
+          )}
+
           <div className="bg-green-50 rounded-xl p-4 text-sm text-green-800">
             <p>Invoice: <strong>{result.invoice_number}</strong></p>
             <p>Total: <strong>Investasi {Number(result.amount).toLocaleString("id-ID")}</strong></p>

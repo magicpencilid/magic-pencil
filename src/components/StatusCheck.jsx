@@ -22,6 +22,7 @@ const statusConfig = {
 export default function StatusCheck() {
   const [wa, setWa] = useState("");
   const [result, setResult] = useState(null);
+  const [akunInfo, setAkunInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -41,6 +42,7 @@ export default function StatusCheck() {
         setError(json.errors?.[0] || "Data tidak ditemukan");
       } else {
         setResult(json.data);
+        setAkunInfo(json.data.akun);
       }
     } catch {
       setError("Gagal menghubungi server");
@@ -176,6 +178,7 @@ export default function StatusCheck() {
                     <KonfirmasiPembayaran
                       registrant={result.registrant}
                       invoice={result.invoice}
+                      akunInfo={akunInfo}
                     />
                   </div>
                 )}

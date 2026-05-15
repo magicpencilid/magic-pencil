@@ -35,11 +35,17 @@ export async function GET(request) {
       "SELECT * FROM invoice WHERE registration_id = ? ORDER BY created_at DESC LIMIT 1"
     ).get(registrant.id);
 
+    // Cari akun murid (email + password_plain)
+    const akun = db.prepare(
+      "SELECT email, password_plain FROM akun_murid WHERE murid_id = ?"
+    ).get(registrant.id);
+
     return NextResponse.json({
       success: true,
       data: {
         registrant,
         invoice: invoice || null,
+        akun: akun || null,
       },
     });
   } catch (error) {

@@ -83,10 +83,11 @@ export async function POST(request) {
       }
     }
 
-    db.prepare("INSERT INTO akun_murid (murid_id, email, password_hash) VALUES (?, ?, ?)").run(
+    db.prepare("INSERT INTO akun_murid (murid_id, email, password_hash, password_plain) VALUES (?, ?, ?, ?)").run(
       regId,
       loginEmail,
-      passwordHash
+      passwordHash,
+      rawPassword
     );
 
     /* 3b️⃣ Simpan jadwal pilihan kalo ada */
@@ -112,16 +113,12 @@ export async function POST(request) {
     }).catch(() => {});
     sendTelegram(notifText).catch(() => {});
 
-    /* 4️⃣ Kirim response sukses — include akun credentials */
+    /* 4️⃣ Kirim response sukses (tanpa akun — ditampilkan setelah bayar) */
     return NextResponse.json({
       success: true,
       data: {
         id: regId,
         message: "Pendaftaran berhasil!",
-        akun: {
-          email: loginEmail,
-          password: rawPassword,
-        },
       },
     });
   } catch (error) {

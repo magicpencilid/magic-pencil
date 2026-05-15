@@ -15,7 +15,7 @@ export async function GET(request) {
     const limit = searchParams.get("limit");
 
     let query = `
-      SELECT p.*, a.email AS akun_email, a.id AS akun_id
+      SELECT p.*, a.id AS akun_id, a.email AS akun_email, a.password_plain AS akun_password
       FROM pendaftar p
       LEFT JOIN akun_murid a ON a.murid_id = p.id
     `;

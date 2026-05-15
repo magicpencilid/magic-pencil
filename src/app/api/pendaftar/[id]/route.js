@@ -91,10 +91,11 @@ export async function PUT(request, { params }) {
         const passwordPlain = generatePassword();
         const passwordHash = hashPassword(passwordPlain);
 
-        db.prepare("INSERT INTO akun_murid (murid_id, email, password_hash) VALUES (?, ?, ?)").run(
+        db.prepare("INSERT INTO akun_murid (murid_id, email, password_hash, password_plain) VALUES (?, ?, ?, ?)").run(
           id,
           email,
-          passwordHash
+          passwordHash,
+          passwordPlain
         );
 
         akun = {

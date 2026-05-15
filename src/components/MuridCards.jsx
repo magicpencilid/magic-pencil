@@ -2,7 +2,7 @@
    👤 MURID CARDS — Monochrome Grey
    
    Tampilan visual profil murid dalam bentuk kartu.
-   Tema grey — sesuai arahan Willy.
+   Langsung tampilin User ID & Password di kartu.
    ============================================= */
 
 "use client";
@@ -19,10 +19,6 @@ import {
   Calendar,
   BookOpen,
   Clock,
-  Key,
-  RefreshCw,
-  UserPlus,
-  X,
 } from "lucide-react";
 
 const statusFilter = [
@@ -44,13 +40,8 @@ export default function MuridCards() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
-  const [resetModal, setResetModal] = useState(null); // { email, password_plain, nama }
-  const [resetLoading, setResetLoading] = useState(false);
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (filter) params.set("status", filter);
-
     fetchData();
   }, [filter]);
 
@@ -96,7 +87,7 @@ export default function MuridCards() {
         <p className="text-sm text-text-light">Database seluruh peserta Magic Pencil</p>
       </div>
 
-      {/* Summary bar — monochrome grey */}
+      {/* Summary bar */}
       <div className="flex flex-wrap gap-3 mb-6">
         <div className="bg-white rounded-xl px-4 py-2 shadow-sm border border-gray-100 text-sm">
           <span className="text-text-light">Total: </span>
@@ -158,7 +149,7 @@ export default function MuridCards() {
                 key={m.id}
                 className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all"
               >
-                {/* Profile header — monochrome */}
+                {/* Profile header */}
                 <div className="p-5 text-center bg-gradient-to-br from-gray-50 to-gray-100/50">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 bg-gray-200">
                     <span className="text-2xl font-bold text-gray-600">{initial}</span>
@@ -171,7 +162,7 @@ export default function MuridCards() {
                   </span>
                 </div>
 
-                {/* Detail — grey icons */}
+                {/* Detail */}
                 <div className="p-4 space-y-2 text-sm">
                   <div className="flex items-center gap-2 text-text-light">
                     <User className="w-3.5 h-3.5 shrink-0 text-gray-400" />
@@ -206,81 +197,26 @@ export default function MuridCards() {
                     <span className="text-xs">{m.created_at}</span>
                   </div>
 
-                  {/* 🔑 User ID & Password */}
+                  {/* 🔑 Akun Login — langsung tampil */}
                   <div className="pt-3 mt-3 border-t border-gray-100">
-                    {m.akun_email ? (
-                      <>
-                        {/* User ID (email) */}
-                        <div className="bg-gray-50 rounded-lg px-3 py-2 mb-2">
-                          <p className="text-xs font-semibold text-gray-500">🆔 User ID</p>
+                    {m.akun_email && m.akun_password ? (
+                      <div className="bg-gray-50 rounded-lg p-3 space-y-2">
+                        {/* User ID */}
+                        <div>
+                          <p className="text-[11px] font-semibold text-gray-400 mb-0.5">🆔 User ID</p>
                           <p className="text-sm font-mono text-primary font-medium break-all">{m.akun_email}</p>
                         </div>
-                        {/* Tombol Reset Password */}
-                        <button
-                          onClick={async (e) => {
-                            e.stopPropagation();
-                            setResetLoading(true);
-                            try {
-                              console.log("Reset password:", m.id, m.participant_name);
-                              const res = await fetch(`/api/murid/${m.id}/reset-password`, { method: "POST" });
-                              const json = await res.json();
-                              console.log("Response reset:", json);
-                              if (json.success) {
-                                setResetModal({
-                                  email: json.data.email,
-                                  password_plain: json.data.password_plain,
-                                  nama: m.participant_name,
-                                });
-                              } else {
-                                alert("Gagal: " + (json.error || "Unknown"));
-                              }
-                            } catch (err) {
-                              console.error("Reset error:", err);
-                              alert("Gagal reset password. Cek console.");
-                            }
-                            setResetLoading(false);
-                          }}
-                          disabled={resetLoading}
-                          className="w-full bg-white border border-gray-200 text-xs font-semibold text-gray-600 py-2 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
-                        >
-                          <RefreshCw className={`w-3.5 h-3.5 ${resetLoading ? "animate-spin" : ""}`} />
-                          {resetLoading ? "Memproses..." : "🔄 Reset / Lihat Password"}
-                        </button>
-                      </>
-                    ) : m.status === "aktif" ? (
-                      <>
-                        <div className="bg-amber-50 rounded-lg px-3 py-2 mb-2">
-                          <p className="text-xs text-amber-700 font-medium">⚠️ Belum punya akun</p>
+                        {/* Password */}
+                        <div>
+                          <p className="text-[11px] font-semibold text-gray-400 mb-0.5">🔑 Password</p>
+                          <p className="text-sm font-mono text-primary font-bold tracking-wider">{m.akun_password}</p>
                         </div>
-                        <button
-                          onClick={async (e) => {
-                            e.stopPropagation();
-                            setResetLoading(true);
-                            try {
-                              const res = await fetch(`/api/pendaftar/${m.id}`, {
-                                method: "PUT",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ status: "aktif" }),
-                              });
-                              const json = await res.json();
-                              if (json.success && json.akun) {
-                                setResetModal({
-                                  email: json.akun.email,
-                                  password_plain: json.akun.password_plain,
-                                  nama: m.participant_name,
-                                });
-                                fetchData();
-                              }
-                            } catch {}
-                            setResetLoading(false);
-                          }}
-                          disabled={resetLoading}
-                          className="w-full bg-accent text-white text-xs font-semibold py-2 rounded-lg hover:bg-accent-dark transition-colors flex items-center justify-center gap-1.5"
-                        >
-                          <UserPlus className="w-3.5 h-3.5" />
-                          {resetLoading ? "Memproses..." : "🎉 Buatkan Akun"}
-                        </button>
-                      </>
+                      </div>
+                    ) : m.status === "aktif" ? (
+                      <div className="bg-amber-50 rounded-lg px-3 py-2">
+                        <p className="text-xs text-amber-700 font-medium">⚠️ Belum punya akun</p>
+                        <p className="text-[11px] text-amber-500 mt-0.5">Buat di halaman Pendaftar</p>
+                      </div>
                     ) : (
                       <div className="bg-gray-50 rounded-lg px-3 py-2">
                         <p className="text-xs text-gray-400 italic">🔑 Akun akan dibuat setelah terdaftar</p>
@@ -291,65 +227,6 @@ export default function MuridCards() {
               </div>
             );
           })}
-        </div>
-      )}
-
-      {/* 🔑 Modal Reset / Buat Akun */}
-      {resetModal && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setResetModal(null)}>
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-primary text-lg flex items-center gap-2">
-                <Key className="w-5 h-5 text-gray-400" />
-                Kredensial Akun
-              </h2>
-              <button onClick={() => setResetModal(null)} className="text-gray-400 hover:text-gray-600">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <p className="text-sm text-gray-600 mb-4">
-              Akun untuk <strong>{resetModal.nama}</strong>:
-            </p>
-
-            <div className="bg-gray-50 rounded-xl p-4 space-y-3 mb-4">
-              <div>
-                <p className="text-xs font-semibold text-gray-500 mb-1">Email</p>
-                <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border border-gray-200">
-                  <code className="text-sm font-mono text-primary">{resetModal.email}</code>
-                  <button
-                    onClick={() => navigator.clipboard.writeText(resetModal.email)}
-                    className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
-                  >
-                    📋 Salin
-                  </button>
-                </div>
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-gray-500 mb-1">Password</p>
-                <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border border-gray-200">
-                  <code className="text-sm font-mono text-primary font-bold tracking-wider">{resetModal.password_plain}</code>
-                  <button
-                    onClick={() => navigator.clipboard.writeText(resetModal.password_plain)}
-                    className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
-                  >
-                    📋 Salin
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-4">
-              ⚠️ Password ini <strong>hanya tampil sekali</strong>. Salin sekarang sebelum menutup.
-            </div>
-
-            <button
-              onClick={() => setResetModal(null)}
-              className="w-full py-2.5 rounded-xl bg-accent text-white font-semibold text-sm hover:bg-accent-dark transition-colors"
-            >
-              Mengerti, Tutup
-            </button>
-          </div>
         </div>
       )}
     </div>
