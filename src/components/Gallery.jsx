@@ -29,6 +29,17 @@ export default function Gallery() {
   const next = useCallback(() => setSelectedIdx((p) => (p + 1) % galleryItems.length), []);
   const [shareOpen, setShareOpen] = useState(false);
 
+  function handleShareClick(item) {
+    const shareUrl = window.location.href;
+    const shareText = `Lihat "${item.title}" — Magic Pencil`;
+
+    if (navigator.share) {
+      navigator.share({ title: item.title, text: shareText, url: shareUrl }).catch(() => {});
+    } else {
+      setShareOpen(true);
+    }
+  }
+
   // Keyboard navigation
   useEffect(() => {
     if (selectedIdx < 0) return;
@@ -99,7 +110,7 @@ export default function Gallery() {
 
           {/* Share button */}
           <button
-            onClick={(e) => { e.stopPropagation(); setShareOpen(true); }}
+            onClick={(e) => { e.stopPropagation(); handleShareClick(selected); }}
             className="absolute top-4 right-16 z-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all"
             title="Bagikan"
           >
