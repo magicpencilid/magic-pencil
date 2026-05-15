@@ -58,6 +58,7 @@ magic-pencil-app/
 | **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
 | **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
 | **Testimoni** | ✅ (no foto, no bintang, section beranda) |
+| **Auto Akun Murid** | ✅ (auto-create pas status aktif, kredensial toast, reset password) |
 | **ShareModal + Native Share** | ✅ (navigator.share HP / modal desktop) |
 | **Vertical Feed Lightbox** | ✅ (scroll feed kayak IG, ganti prev/next) |
 | **PWA + notifikasi push** | ✅ |
@@ -136,8 +137,8 @@ Admin → Login → Dashboard
 
 ## 🎯 NEXT
 
-- [ ] Tahap 22 - Like + Reaction
-- [ ] Tahap 23 - Auto Akun Murid
+- [x] Tahap 22 - Like + Reaction
+- [x] Tahap 23 - Auto Akun Murid
 - [ ] Tahap 24 - Testimoni Full Version
 - [ ] Tahap 25 - Mobile Class Events (hold — nunggu WA API)
 - [ ] Tahap 26 - Payment Gateway (hold — nunggu WA API)

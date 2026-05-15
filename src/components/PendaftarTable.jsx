@@ -321,12 +321,32 @@ export default function PendaftarTable() {
                             💳
                           </button>
                         )}
-                        {/* Buat Akun — muncul kalo status aktif */}
+                        {/* Buat Akun — auto-generate kredensial */}
                         {row.status === "aktif" && (
                           <button
-                            onClick={() => {
-                              setAkunModal({ id: row.id, nama: row.participant_name });
-                              setAkunForm({ email: row.email || "", password: "" });
+                            onClick={async () => {
+                              try {
+                                const res = await fetch(`/api/pendaftar/${row.id}`, {
+                                  method: "PUT",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({ status: "aktif" }),
+                                });
+                                const result = await res.json();
+                                if (result.success) {
+                                  fetchData();
+                                  if (result.akun) {
+                                    setAkunBaru({
+                                      email: result.akun.email,
+                                      password_plain: result.akun.password_plain,
+                                      nama: row.participant_name || row.full_name || "Murid",
+                                    });
+                                  } else {
+                                    alert("Murid ini sudah punya akun. Klik Reset Password di halaman Murid.");
+                                  }
+                                }
+                              } catch {
+                                alert("Gagal membuat akun");
+                              }
                             }}
                             className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
                             title="Buat Akun"
