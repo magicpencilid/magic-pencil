@@ -10,6 +10,7 @@
 import HeroCarousel from "@/components/HeroCarousel";
 import ClassInfo from "@/components/ClassInfo";
 import Gallery from "@/components/Gallery";
+import Leaderboard from "@/components/Leaderboard";
 import TestimoniSection from "@/components/TestimoniSection";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -58,6 +59,7 @@ export default function Home() {
       </section>
 
       <Gallery />
+      <Leaderboard />
       <TestimoniSection initialData={testimonials} />
     </>
   );
