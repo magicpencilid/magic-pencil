@@ -132,6 +132,7 @@ export default function AdminProdukPage() {
         harga: Number(form.harga),
         kategori: form.kategori,
         ukuran_tersedia: form.ukuran_tersedia,
+        warna_tersedia: form.warna_tersedia,
       }),
     });
     const json = await res.json();
