@@ -121,7 +121,7 @@ export default function Gallery() {
             {galleryItems.map((item, idx) => (
               <div
                 key={idx}
-                className="w-full max-w-2xl min-h-screen flex flex-col items-center justify-center px-4 py-4"
+                className="w-full max-w-2xl flex flex-col items-center px-4 pb-2"
               >
                 <img
                   src={item.image}
@@ -129,18 +129,18 @@ export default function Gallery() {
                   className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-xl shadow-2xl"
                   loading={idx === 0 ? "eager" : "lazy"}
                 />
-                <div className="mt-4 text-white text-center">
-                  <p className="font-semibold text-sm">{item.title}</p>
+                <div className="mt-4 w-full flex items-center justify-between gap-3">
+                  <p className="font-semibold text-sm text-white">Judul : {item.title}</p>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShareClick(item);
+                    }}
+                    className="text-white/60 hover:text-white text-sm transition-colors bg-white/10 hover:bg-white/20 rounded-full px-4 py-0.5 flex items-center gap-1.5 shrink-0"
+                  >
+                    <Share2 className="w-3.5 h-3.5" /> Bagikan
+                  </button>
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleShareClick(item);
-                  }}
-                  className="mt-2 text-white/40 hover:text-white/80 text-xs transition-colors flex items-center gap-1"
-                >
-                  <Share2 className="w-3.5 h-3.5" /> Bagikan
-                </button>
               </div>
             ))}
           </div>

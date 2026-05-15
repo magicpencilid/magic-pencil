@@ -191,7 +191,7 @@ export default function GalleryPage() {
             {filtered.map((item, idx) => (
               <div
                 key={`${item.source}-${item.id}`}
-                className="w-full max-w-2xl min-h-screen flex flex-col items-center justify-center px-4 py-4"
+                className="w-full max-w-2xl flex flex-col items-center px-4 pb-2"
               >
                 <img
                   src={item.image_path}
@@ -199,28 +199,22 @@ export default function GalleryPage() {
                   className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg"
                   loading={idx === 0 ? "eager" : "lazy"}
                 />
-                <div className="mt-4 text-white text-center">
-                  <p className="font-semibold text-sm">{item.title}</p>
-                  {item.deskripsi && (
-                    <p className="text-xs text-white/60 mt-1">{item.deskripsi}</p>
-                  )}
-                  <p className="text-[10px] text-white/40 mt-2">
-                    {item.source === "willy" ? "Foto Studio" : `Karya ${item.participant_name || "Murid"}`}
-                  </p>
-                </div>
-                <div className="mt-3 flex items-center gap-3">
+                <div className="mt-4 w-full flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-semibold text-sm text-white">Judul : {item.title}</p>
+                    {item.deskripsi && (
+                      <p className="text-xs text-white/60 mt-0.5">{item.deskripsi}</p>
+                    )}
+                  </div>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleShareClick(item);
                     }}
-                    className="text-white/40 hover:text-white/80 text-xs transition-colors flex items-center gap-1"
+                    className="text-white/60 hover:text-white text-sm transition-colors bg-white/10 hover:bg-white/20 rounded-full px-4 py-0.5 flex items-center gap-1.5 shrink-0"
                   >
                     <Share2 className="w-3.5 h-3.5" /> Bagikan
                   </button>
-                  <span className="text-[10px] text-white/30">
-                    {idx + 1} / {filtered.length}
-                  </span>
                 </div>
               </div>
             ))}
