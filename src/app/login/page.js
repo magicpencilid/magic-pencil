@@ -52,18 +52,12 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/">
-            <img
-              src="/logo-magicpencil.jpg"
-              alt="Magic Pencil"
-              className="w-20 h-20 object-contain mx-auto mb-4"
-            />
-          </Link>
+          {/* Logo dihapus */}
           <h1 className="text-2xl font-display font-bold text-primary">
             Masuk Akun Murid
           </h1>
           <p className="text-sm text-text-light mt-1">
-            Akses jadwal, absensi, dan tagihan kamu
+            Akses jadwal, absensi, dan investasi kamu
           </p>
         </div>
 

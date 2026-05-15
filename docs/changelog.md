@@ -4,6 +4,17 @@
 
 ---
 
+### 2026-05-14: No.Rek BLU BY BCA DIGITAL
+
+**Tambah No.Rekening (001662116182):**
+- InvoiceLookup.jsx — format 3 baris: Transfer ke / Atas nama / No.Rek
+- KonfirmasiPembayaran.jsx (2 tempat) — format 3 baris, bold No.Rek, font sama besar
+- WATemplate.jsx — format 3 baris plain text
+- Docs: project-brief.md + project-cheat.md diupdate
+- Build + deploy ke server ✅
+
+---
+
 ### 2026-05-12: Testimoni Simplifikasi + Auto Akun Rencana
 
 **Testimoni Simplified:**

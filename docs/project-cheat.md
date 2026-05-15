@@ -1,4 +1,4 @@
-# Magic Pencil — Project Cheat Sheet
+# Magic Pencil - Project Cheat Sheet
 
 > Satu halaman untuk lihat sekilas. Update tiap kali ada perubahan.
 
@@ -18,9 +18,9 @@
 |-------|-----------|
 | **Frontend** | Next.js 16.2.4 + React 19 + Tailwind CSS 4 |
 | **Backend** | Next.js API Routes (server-side, 34 routes) |
-| **DB** | SQLite (better-sqlite3) — `magic-pencil.db` |
+| **DB** | SQLite (better-sqlite3) - `magic-pencil.db` |
 | **Font** | Playfair Display (heading), Inter (body), Italiana |
-| **Warna** | Monochrome grey — `--color-primary: #1a1a1a` |
+| **Warna** | Monochrome grey - `--color-primary: #1a1a1a` |
 | **Mata uang** | "Investasi" (bukan "Rp") |
 
 ---
@@ -36,7 +36,7 @@ magic-pencil-app/
 ├── public/
 │   └── uploads/          ← bukti-bayar/ + karya/
 ├── docs/                 ← Dokumentasi
-├── scripts/              ← Backup utilities
+├── scripts/              ← Utility (watermark, process image, dll)
 ├── magic-pencil.db       ← Database
 ├── .env.local            ← Secrets (skip git)
 ├── package.json
@@ -105,14 +105,14 @@ Admin → Login → Dashboard
 
 ---
 
-## 💾 BACKUP
+## 💾 BACKUP (Manual via update mat)
 
-| Layer | Alat | Jadwal | Tujuan |
-|-------|------|--------|--------|
-| 🔄 Real-time | Watcher (PowerShell) | Tiap file berubah | E:\ + I:\ |
-| 🔐 DB | `scripts/backup-db.js` | Tiap 6 jam | E:\db + I:\db |
-| 📸 Snapshot | `scripts/snapshot-backup.ps1` | Minggu 12:00 | 4 minggu retensi |
-| 🐙 Git | GitHub: magicpencilid/magic-pencil | Tiap fitur | Cloud |
+| Step | Perintah | Tujuan |
+|------|----------|--------|
+| 1. Git | `git push` | GitHub: magicpencilid/magic-pencil |
+| 2. Docs | Sync 2 path | workspace + Pencil Web/docs |
+| 3. DB | Copy file | `E:\backup_manual\db_manual\` |
+
 
 ---
 
@@ -121,14 +121,18 @@ Admin → Login → Dashboard
 - **Transfer:** BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182)
 - **Telegram Bot:** @magicpencil_notif_bot
 - **Admin password:** `Pencil@dmin`
-- **Server CPU:** KVM tua — gak support `sharp`, pake `jimp`
+- **Server CPU:** KVM tua - gak support `sharp`, pake `jimp`
 - **Next.js 16:** route handler `params` wajib di-await
 
 ---
 
 ## 🎯 NEXT
 
-- [ ] Tahap 19 — Testimoni landing page
-- [ ] Tahap 20 — Payment Gateway
-- [ ] Tahap 21 — Progress Dashboard
-- [ ] Tahap 18d — Mobile Class Events (hold — nunggu WA)
+- [ ] Tahap 20 - Share ke Medsos
+- [ ] Tahap 21 - Swipe Down Tutup Preview
+- [ ] Tahap 22 - Like + Reaction
+- [ ] Tahap 23 - Auto Akun Murid
+- [ ] Tahap 24 - Testimoni Full Version
+- [ ] Tahap 25 - Mobile Class Events (hold — nunggu WA API)
+- [ ] Tahap 26 - Payment Gateway (hold — nunggu WA API)
+- [ ] Tahap 27 - Progress Dashboard

@@ -1,7 +1,7 @@
 # 📘 Project Brief — Magic Pencil
 
 > File ini pegangan utama mamat. Update tiap kali ada perubahan besar.
-> Dibuat: 2026-05-08 | Update terakhir: 2026-05-11
+> Dibuat: 2026-05-08 | Update terakhir: 2026-05-14
 
 ---
 
@@ -27,12 +27,12 @@
 ```
 C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 ├── src/
-│   ├── app/              ← 9 pages + 34 API routes
-│   ├── components/       ← 25 komponen UI
-│   └── lib/              ← Database, auth, helpers (12 files)
+│   ├── app/              ← Pages + API routes
+│   ├── components/       ← UI components
+│   └── lib/              ← Database, auth, helpers
 ├── public/uploads/       ← bukti-bayar/ + karya/
 ├── docs/                 ← Dokumentasi
-├── scripts/              ← Backup utilities
+├── scripts/              ← Utility scripts
 ├── magic-pencil.db       ← Database SQLite
 ├── package.json
 └── .env.local
@@ -113,11 +113,11 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Pendaftaran + Syket | ✅ | Wajib setuju syarat & ketentuan |
 | Invoice + Pembayaran | ✅ | Upload bukti transfer |
 | Login murid + Dashboard | ✅ | Jadwal, absensi, karya |
-| Admin panel | ✅ | 9 sub-halaman |
+| Admin panel | ✅ | Dashboard, Murid, Pendaftar, Kelas, Jadwal, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran (+ Hari & Jam) |
 | Watermark otomatis | ✅ | jimp (resize 1000px + JPEG 65% + multiply blend) |
 | Galeri publik | ✅ | Lightbox + keyboard nav |
 | Galeri Foto Owner | ✅ | Instagram grid + admin upload + proxy image |
-| Testimoni | ✅ | Admin upload + foto B&W + section beranda |
+| Testimoni | ✅ | Admin upload + section beranda (simplified: no foto, no bintang) |
 | PWA + Push notif | ✅ | VAPID keys |
 | Telegram Bot | ✅ | @magicpencil_notif_bot |
 | WA floating button | ✅ | wa.me/628111150563 |
@@ -137,20 +137,22 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 18a | Push Notification | ✅ Selesai, deployed |
 | 18b | Telegram Bot | ✅ Selesai, deployed |
 | 18c | WA Floating Button | ✅ Selesai, deployed |
-| 18d | Mobile Class Events | ⏸️ Hold (nunggu WA) |
-| 19 | Testimoni | ✅ Selesai, deployed (simplified: no foto, no bintang) |
-| 19a | Galeri Foto + Watermark Multiply | ✅ Selesai, deployed |
-| — | Auto Akun Murid | 🔵 Rencana (email + mpXXXX) |
-| 20 | Payment Gateway | ⚪ Ide |
-| 21 | Progress Dashboard | ⚪ Ide |
+| 19 | Testimoni (Simplified) | ✅ Selesai, deployed |
+| 20 | Share ke Medsos | 🟢 Siap gas (10 menit) |
+| 21 | Swipe Down Tutup Preview | 🟢 Siap gas (20 menit) |
+| 22 | Like + Reaction | 🟢 Siap gas (30 menit) |
+| 23 | Auto Akun Murid | 🟢 Siap gas (30 menit) |
+| 24 | Testimoni Full Version | 🟡 Siap gas (1 jam) |
+| 25 | Mobile Class Events | ⏸️ Hold (nunggu WA API) |
+| 26 | Payment Gateway | ⏸️ Hold (nunggu WA API) |
+| 27 | Progress Dashboard | 🔴 Siap gas (2-4 jam) |
 | Store | Merch Karya Murid | ⚪ Ide |
 
 ---
 
 ## 8. Catatan Penting
 
-- **Backup otomatis** — Watcher + mamat backup momen penting
-- **Auto update doc** — mamat update docs tiap selesai kerja signifikan + lapor
+- **Backup + docs** — manual via `update mat` (git push + sync docs + backup DB)
 - **New chat threshold** — 70% context
 - **Tanya dulu** sebelum edit/delete/add/rename file
 - **Server CPU KVM** tua — gak support sharp, pake jimp
