@@ -13,7 +13,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Search, Trash2, RefreshCw, AlertCircle, Download, MessageSquare, Pencil, X, UserPlus } from "lucide-react";
+import { Search, Trash2, RefreshCw, AlertCircle, Download, MessageSquare, Pencil, X } from "lucide-react";
 import WATemplate from "./WATemplate";
 
 export default function PendaftarTable() {
@@ -322,44 +322,7 @@ export default function PendaftarTable() {
                             💳
                           </button>
                         )}
-                        {/* Buat Akun — auto-generate kredensial */}
-                        {row.status === "aktif" && (
-                          <button
-                            onClick={async () => {
-                              try {
-                                console.log("Buat akun:", row.id, row.participant_name);
-                                const res = await fetch(`/api/pendaftar/${row.id}`, {
-                                  method: "PUT",
-                                  headers: { "Content-Type": "application/json" },
-                                  body: JSON.stringify({ status: "aktif" }),
-                                });
-                                const result = await res.json();
-                                console.log("Response:", result);
-                                if (result.success) {
-                                  if (result.akun) {
-                                    setAkunBaru({
-                                      email: result.akun.email,
-                                      password_plain: result.akun.password_plain,
-                                      nama: row.participant_name || row.full_name || "Murid",
-                                    });
-                                    fetchData();
-                                  } else {
-                                    setNotif({ type: "error", message: `${row.participant_name} sudah punya akun. Reset di halaman Murid.` });
-                                  }
-                                } else {
-                                  setNotif({ type: "error", message: `Gagal: ${result.errors?.[0] || result.error || "Unknown"}` });
-                                }
-                              } catch (err) {
-                                console.error("Error buat akun:", err);
-                                setNotif({ type: "error", message: "Gagal membuat akun. Coba refresh." });
-                              }
-                            }}
-                            className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-                            title="Buat Akun"
-                          >
-                            <UserPlus className="w-4 h-4" />
-                          </button>
-                        )}
+
                         {/* Hapus */}
                         <button
                           onClick={() => deleteData(row.id, row.full_name)}
