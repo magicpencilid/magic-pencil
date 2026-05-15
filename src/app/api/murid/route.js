@@ -14,12 +14,16 @@ export async function GET(request) {
     const status = searchParams.get("status");
     const limit = searchParams.get("limit");
 
-    let query = `SELECT * FROM pendaftar`;
+    let query = `
+      SELECT p.*, a.email AS akun_email, a.id AS akun_id
+      FROM pendaftar p
+      LEFT JOIN akun_murid a ON a.murid_id = p.id
+    `;
     const params = [];
 
     const conditions = [];
     if (status) {
-      conditions.push("status = ?");
+      conditions.push("p.status = ?");
       params.push(status);
     }
 
@@ -27,7 +31,7 @@ export async function GET(request) {
       query += " WHERE " + conditions.join(" AND ");
     }
 
-    query += " ORDER BY created_at DESC";
+    query += " ORDER BY p.created_at DESC";
 
     if (limit) {
       query += " LIMIT ?";

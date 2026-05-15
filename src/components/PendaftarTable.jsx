@@ -29,6 +29,7 @@ export default function PendaftarTable() {
   const [akunModal, setAkunModal] = useState(null); // { id, nama }
   const [akunForm, setAkunForm] = useState({ email: "", password: "" });
   const [akunLoading, setAkunLoading] = useState(false);
+  const [akunBaru, setAkunBaru] = useState(null); // { email, password_plain, nama } — dari auto-create
   const [kelasList, setKelasList] = useState([]);
   const ITEMS_PER_PAGE = 20;
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,7 +75,18 @@ export default function PendaftarTable() {
         body: JSON.stringify({ status: newStatus }),
       });
       const result = await res.json();
-      if (result.success) fetchData();
+      if (result.success) {
+        fetchData();
+        // Kalo auto-create akun, tampilkan kredensial
+        if (result.akun) {
+          const row = data.find((r) => r.id === id);
+          setAkunBaru({
+            email: result.akun.email,
+            password_plain: result.akun.password_plain,
+            nama: row?.participant_name || row?.full_name || "Murid",
+          });
+        }
+      }
     } catch (err) {
       console.error("Gagal update:", err);
     }
@@ -515,6 +527,66 @@ export default function PendaftarTable() {
           </div>
         );
       })()}
+
+      {/* 🎉 Modal Sukses — Auto-create Akun */}
+      {akunBaru && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setAkunBaru(null)}>
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-primary text-lg flex items-center gap-2">
+                <span className="text-xl">🎉</span> Akun Berhasil Dibuat!
+              </h2>
+              <button onClick={() => setAkunBaru(null)} className="text-gray-400 hover:text-gray-600">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-sm text-gray-600 mb-5">
+              Akun login untuk <strong>{akunBaru.nama}</strong>:
+            </p>
+
+            <div className="bg-gray-50 rounded-xl p-4 space-y-3 mb-5">
+              <div>
+                <p className="text-xs font-semibold text-gray-500 mb-1">Email</p>
+                <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border border-gray-200">
+                  <code className="text-sm font-mono text-primary">{akunBaru.email}</code>
+                  <button
+                    onClick={() => navigator.clipboard.writeText(akunBaru.email)}
+                    className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
+                  >
+                    📋 Salin
+                  </button>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-500 mb-1">Password</p>
+                <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border border-gray-200">
+                  <code className="text-sm font-mono text-primary font-bold tracking-wider">{akunBaru.password_plain}</code>
+                  <button
+                    onClick={() => navigator.clipboard.writeText(akunBaru.password_plain)}
+                    className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
+                  >
+                    📋 Salin
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-4">
+              ⚠️ Password ini <strong>hanya tampil sekali</strong>. Salin sekarang sebelum menutup.
+            </div>
+
+            <button
+              onClick={() => {
+                setAkunBaru(null);
+              }}
+              className="w-full py-2.5 rounded-xl bg-accent text-white font-semibold text-sm hover:bg-accent-dark transition-colors"
+            >
+              Mengerti, Tutup
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 📝 Modal Buat Akun */}
       {akunModal && (

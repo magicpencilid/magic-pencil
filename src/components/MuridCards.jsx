@@ -19,6 +19,10 @@ import {
   Calendar,
   BookOpen,
   Clock,
+  Key,
+  RefreshCw,
+  UserPlus,
+  X,
 } from "lucide-react";
 
 const statusFilter = [
@@ -40,19 +44,25 @@ export default function MuridCards() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
+  const [resetModal, setResetModal] = useState(null); // { email, password_plain, nama }
+  const [resetLoading, setResetLoading] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams();
     if (filter) params.set("status", filter);
 
-    fetch(`/api/murid?${params.toString()}`)
+    fetchData();
+  }, [filter]);
+
+  const fetchData = () => {
+    fetch(`/api/murid?${new URLSearchParams(filter ? { status: filter } : {}).toString()}`)
       .then((r) => r.json())
       .then((res) => {
         if (res.success) setData(res.data);
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, [filter]);
+  };
 
   const filtered = data.filter(
     (m) =>
@@ -195,10 +205,137 @@ export default function MuridCards() {
                     <Clock className="w-3.5 h-3.5 shrink-0 text-gray-400" />
                     <span className="text-xs">{m.created_at}</span>
                   </div>
+
+                  {/* 🔑 Status Akun */}
+                  <div className="pt-2 mt-2 border-t border-gray-100">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <Key className="w-3.5 h-3.5 shrink-0 text-gray-400" />
+                        {m.akun_email ? (
+                          <span className="text-xs text-gray-500 truncate">{m.akun_email}</span>
+                        ) : (
+                          <span className="text-xs text-gray-400 italic">Belum punya akun</span>
+                        )}
+                      </div>
+                      {m.akun_email ? (
+                        <button
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            setResetLoading(true);
+                            try {
+                              const res = await fetch(`/api/murid/${m.id}/reset-password`, { method: "POST" });
+                              const json = await res.json();
+                              if (json.success) {
+                                setResetModal({
+                                  email: json.data.email,
+                                  password_plain: json.data.password_plain,
+                                  nama: m.participant_name,
+                                });
+                              }
+                            } catch {}
+                            setResetLoading(false);
+                          }}
+                          disabled={resetLoading}
+                          className="text-xs text-accent hover:text-accent-dark font-medium shrink-0"
+                          title="Reset Password"
+                        >
+                          <RefreshCw className={`w-3.5 h-3.5 ${resetLoading ? "animate-spin" : ""}`} />
+                        </button>
+                      ) : m.status === "aktif" ? (
+                        <button
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            // Trigger auto-create via PUT status
+                            try {
+                              const res = await fetch(`/api/pendaftar/${m.id}`, {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ status: "aktif" }),
+                              });
+                              const json = await res.json();
+                              if (json.success) {
+                                if (json.akun) {
+                                  setResetModal({
+                                    email: json.akun.email,
+                                    password_plain: json.akun.password_plain,
+                                    nama: m.participant_name,
+                                  });
+                                }
+                                fetchData();
+                              }
+                            } catch {}
+                          }}
+                          className="text-xs text-accent hover:text-accent-dark font-medium shrink-0 flex items-center gap-1"
+                          title="Buat Akun"
+                        >
+                          <UserPlus className="w-3.5 h-3.5" />
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
                 </div>
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* 🔑 Modal Reset / Buat Akun */}
+      {resetModal && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setResetModal(null)}>
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-primary text-lg flex items-center gap-2">
+                <Key className="w-5 h-5 text-gray-400" />
+                Kredensial Akun
+              </h2>
+              <button onClick={() => setResetModal(null)} className="text-gray-400 hover:text-gray-600">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-sm text-gray-600 mb-4">
+              Akun untuk <strong>{resetModal.nama}</strong>:
+            </p>
+
+            <div className="bg-gray-50 rounded-xl p-4 space-y-3 mb-4">
+              <div>
+                <p className="text-xs font-semibold text-gray-500 mb-1">Email</p>
+                <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border border-gray-200">
+                  <code className="text-sm font-mono text-primary">{resetModal.email}</code>
+                  <button
+                    onClick={() => navigator.clipboard.writeText(resetModal.email)}
+                    className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
+                  >
+                    📋 Salin
+                  </button>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-500 mb-1">Password</p>
+                <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border border-gray-200">
+                  <code className="text-sm font-mono text-primary font-bold tracking-wider">{resetModal.password_plain}</code>
+                  <button
+                    onClick={() => navigator.clipboard.writeText(resetModal.password_plain)}
+                    className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
+                  >
+                    📋 Salin
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-4">
+              ⚠️ Password ini <strong>hanya tampil sekali</strong>. Salin sekarang sebelum menutup.
+            </div>
+
+            <button
+              onClick={() => setResetModal(null)}
+              className="w-full py-2.5 rounded-xl bg-accent text-white font-semibold text-sm hover:bg-accent-dark transition-colors"
+            >
+              Mengerti, Tutup
+            </button>
+          </div>
         </div>
       )}
     </div>

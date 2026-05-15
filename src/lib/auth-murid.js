@@ -105,3 +105,61 @@ export async function getCurrentMurid() {
     return null;
   }
 }
+
+/**
+ * Generate random password — "mp" + 4 karakter alfanumerik
+ * Contoh: mpA7kX, mp9zQ2, mp3fR8
+ */
+export function generatePassword() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+  let random = "";
+  for (let i = 0; i < 4; i++) {
+    random += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return "mp" + random;
+}
+
+/**
+ * Generate email dari nama participant
+ * - Slug: lowercase, buang aksen, spasi → titik, buang simbol
+ * - Kalo slug kosong/terlalu pendek, pake "user" + random 3 digit
+ * - Auto-unique: kalo slug udah dipake, tambah angka increment
+ *
+ * Contoh:
+ *   "Budi"          → budi@magicpencil.my.id
+ *   "Siti Nurhaliza" → siti.nurhaliza@magicpencil.my.id
+ *   (duplicate)      → siti.nurhaliza1@magicpencil.my.id
+ *
+ * @param {string} nama - participant_name atau full_name dari pendaftar
+ * @param {object} db - Koneksi database (better-sqlite3)
+ */
+export function generateEmail(nama, db) {
+  // Buang aksen + lowercase + spasi jadi titik
+  let slug = nama
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // buang diacritics
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")     // cuma huruf, angka, spasi
+    .trim()
+    .replace(/\s+/g, ".")            // spasi → titik
+    .replace(/\.+/g, ".")            // titik ganda → tunggal
+    .replace(/^\.|\.$/g, "");       // buang titik di ujung
+
+  // Fallback kalo slug kosong atau terlalu pendek
+  if (slug.length < 2) {
+    const rand = Math.floor(Math.random() * 900) + 100;
+    slug = "user" + rand;
+  }
+
+  // Cek unique — increment kalo udah dipake
+  let candidate = slug;
+  let counter = 1;
+  const domain = "@magicpencil.my.id";
+
+  while (db.prepare("SELECT id FROM akun_murid WHERE email = ?").get(candidate + domain)) {
+    candidate = slug + counter;
+    counter++;
+  }
+
+  return candidate + domain;
+}
