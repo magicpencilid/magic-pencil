@@ -17,7 +17,7 @@
 | Layer | Teknologi |
 |-------|-----------|
 | **Frontend** | Next.js 16.2.4 + React 19 + Tailwind CSS 4 |
-| **Backend** | Next.js API Routes (server-side, 34 routes) |
+| **Backend** | Next.js API Routes (server-side, 40 routes) |
 | **DB** | SQLite (better-sqlite3) - `magic-pencil.db` |
 | **Font** | Playfair Display (heading), Inter (body), Italiana |
 | **Warna** | Monochrome grey - `--color-primary: #1a1a1a` |
@@ -30,8 +30,8 @@
 ```
 magic-pencil-app/
 ├── src/
-│   ├── app/              ← 9 pages + 34 API routes
-│   ├── components/       ← 25 UI components
+│   ├── app/              ← 25 pages + 40 API routes
+│   ├── components/       ← 27 UI components
 │   └── lib/              ← DB, auth, helpers
 ├── public/
 │   └── uploads/          ← bukti-bayar/ + karya/
@@ -58,11 +58,13 @@ magic-pencil-app/
 | **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
 | **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
 | **Testimoni** | ✅ (no foto, no bintang, section beranda) |
+| **ShareModal + Native Share** | ✅ (navigator.share HP / modal desktop) |
+| **Vertical Feed Lightbox** | ✅ (scroll feed kayak IG, ganti prev/next) |
 | **PWA + notifikasi push** | ✅ |
 | **Telegram Bot** | ✅ (@magicpencil_notif_bot) |
 | **WA floating button** | ✅ (wa.me/628111150563) |
 | **Dashboard murid** | ✅ (jadwal, absensi, karya) |
-| **Dashboard admin** | ✅ (12 sub-halaman: Dashboard, Murid, Pendaftar, Kelas, Hari & Jam, Jadwal, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran) |
+| **Dashboard admin** | ✅ (10 sub: Dashboard, Murid, Pendaftar, Kelas, Jadwal+Opsi, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran) |
 
 ---
 
@@ -96,12 +98,19 @@ Admin → Login → Dashboard
 | **Domain** | Cloudflare Tunnel → aaPanel:1050 → localhost:3000 |
 | **Node** | v22.22.2 |
 
-### Deploy steps
+### Deploy normal (GitHub jalan)
 1. `npm run build` di lokal
 2. Git commit + push
 3. Server: `git pull` + `npm install` + `npm run build`
 4. `pm2 restart magic-pencil`
-5. Clear aaPanel proxy cache
+
+### Deploy fallback (GitHub 503)
+1. `npm run build` di lokal
+2. `tar czf - .next/ | ssh root@192.168.110.105 "tar xzf - -C /www/wwwroot/magic-pencil/"`
+3. `npm install` (kalo ada package baru)
+4. `pm2 restart magic-pencil`
+
+> Server CPU KVM tua: build di lokal, kirim `.next/` aja ke server
 
 ---
 
@@ -112,7 +121,6 @@ Admin → Login → Dashboard
 | 1. Git | `git push` | GitHub: magicpencilid/magic-pencil |
 | 2. Docs | Sync 2 path | workspace + Pencil Web/docs |
 | 3. DB | Copy file | `E:\backup_manual\db_manual\` |
-
 
 ---
 
@@ -128,8 +136,6 @@ Admin → Login → Dashboard
 
 ## 🎯 NEXT
 
-- [ ] Tahap 20 - Share ke Medsos
-- [ ] Tahap 21 - Swipe Down Tutup Preview
 - [ ] Tahap 22 - Like + Reaction
 - [ ] Tahap 23 - Auto Akun Murid
 - [ ] Tahap 24 - Testimoni Full Version

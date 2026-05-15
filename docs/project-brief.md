@@ -139,7 +139,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 18c | WA Floating Button | ✅ Selesai, deployed |
 | 19 | Testimoni (Simplified) | ✅ Selesai, deployed |
 | 20 | Share ke Medsos (ShareModal) | ✅ Selesai, deployed |
-| 21 | Swipe Down Tutup Preview | 🟢 Siap gas (20 menit) |
+| 21 | Vertical Feed Lightbox (Instagram-style) | ✅ Selesai, deployed |
 | 22 | Like + Reaction | 🟢 Siap gas (30 menit) |
 | 23 | Auto Akun Murid | 🟢 Siap gas (30 menit) |
 | 24 | Testimoni Full Version | 🟡 Siap gas (1 jam) |

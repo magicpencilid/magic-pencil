@@ -9,7 +9,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft, ImageIcon, Loader2, ChevronRight, X, Share2 } from "lucide-react";
+import { ArrowLeft, ImageIcon, Loader2, ChevronRight, X, Heart, Repeat2, Share2 } from "lucide-react";
 import ShareModal from "@/components/ShareModal";
 
 const tabs = [
@@ -18,12 +18,27 @@ const tabs = [
   { id: "murid", label: "Karya Murid" },
 ];
 
+/* 🔑 Dapetin fingerprint */
+function getFingerprint() {
+  if (typeof window === "undefined") return "";
+  let fp = localStorage.getItem("gallery_fp");
+  if (!fp) {
+    fp = crypto.randomUUID();
+    localStorage.setItem("gallery_fp", fp);
+  }
+  return fp;
+}
+
 export default function GalleryPage() {
   const [data, setData] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [selectedIdx, setSelectedIdx] = useState(-1);
+
+  // — Like state —
+  const [likes, setLikes] = useState({});
+  const [userLikes, setUserLikes] = useState({});
 
   useEffect(() => {
     fetch("/api/gallery")
@@ -61,6 +76,44 @@ export default function GalleryPage() {
     } else {
       setShareOpen(true);
     }
+  }
+
+  // Fetch likes pas buka lightbox
+  useEffect(() => {
+    if (selectedIdx < 0) return;
+    const fp = getFingerprint();
+    if (!fp) return;
+
+    filtered.forEach((item) => {
+      fetch(`/api/gallery/${item.id}/like?fingerprint=${encodeURIComponent(fp)}`)
+        .then((r) => r.json())
+        .then((res) => {
+          if (res.success) {
+            setLikes((prev) => ({ ...prev, [item.id]: res.count }));
+            setUserLikes((prev) => ({ ...prev, [item.id]: res.liked }));
+          }
+        })
+        .catch(() => {});
+    });
+  }, [selectedIdx]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  function handleLike(photoId) {
+    const fp = getFingerprint();
+    if (!fp) return;
+
+    fetch(`/api/gallery/${photoId}/like`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fingerprint: fp }),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.success) {
+          setLikes((prev) => ({ ...prev, [photoId]: res.count }));
+          setUserLikes((prev) => ({ ...prev, [photoId]: res.liked }));
+        }
+      })
+      .catch(() => {});
   }
 
   const closeDetail = useCallback(() => {
@@ -165,7 +218,7 @@ export default function GalleryPage() {
                     {item.source === "willy" ? "Studio" : "Murid"}
                   </span>
                 </div>
-                {/* Title overlay on hover */}
+                {/* Title overlay */}
                 <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                   <p className="text-white text-xs font-medium truncate text-left">{item.title}</p>
                 </div>
@@ -188,36 +241,80 @@ export default function GalleryPage() {
 
           {/* Vertical feed */}
           <div ref={feedRef} className="min-h-full flex flex-col items-center pt-4 pb-20">
-            {filtered.map((item, idx) => (
-              <div
-                key={`${item.source}-${item.id}`}
-                className="w-full max-w-2xl flex flex-col items-center px-4 pb-2"
-              >
-                <img
-                  src={item.image_path}
-                  alt={item.title}
-                  className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg"
-                  loading={idx === 0 ? "eager" : "lazy"}
-                />
-                <div className="mt-4 w-full flex items-center justify-between gap-3">
-                  <div>
-                    <p className="font-semibold text-sm text-white">Judul : {item.title}</p>
-                    {item.deskripsi && (
-                      <p className="text-xs text-white/60 mt-0.5">{item.deskripsi}</p>
-                    )}
+            {filtered.map((item, idx) => {
+              const isLiked = userLikes[item.id] || false;
+              const likeCount = likes[item.id] || 0;
+
+              return (
+                <div
+                  key={`${item.source}-${item.id}`}
+                  className="w-full max-w-2xl flex flex-col items-center px-4 pb-6"
+                >
+                  {/* Foto */}
+                  <div className="relative w-full">
+                    <img
+                      src={item.image_path}
+                      alt={item.title}
+                      className="w-full h-auto object-contain rounded-lg shadow-2xl"
+                      loading={idx === 0 ? "eager" : "lazy"}
+                    />
+                    {/* Judul overlay — kiri atas */}
+                    <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent rounded-t-lg">
+                      <p className="text-white font-semibold text-sm drop-shadow-lg">
+                        {item.title}
+                      </p>
+                    </div>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleShareClick(item);
-                    }}
-                    className="text-white/60 hover:text-white text-sm transition-colors bg-white/10 hover:bg-white/20 rounded-full px-4 py-0.5 flex items-center gap-1.5 shrink-0"
-                  >
-                    <Share2 className="w-3.5 h-3.5" /> Bagikan
-                  </button>
+
+                  {/* Action bar — love, repost, share */}
+                  <div className="mt-3 w-full flex items-center gap-5 px-1">
+                    {/* Love */}
+                    <button
+                      onClick={() => handleLike(item.id)}
+                      className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors"
+                    >
+                      <Heart
+                        className={`w-5 h-5 transition-all ${
+                          isLiked ? "fill-red-500 text-red-500" : ""
+                        }`}
+                      />
+                      {likeCount > 0 && (
+                        <span className="text-xs font-medium text-white/70">{likeCount}</span>
+                      )}
+                    </button>
+
+                    {/* Repost */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleShareClick(item);
+                      }}
+                      className="text-white/70 hover:text-white transition-colors"
+                    >
+                      <Repeat2 className="w-5 h-5" />
+                    </button>
+
+                    {/* Share */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleShareClick(item);
+                      }}
+                      className="text-white/70 hover:text-white transition-colors"
+                    >
+                      <Share2 className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Caption */}
+                  {item.deskripsi && (
+                    <p className="mt-2 w-full text-xs text-white/60 px-1 leading-relaxed">
+                      {item.deskripsi}
+                    </p>
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}

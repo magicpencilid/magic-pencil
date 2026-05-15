@@ -4,6 +4,25 @@
 
 ---
 
+### 2026-05-15: Tahap 21 — Vertical Feed Lightbox (Instagram-style)
+
+**Lightbox redesign:**
+- Centered lightbox diganti jadi vertical scroll feed (kayak IG)
+- Scroll ke bawah liat foto berikutnya — gak perlu klik prev/next
+- Auto-scroll ke foto yang dipilih pas buka
+- Tombol X fixed di atas
+
+**Layout & Polish:**
+- Judul di kiri dengan prefix "Judul :"
+- Tombol Bagikan di kanan (bg-white/10, rounded-full pill)
+- Alignment rapi (items-center, py-0.5)
+- Hapus teks sumber foto & counter 1/10
+- Spacing rapat antar gambar
+
+**File berubah:** `Gallery.jsx`, `gallery/page.js`
+
+---
+
 ### 2026-05-15: Tahap 20 — Share ke Medsos + Istilah Investasi
 
 **Share Modal (ShareModal.jsx):**

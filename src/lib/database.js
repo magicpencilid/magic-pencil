@@ -185,6 +185,14 @@ function initTables() {
       photo_path TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
     );
+
+    CREATE TABLE IF NOT EXISTS gallery_likes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      photo_id INTEGER NOT NULL,
+      fingerprint TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+      UNIQUE(photo_id, fingerprint)
+    );
   `);
 
   // Migrasi: tambah kolom kalo belum ada (untuk DB lama)

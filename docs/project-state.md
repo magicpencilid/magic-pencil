@@ -8,20 +8,11 @@
 
 | Item | Status |
 |------|--------|
-| **Tahap Terakhir** | 20 — Share ke Medsos (ShareModal) |
-| **Versi Terdeploy** | ✅ 15 Mei 2026 — ShareModal + Istilah Investasi |
+| **Tahap Terakhir** | 21 — Vertical Feed Lightbox |
+| **Versi Terdeploy** | ✅ 15 Mei 2026 — Vertical Feed Lightbox |
 | **Status Server** | ✅ PM2 online |
 | **DB** | SQLite — `magic-pencil.db` |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
-
----
-
-## Backup
-
-Backup manual via `update mat`:
-1. Git push → GitHub
-2. Sync docs → 2 path (workspace + Pencil Web/docs)
-3. Copy DB → `E:\backup_manual\db_manual\`
 
 ---
 
@@ -29,8 +20,8 @@ Backup manual via `update mat`:
 
 | Lokasi | Status | Versi | Catatan |
 |--------|--------|-------|---------|
-| Lokal (laptop) | ✅ Ready | Tahap 20 | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (15 Mei) | Tahap 20 + istilah investasi |
+| Lokal (laptop) | ✅ Ready | Tahap 21 | Build siap |
+| Server (aaPanel) | ✅ Running | Terkini (15 Mei) | Tahap 21 — Vertical Feed Lightbox |
 
 ---
 
@@ -49,10 +40,11 @@ Backup manual via `update mat`:
 | 18c | WhatsApp Floating Button (wa.me/628111150563) | 10 Mei |
 | 19 | Testimoni (simplified: no foto, no bintang) | 12 Mei |
 | 20 | Share ke Medsos (ShareModal + Native Share) | 15 Mei |
+| 21 | Vertical Feed Lightbox (Instagram-style) | 15 Mei |
 
 ---
 
-## Data Server
+## Data Server *(per 11 Mei 2026)*
 
 | Item | Jumlah |
 |------|--------|
@@ -74,7 +66,7 @@ Backup manual via `update mat`:
 | 1 | Tahap 25 — Mobile Class Events | Sedang | ⏸️ Hold (nunggu WA API) |
 | 2 | Tahap 26 — Payment Gateway | Sedang | ⏸️ Hold (nunggu WA API) |
 | 3 | Tahap 27 — Progress Dashboard | Rendah | 🔵 Rencana |
-| 4 | Tahap 21-24 — Galeri Sosial + Auto Akun + Testimoni | Rendah | 🟢 Siap gas
+| 4 | Tahap 22-24 — Like + Auto Akun + Testimoni Full | Tinggi | 🟢 Siap gas
 
 ---
 
@@ -84,6 +76,7 @@ Backup manual via `update mat`:
 |------|--------|
 | **No.Rek BLU BY BCA** | 001662116182 (14 Mei 2026) |
 | **ShareModal** | Modal share IG, TikTok, FB, WA, Twitter/X, Copy Link |
+| **Vertical Feed** | Lightbox scroll vertikal kayak IG — judul kiri, bagikan kanan |
 
 ---
 
@@ -91,6 +84,7 @@ Backup manual via `update mat`:
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
+| 2026-05-15 | Tahap 21 — Vertical Feed Lightbox (scroll feed, layout judul+bagikan) + Polish
 | 2026-05-15 | Tahap 20 — ShareModal + Native Share fallback + Istilah Investasi
 | 2026-05-14 | No.Rek BLU BY BCA (001662116182) — 3 file component + docs + deploy
 | 2026-05-11 | Navbar glass + font Inter, Gallery lightbox, Flow daftar baru, Standar gambar + Slide #4, Galeri Foto + Watermark + Upload Fixes, Testimoni + Optimasi |
