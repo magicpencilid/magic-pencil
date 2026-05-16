@@ -4,7 +4,7 @@ import { getCurrentMurid } from "@/lib/auth-murid";
 
 /**
  * POST /api/absensi/checkin
- * Body: { jadwal_id? } (opsional — kalo ada jadwal)
+ * Validasi: hanya bisa check-in kalo ada jadwal kelas hari ini
  */
 export async function POST(request) {
   try {
@@ -13,11 +13,20 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: "Tidak terautentikasi" }, { status: 401 });
     }
 
-    const body = await request.json().catch(() => ({}));
-    const { jadwal_id } = body;
-
     const db = getDb();
     const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
+    // Cek apakah ada jadwal kelas hari ini
+    const jadwalHariIni = db.prepare(
+      "SELECT id, schedule_time FROM jadwal WHERE class_name = ? AND schedule_date = ?"
+    ).get(murid.class_name, today);
+
+    if (!jadwalHariIni) {
+      return NextResponse.json({
+        success: false,
+        error: "Belum ada jadwal kelas hari ini. Cek jadwal kamu di menu Jadwal Kelas."
+      }, { status: 400 });
+    }
 
     // Cek udah check-in hari ini?
     const existing = db.prepare(
@@ -30,14 +39,18 @@ export async function POST(request) {
 
     const now = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" });
 
+    // Auto-pake jadwal_id dari database
     db.prepare(
       "INSERT INTO absensi (murid_id, jadwal_id, check_in, status, tanggal) VALUES (?, ?, ?, 'hadir', ?)"
-    ).run(murid.murid_id, jadwal_id || null, now, today);
+    ).run(murid.murid_id, jadwalHariIni.id, now, today);
 
     return NextResponse.json({
       success: true,
       message: "Check-in berhasil! Selamat menggambar 🎨",
       check_in: now,
+      jadwal: {
+        waktu: jadwalHariIni.schedule_time,
+      },
     });
   } catch (error) {
     console.error("Checkin error:", error);

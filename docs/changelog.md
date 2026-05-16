@@ -4,60 +4,82 @@
 
 ---
 
-### 2026-05-15: Tahap 28 — Leaderboard Karya Populer
+### 2026-05-16: Tahap 29 — Auto-generate Jadwal Pertemuan 📅 ✅
 
-**Leaderboard:**
-- API `/api/karya/populer` — top 10 karya approved with most likes
-- `Leaderboard.jsx` — grid responsive, badge peringkat (#1🏆 #2 #3) + ring oranye untuk top 3
-- Letak di halaman depan antara Galeri Sketsa dan Testimoni
-- Auto-hide kalo data kosong
+**Fitur:**
+- Monthly (Kelas Sketsa, Kelas Gambar, Kelas Private) → 4 jadwal auto, 1x/minggu
+- Single/Sesi (Sesi Lukis Anabul, Sesi Sketsa, Sesi Gambar) → 1 jadwal aja
+- Tanggal pake format YYYY-MM-DD real, bukan nama hari
+- Kolom `meeting_number` di tabel jadwal buat tracking pertemuan ke-
+- Dashboard murid tampilin "Pertemuan X/4"
 
-**Commit:** `77432df` | **PM2:** ↺ 54
-**Status:** ✅ Selesai
+**Seed data kelas baru:**
+- Kelas Sketsa (1jt), Kelas Gambar (1jt), Kelas Private (hub admin)
+- Sesi Lukis Anabul (350k), Sesi Sketsa (300k), Sesi Gambar (300k)
 
----
+**Migration:**
+- Kelas lama ("Melukis Akrilik" dll) otomatis diganti pas init
+- Kolom meeting_number ditambah via ALTER TABLE
 
-### 2026-05-15: Tahap 27 — Like System Karya Murid
-
-**Like untuk karya murid:**
-- Tabel baru `karya_likes` (pattern: karya_id + fingerprint, UNIQUE)
-- API `/api/karya/[id]/like` (GET status + POST toggle)
-- ❤️ button + count di lightbox `/galeri`
-
-**Fix count display:**
-- Count ❤️ selalu kelihatan walaupun 0 (IG-style)
-- Fix `/koleksi` page: routing like berdasarkan source (gallery vs karya)
-
-**Commit:** `f5645a9` | **PM2:** ↺ 53
-**Status:** ✅ Selesai
+**Files:** `database.js`, `api/register/route.js`, `api/jadwal-murid/route.js`, `api/kelas/route.js`, `dashboard/jadwal/page.js`
+**Deploy:** commit `1fc0f2c`, PM2 ↺ 55
 
 ---
 
-### 2026-05-15: Tahap 26 — Kompres Gambar Store
+### 2026-05-15: Tahap 24 — Online Store 🛍️ ✅
 
-**Fix gambar store berat:**
-- PNG 1.3MB + 2.0MB dikompres ke JPEG quality 80 @800px → 27KB + 36KB
-- DB path diupdate ke file baru, PNG lama dihapus
-- API upload produk otomatis kompres pake Jimp
+**Fitur:**
+- Katalog `/store` — grid produk 2-4 kolom, filter kategori, modal detail
+- Order via WhatsApp — form pemesan + template WA lengkap (produk, ukuran, warna, jumlah)
+- Admin CRUD produk — tambah/edit/hapus, toggle status, upload gambar
+- Fitur ukuran + warna (tag chips input, tersimpan di DB sebagai JSON)
+- Tombol 🛍️ Beli Merch di Gallery lightbox → WA langsung
+- Proxy API `/api/produk/image/[...segments]` — anti cache issue (gak perlu restart PM2)
 
-**Commit:** `7ee7623` | **PM2:** ↺ 52
-**Status:** ✅ Selesai
+**Perbaikan:**
+- object-cover → object-contain + fixed height biar foto gak ke-crop
+- Warna_tersedia fix — tadinya gak ke-save di body request
+
+**Files baru:** `api/produk`, `api/produk/[id]`, `api/produk/upload`, `api/produk/image/[...segments]`, `app/store`, `admin/produk`
+**Files diubah:** `database.js`, `AdminSidebar.jsx`, `Gallery.jsx`
+**Produk:** Kaos polos Rp120rb + Kaos polo Rp135rb
+**Deploy:** 6 commits, PM2 ↺ 47
 
 ---
 
-### 2026-05-15: Tahap 25 — Navbar, Gallery UX Fixes
+### 2026-05-15: Tahap 23 — Auto Akun Murid ✅
 
-**Navbar:**
-- Tambah link Toko (`/store`) di navbar
-- Beli Merch button di Gallery lightbox (WA → `/store`)
+**Flow baru:**
+- Akun auto-create pas daftar (email user + password mp + 4 random)
+- Kredensial disimpan di DB (hash + password_plain)
+- Gak tampil di halaman sukses — muncul **setelah** user klik "Ya, Saya Sudah Transfer"
+- Halaman /status → akunInfo + tombol Login
 
-**Rename & cleanup:**
-- Rename `/gallery` → `/koleksi` (biar gak bingung sama `/galeri`)
-- Update Navbar href + label
-- Hapus deskripsi dari galeri sketsa di home page
+**Admin changes:**
+- MuridCards langsung tampilin User ID + Password (gak ada tombol reset/backfill)
+- PendaftarTable: hapus tombol Buat Akun (➕)
+- Admin masih bisa reset password via API
 
-**Commit:** `46f48a2`, `49b46b3`, `7a4a088`, `7b6ccd3` | **PM2:** ↺ 48-51
-**Status:** ✅ Selesai
+**DB clean:**
+- Kolom password_plain ditambah
+- Semua data pendaftar dihapus (fresh start, 0 pendaftar)
+
+**Files:** auth-murid.js (baru), register, pendaftar, status, murid API + KonfirmasiPembayaran, MuridCards, PendaftarTable
+
+**Deploy:** 8 commits, PM2 ↺ 39
+
+---
+
+### 2026-05-15: Tahap 22 — Like + Reaction IG-style
+
+**Fitur:**
+- Like heart button + counter di Gallery publik
+- DB `gallery_likes` + fingerprint-based (no login needed)
+- GET count & POST toggle via API
+
+**Files:** Gallery.jsx, gallery/page.js, /api/gallery/[id]/like (baru)
+
+**Deploy:** PM2 ↺ 31
 
 ---
 
@@ -69,13 +91,14 @@
 - Auto-scroll ke foto yang dipilih pas buka
 - Tombol X fixed di atas
 
-**Layout final (setelah polish):**
-- Title overlay kiri atas (gradient bg, drop-shadow)
-- Action bar bawah: ❤️ + count, Repost, Share, Beli Merch
-- Caption di bawah action bar (kalo ada deskripsi)
-- Style konsisten antara Gallery home, /koleksi, /galeri
+**Layout & Polish:**
+- Judul di kiri dengan prefix "Judul :"
+- Tombol Bagikan di kanan (bg-white/10, rounded-full pill)
+- Alignment rapi (items-center, py-0.5)
+- Hapus teks sumber foto & counter 1/10
+- Spacing rapat antar gambar
 
-**File berubah:** `Gallery.jsx`
+**File berubah:** `Gallery.jsx`, `gallery/page.js`
 
 ---
 
@@ -112,10 +135,9 @@
 - Judul: "Mereka dan Gambar"
 - Fix: `force-dynamic` biar data fresh tiap render
 
-**Rencana Fitur Baru (saat itu, semua udah jadi):**
-- Auto akun murid → ✅ Tahap 23
-- Share medsos → ✅ Tahap 20
-- Like → ✅ Tahap 22
+**Rencana Fitur Baru:**
+- Auto akun murid pas daftar (email + mpXXXX)
+- Share medsos, swipe down, like — di tunda
 
 ---
 
