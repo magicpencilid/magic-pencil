@@ -266,8 +266,10 @@ export default function DashboardPage() {
             <p className="text-sm font-semibold text-primary">Karya Saya</p>
             <p className="text-xs text-text-light">Upload & galeri pribadi</p>
           </Link>
-          {/* Investasi Card — dinamis dari API */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+          {/* Investasi Card — dinamis dari API, klik masuk riwayat */}
+          <Link
+            href="/dashboard/investasi"
+            className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all block">
             {invoiceLoading ? (
               <div className="text-center">
                 <Loader2 className="w-6 h-6 animate-spin text-gray-300 mx-auto mb-2" />
@@ -321,7 +323,7 @@ export default function DashboardPage() {
                 </div>
               </>
             )}
-          </div>
+          </Link>
         </div>
 
         {/* Riwayat Absensi */}

@@ -3,8 +3,8 @@ import { getDb } from "@/lib/database";
 import { getCurrentMurid } from "@/lib/auth-murid";
 
 /**
- * GET /api/invoice/mine — Ambil invoice murid yang login
- * Return: data invoice + status pembayaran terbaru
+ * GET /api/invoice/mine — Ambil semua invoice murid yang login
+ * Return: { latest (invoice terbaru), invoices[] (semua) }
  */
 export async function GET() {
   try {
@@ -15,40 +15,52 @@ export async function GET() {
 
     const db = getDb();
 
-    // Ambil invoice berdasarkan registration_id (= murid.murid_id)
-    const invoice = db.prepare(`
+    // Ambil SEMUA invoice murid
+    const invoices = db.prepare(`
       SELECT i.id, i.invoice_number, i.amount, i.payment_due_date, i.payment_status, i.created_at,
              p.participant_name, p.class_name
       FROM invoice i
       JOIN pendaftar p ON i.registration_id = p.id
       WHERE i.registration_id = ?
       ORDER BY i.created_at DESC
-      LIMIT 1
-    `).get(murid.murid_id);
+    `).all(murid.murid_id);
 
-    if (!invoice) {
+    if (invoices.length === 0) {
       return NextResponse.json({
         success: true,
         data: null,
+        invoices: [],
         message: "Belum ada invoice"
       });
     }
 
-    // Ambil status pembayaran terbaru (kalo ada)
-    const pembayaran = db.prepare(`
-      SELECT status, uploaded_at, verified_at, admin_note
-      FROM pembayaran
-      WHERE registration_id = ?
-      ORDER BY uploaded_at DESC
-      LIMIT 1
-    `).get(murid.murid_id);
+    // Ambil status pembayaran tiap invoice
+    const allPembayaran = db.prepare(`
+      SELECT p.invoice_id, p.status, p.uploaded_at, p.verified_at, p.admin_note
+      FROM pembayaran p
+      JOIN invoice i ON p.invoice_id = i.id
+      WHERE i.registration_id = ?
+      ORDER BY p.uploaded_at DESC
+    `).all(murid.murid_id);
+
+    // Map pembayaran ke invoice
+    const pembayaranMap = {};
+    for (const p of allPembayaran) {
+      if (!pembayaranMap[p.invoice_id]) {
+        pembayaranMap[p.invoice_id] = p;
+      }
+    }
+
+    const invoicesWithPayment = invoices.map(inv => ({
+      ...inv,
+      pembayaran: pembayaranMap[inv.id] || null,
+    }));
 
     return NextResponse.json({
       success: true,
-      data: {
-        ...invoice,
-        pembayaran: pembayaran || null,
-      }
+      data: invoicesWithPayment[0], // latest (buat dashboard)
+      invoices: invoicesWithPayment, // semua (buat halaman riwayat)
+      total: invoicesWithPayment.length,
     });
   } catch (error) {
     console.error("Invoice mine error:", error);
