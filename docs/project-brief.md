@@ -1,7 +1,7 @@
-# 📘 Project Brief — Magic Pencil
+# Project Brief — Magic Pencil
 
 > File ini pegangan utama mamat. Update tiap kali ada perubahan besar.
-> Dibuat: 2026-05-08 | Update terakhir: 2026-05-15
+> Dibuat: 2026-05-08 | Update terakhir: 2026-05-16
 
 ---
 
@@ -10,11 +10,12 @@
 | Item | Detail |
 |------|--------|
 | **Nama** | Magic Pencil |
-| **Domain** | `magicpencil.my.id` ✅ |
-| **Tema** | Monochrome modern grey — hitam, putih, abu-abu |
-| **Font** | Inter (body), Playfair Display (heading), Italiana |
-| **Warna** | `--color-primary: #1a1a1a`, `--color-accent: #666`, `--color-accent-dark: #444` |
+| **Domain** | `magicpencil.my.id` |
+| **Tema** | Monochrome modern gray |
+| **Font** | Inter (body & navbar), Playfair Display (heading), Italiana (dekoratif) |
+| **Warna** | `--color-primary: #1a1a1a` (monochrome gray — gak pake accent colors) |
 | **Mata uang** | "Investasi" (bukan "Rp") |
+| **Design System** | Lihat Section 8 untuk rules lengkap |
 | **WA nomor** | `628111150563` |
 | **Transfer** | BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182) |
 | **Telegram** | @magicpencil_notif_bot |
@@ -81,7 +82,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | `jadwal` | Jadwal kelas per pendaftar |
 | `invoice` | Invoice auto-generated |
 | `pembayaran` | Konfirmasi bayar upload |
-| `kelas` | Daftar kelas + harga (7 kelas) |
+| `kelas` | Daftar kelas + harga (6 kelas: 3 monthly + 3 single) |
 | `schedule_config` | Hari & jam yang tersedia |
 | `notifikasi` | Log notifikasi terkirim |
 | `akun_murid` | Akun login murid + password_plain |
@@ -94,8 +95,8 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | `produk` | Online store merchandise |
 | `karya_likes` | Like karya murid (fingerprint-based) |
 
-### Data (per 15 Mei)
-- Kelas: 7 | Pendaftar: 0 (fresh start) | Aktif: 0
+### Data (per 16 Mei)
+- Kelas: 6 (3 monthly + 3 single) | Pendaftar: 0 (fresh start) | Aktif: 0 | Produk Store: 2
 - DB dibersihin setelah Tahap 23 selesai
 
 ---
@@ -114,24 +115,31 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 
 | Fitur | Status | Catatan |
 |-------|--------|---------|
+| Fitur | Status | Catatan |
+|-------|--------|---------|
 | Landing page | ✅ | Hero + galeri sketsa owner |
-| Pendaftaran + Syket | ✅ | Wajib setuju syarat & ketentuan |
+| Pendaftaran + Syket | ✅ | Wajib setuju syarat & ketentuan + Minat Gambar dropdown |
 | Invoice + Pembayaran | ✅ | Upload bukti transfer |
-| Login murid + Dashboard | ✅ | Jadwal, absensi, karya |
-| Admin panel | ✅ | 11 sub: Dashboard, Murid, Pendaftar, Kelas, Hari&Jam, Jadwal, Absensi, Karya, Galeri Foto, Produk, Testimoni, Pembayaran |
+| Auto-generate Jadwal | ✅ | Monthly=4x, Single=1x, meeting_number, tanggal real |
+| Check-in validation | ✅ | Cek jadwal dulu sebelum check-in |
+| Login murid + Dashboard | ✅ | Jadwal, absensi, karya, investasi |
+| Admin panel | ✅ | 11 sub menu |
 | Watermark otomatis | ✅ | jimp (resize 1000px + JPEG 65% + multiply blend) |
-| Galeri publik | ✅ | Lightbox + keyboard nav |
-| Galeri Foto Owner | ✅ | Instagram grid + admin upload + proxy image |
-| Testimoni | ✅ | Admin upload + section beranda (simplified: no foto, no bintang) |
-| PWA + Push notif | ✅ | VAPID keys |
+| Galeri publik + Galeri Owner | ✅ | Lightbox + keyboard nav + Instagram grid |
+| Testimoni | ✅ | Simplified (no foto, no bintang) |
+| PWA + Push notif | ⏸️ On Hold | Nunggu WA API |
 | Telegram Bot | ✅ | @magicpencil_notif_bot |
 | WA floating button | ✅ | wa.me/628111150563 |
 | ShareModal | ✅ | Native share HP / modal desktop |
 | Vertical Feed Lightbox | ✅ | Scroll feed kayak IG |
-| Like + Reaction | ✅ | ❤️ gallery_likes, fingerprint-based |
+| Like + Reaction (2 tabel) | ✅ | gallery_likes + karya_likes, fingerprint |
+| Leaderboard | ✅ | Top 10 approved + badge peringkat |
 | Auto Akun Murid | ✅ | Auto-create pas daftar, kredensial setelah bayar |
-| Online Store | ✅ | Katalog `/store`, order WA, admin CRUD, upload + proxy image |
-| Auto-generate Jadwal | ✅ | Monthly=4x pertemuan (mingguan), Single/Sesi=1x. Tanggal real, meeting_number |
+| Online Store | ✅ | Katalog /store, order WA, admin CRUD, proxy image |
+| Box Investasi klikable | ✅ | Riwayat invoice di /dashboard/investasi |
+| Minat Gambar | ✅ | Dropdown wajib di form daftar (5 opsi) |
+| Kompres Gambar Store | ✅ | Jimp resize 800px, JPEG quality 80 |
+| Navbar + Gallery UX Fixes | ✅ | Link Toko, Beli Merch, rename galeri |
 
 ---
 
@@ -154,8 +162,12 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 22 | Like + Reaction | ✅ Selesai, deployed |
 | 23 | Auto Akun Murid | ✅ Selesai, deployed |
 | 24 | Online Store — katalog + order WA + admin CRUD | ✅ Selesai, deployed |
+| 25 | Navbar + Gallery UX Fixes (link Toko, Beli Merch, rename galeri) | ✅ Selesai, deployed |
+| 26 | Kompres Gambar Store (Jimp resize 800px, JPEG quality 80) | ✅ Selesai, deployed |
+| 27 | Like System Karya Murid (tabel karya_likes, API terpisah) | ✅ Selesai, deployed |
+| 28 | Leaderboard (top 10 approved + badge peringkat) | ✅ Selesai, deployed |
 | 29 | Auto-generate Jadwal (monthly=4x, single=1x, meeting_number, tanggal real, seed baru) | ✅ Selesai, deployed (16 Mei) |
-| ~25-27~ | Testimoni Full, Events, Payment, Dashboard | ⏸️ Skip — nunggu WA API |
+| 30 | Minat Gambar + Design System (dropdown minat, monochrome gray rules) | ✅ Selesai, deployed (16 Mei) |
 
 ---
 
@@ -175,9 +187,8 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
   - `bg-gray-50` sampai `bg-gray-800` — background, button
 
 ### 8b. Font
-- **Body:** `Inter` (sans-serif) — via CSS variable `--font-sans`
+- **Body & Navbar:** `Inter` (sans-serif) — via CSS variable `--font-sans`
 - **Judul/Display:** `Playfair Display` (serif) — via CSS variable `--font-display`
-- **Navbar:** `Muli` — class `font-muli`
 - **Dekoratif:** `Italiana` — class `font-italiana` (jarang dipake)
 
 ### 8c. Icons
@@ -205,3 +216,4 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **Proxy image produk** — `/api/produk/image/[...segments]` anti cache issue (gak perlu restart PM2)
 - **Online Store** — semua order lewat WA (gak perlu payment gateway)
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
+- **Design System** — monochrome gray (Inter, Playfair Display, Muli, Lucide Icons, gak pake emoji)

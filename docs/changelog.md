@@ -4,7 +4,7 @@
 
 ---
 
-### 2026-05-16: Tahap 30 — Minat Gambar + Design System 🎨 ✅
+### 2026-05-16: Tahap 30 — Minat Gambar + Design System
 
 **Minat Gambar:**
 - Ganti field Catatan Tambahan (textarea opsional) → Minat Gambar (dropdown wajib)
@@ -14,26 +14,26 @@
 
 **Design System Rules:**
 - Semua icon/font/emoji → monochrome gray (gak ada accent, red, green, yellow)
-- Font: Inter (body) + Playfair Display (display) + Muli (navbar) + Italiana (dekoratif)
+- Font: Inter (body+navbar) + Playfair Display (display) + Italiana (dekoratif)
 - Icon: Lucide Icons wajib (gak pake emoji)
 - Button: bg-gray-200 text-gray-700, Badge: bg-gray-100/200
 - Rules dicatat di project-brief.md section 8
 
 **Perbaikan Warna (monochrome gray):**
-- Dashboard murid: semua loading spinner, check-in/out button, emoji
-- Admin murid: loading, filter, emoji 🆔🔑⚠️, amber box
-- Admin kelas: icon heading, emoji 📌
-- Admin jadwal opsi: icon, dot, emoji
-- Admin sidebar: tombol Keluar (red → gray)
-- NotificationManager: button hitam → gray
-- Footer: link Invoice → Admin
+- Dashboard murid: semua loading spinner, check-in/out button, emoji diganti Lucide icons
+- Admin murid: loading, filter, emoji UserID/Password/Warning, amber box
+- Admin kelas: icon heading, emoji pin di Informasi
+- Admin jadwal opsi: icon, dot, emoji pin
+- Admin sidebar: tombol Keluar (red ke gray)
+- NotificationManager: button hitam ke gray
+- Footer: link Invoice ke Admin
 
 **Files:** RegistrationForm.jsx, MuridCards.jsx, AdminSidebar.jsx, KelasAdmin.jsx, JadwalOpsiAdmin.jsx, NotificationManager.jsx, semua halaman dashboard
-**Deploy:** 12+ commit, PM2 ↺ 69
+**Deploy:** 34+ commit, PM2 ↺ 69
 
 ---
 
-### 2026-05-16: Tahap 29 — Auto-generate Jadwal Pertemuan 📅 ✅
+### 2026-05-16: Tahap 29 — Auto-generate Jadwal Pertemuan
 
 **Fitur:**
 - Monthly (Kelas Sketsa, Kelas Gambar, Kelas Private) → 4 jadwal auto, 1x/minggu
@@ -55,14 +55,14 @@
 
 ---
 
-### 2026-05-15: Tahap 24 — Online Store 🛍️ ✅
+### 2026-05-15: Tahap 24 — Online Store
 
 **Fitur:**
 - Katalog `/store` — grid produk 2-4 kolom, filter kategori, modal detail
 - Order via WhatsApp — form pemesan + template WA lengkap (produk, ukuran, warna, jumlah)
 - Admin CRUD produk — tambah/edit/hapus, toggle status, upload gambar
 - Fitur ukuran + warna (tag chips input, tersimpan di DB sebagai JSON)
-- Tombol 🛍️ Beli Merch di Gallery lightbox → WA langsung
+- Tombol Beli Merch di Gallery lightbox -> WA langsung
 - Proxy API `/api/produk/image/[...segments]` — anti cache issue (gak perlu restart PM2)
 
 **Perbaikan:**

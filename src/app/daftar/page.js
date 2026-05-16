@@ -1,12 +1,10 @@
 /* =============================================
-   📝 DAFTAR PAGE — Halaman Pendaftaran
+   DAFTAR PAGE — Halaman Pendaftaran
    
    Halaman ini nampilin form pendaftaran dengan:
    - Header informasi
    - Form isian
-   
-   Masih static (belum connect ke backend).
-   Di Tahap 3 nanti data beneran masuk database.
+   - Sidebar keunggulan
    ============================================= */
 
 import RegistrationForm from "@/components/RegistrationForm";
@@ -74,8 +72,8 @@ export default function DaftarPage() {
                   const Icon = item.icon;
                   return (
                     <li key={index} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                        <Icon className="w-4 h-4 text-accent" />
+                      <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
+                        <Icon className="w-4 h-4 text-gray-500" />
                       </div>
                       <span className="text-sm text-text-light">{item.text}</span>
                     </li>
@@ -84,20 +82,7 @@ export default function DaftarPage() {
               </ul>
             </div>
 
-            {/* Kontak */}
-            <div className="bg-primary rounded-2xl p-6 text-white">
-              <h3 className="font-bold mb-3">Ada pertanyaan?</h3>
-              <p className="text-sm text-gray-300 mb-4">
-                Hubungi kami langsung via WhatsApp untuk konsultasi gratis.
-              </p>
-              <a
-                href="https://wa.me/628111150563"
-                target="_blank"
-                className="block text-center bg-white text-primary font-bold py-2.5 rounded-xl hover:bg-gray-100 transition-colors"
-              >
-                Chat WhatsApp
-              </a>
-            </div>
+
           </div>
         </div>
       </div>

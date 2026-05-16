@@ -8,11 +8,11 @@ tahap:30 (Minat Gambar + Design System)
 server:PM2 online (↺ 69)
 
 ## STATS
-pages:27 (27 pages)
-api:48 (48 routes)
-comps:28
+pages:~29
+api:~50
+comps:~28
 kelas:6
-pendaftar:0 (fresh 15 Mei)
+pendaftar:0 (fresh 16 Mei)
 karya:0
 absen:0
 invoice:0
@@ -30,22 +30,22 @@ minat_gambar:field di pendaftar (notes)
 - Proxy image: `/api/produk/image/[...segments]` — anti cache issue
 - Leaderboard: top 10 karya populer di halaman depan
 - Store images: auto-kompres JPEG quality 80, resize 800px
-- **Design System:** monochrome gray (Inter + Playfair Display + Lucide Icons, gak pake emoji)
+- **Design System:** monochrome gray (Inter body+navbar, Playfair Display heading, Italiana dekoratif, Lucide Icons, gak pake emoji)
 - **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 
 ## NEXT
 - WA API integration (notif ke WA ganti web push)
 
 ## ROADMAP
-- Tahap 20 - Share + Investasi (✅)
-- Tahap 21 - Vertical Feed Lightbox (✅)
-- Tahap 22 - Like + Reaction (✅)
-- Tahap 23 - Auto Akun Murid (✅)
-- Tahap 24 - Online Store (✅)
-- Tahap 25 - Navbar + Gallery UX Fixes (✅)
-- Tahap 26 - Kompres Store (✅)
-- Tahap 27 - Like Karya Murid (✅)
-- Tahap 28 - Leaderboard (✅)
-- Tahap 29 - Auto-generate Jadwal (✅)
-- Tahap 30 - Minat Gambar + Design System (✅)
+- Tahap 20 - Share + Investasi (selesai)
+- Tahap 21 - Vertical Feed Lightbox (selesai)
+- Tahap 22 - Like + Reaction (selesai)
+- Tahap 23 - Auto Akun Murid (selesai)
+- Tahap 24 - Online Store (selesai)
+- Tahap 25 - Navbar + Gallery UX Fixes (selesai)
+- Tahap 26 - Kompres Store (selesai)
+- Tahap 27 - Like Karya Murid (selesai)
+- Tahap 28 - Leaderboard (selesai)
+- Tahap 29 - Auto-generate Jadwal (selesai)
+- Tahap 30 - Minat Gambar + Design System (selesai)
 - Next - WA API integration

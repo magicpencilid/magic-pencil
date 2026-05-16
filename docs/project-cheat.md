@@ -4,34 +4,34 @@
 
 ---
 
-## 🖥️ APP
+## APP
 
 **Nama:** Magic Pencil
-**Tujuan:** Web landing + pendaftaran + galeri karya lukis
+**Tujuan:** Web landing + pendaftaran + galeri karya lukis + online store
 **URL:** https://magicpencil.my.id
 
 ---
 
-## 🏗️ STACK
+## STACK
 
 | Layer | Teknologi |
 |-------|-----------|
 | **Frontend** | Next.js 16.2.4 + React 19 + Tailwind CSS 4 |
-| **Backend** | Next.js API Routes (server-side, 46 routes) |
+| **Backend** | Next.js API Routes (server-side) |
 | **DB** | SQLite (better-sqlite3) - `magic-pencil.db` |
-| **Font** | Playfair Display (heading), Inter (body), Italiana |
-| **Warna** | Monochrome grey - `--color-primary: #1a1a1a` |
-| **Mata uang** | "Investasi" (bukan "Rp") |
+| **Font** | Inter (body & navbar), Playfair Display (heading), Italiana (dekoratif) |
+| **Warna** | Monochrome gray — `--color-primary: #1a1a1a` |
+| **Design System** | Semua gray, gak pake emoji, Lucide Icons wajib |
 
 ---
 
-## 🗂️ STRUKTUR
+## STRUKTUR
 
 ```
 magic-pencil-app/
 ├── src/
-│   ├── app/              ← 26 pages + 46 API routes
-│   ├── components/       ← 27 UI components
+│   ├── app/              ← pages + API routes
+│   ├── components/       ← UI components
 │   └── lib/              ← DB, auth, helpers
 ├── public/
 │   └── uploads/          ← bukti-bayar/ + karya/
@@ -45,54 +45,56 @@ magic-pencil-app/
 
 ---
 
-## ✅ FEATURES
+## FEATURES
 
 | Fitur | Status |
 |-------|--------|
-| **Auth admin + murid** | ✅ |
-| **Pendaftaran + Syket** | ✅ |
-| **Invoice + pembayaran** | ✅ |
-| **Jadwal kelas** | ✅ |
-| **Absensi check-in/out** | ✅ |
-| **Galeri karya murid** | ✅ (upload + approve + publik) |
-| **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
-| **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
-| **Testimoni** | ✅ (no foto, no bintang, section beranda) |
-| **Online Store** | ✅ (katalog `/store`, order WA, admin CRUD, upload gambar, proxy API, beli merch di gallery) |
-| **Auto Akun Murid** | ✅ (auto-create pas daftar, kredensial setelah bayar, password di kartu murid) |
-| **ShareModal + Native Share** | ✅ (navigator.share HP / modal desktop) |
-| **Vertical Feed Lightbox** | ✅ (scroll feed kayak IG, ganti prev/next) |
-| **Like + Reaction** | ✅ (❤️ gallery_likes, fingerprint-based) |
-| **PWA + notifikasi push** | ✅ |
-| **Telegram Bot** | ✅ (@magicpencil_notif_bot) |
-| **WA floating button** | ✅ (wa.me/628111150563) |
-| **Dashboard murid** | ✅ (jadwal, absensi, karya) |
-| **Dashboard admin** | ✅ (11 sub: Dashboard, Murid, Pendaftar, Kelas, Hari&Jam, Jadwal, Absensi, Karya, Galeri Foto, **Produk**, Testimoni, Pembayaran) |
+| Auth admin + murid | Selesai |
+| Pendaftaran + Syket | Selesai |
+| Invoice + pembayaran | Selesai |
+| Auto-generate Jadwal (monthly=4x, single=1x) | Selesai |
+| Check-in validation (cek jadwal dulu) | Selesai |
+| Absensi check-in/out | Selesai |
+| Galeri karya murid (upload + approve + publik) | Selesai |
+| Watermark otomatis (jimp, max 1000px, 65%, multiply) | Selesai |
+| Galeri Foto Owner (/gallery) | Selesai |
+| Testimoni (no foto, no bintang) | Selesai |
+| Online Store (katalog, order WA, admin CRUD, proxy image) | Selesai |
+| Auto Akun Murid (create pas daftar, kredensial setelah bayar) | Selesai |
+| ShareModal + Native Share (navigator.share / modal) | Selesai |
+| Vertical Feed Lightbox (scroll feed kayak IG) | Selesai |
+| Like + Reaction (2 tabel: gallery_likes + karya_likes, fingerprint) | Selesai |
+| Leaderboard (top 10 approved, badge peringkat) | Selesai |
+| Kompres Gambar Store (Jimp resize 800px, JPEG 80%) | Selesai |
+| Box Investasi klikable + Riwayat Invoice | Selesai |
+| Minat Gambar dropdown (form daftar, wajib) | Selesai |
+| PWA + notifikasi push (on hold — nunggu WA API) | On Hold |
+| Telegram Bot (@magicpencil_notif_bot) | Selesai |
+| WA floating button (wa.me/628111150563) | Selesai |
+| Dashboard murid (jadwal, absensi, karya, investasi) | Selesai |
+| Dashboard admin (11 sub menu) | Selesai |
 
 ---
 
-## 🔄 FLOW
+## FLOW
 
 ```
-User → Landing → Daftar + setuju Syket → Invoice → Bayar
-                                             ↓
-                                  Cek status / Konfirmasi
-                                             ↓
-                                  Login murid → Dashboard
-                                             ↓
-                                   Jadwal | Absensi | Upload Karya
+User -> Landing -> Daftar (isi form + minat gambar) -> Syket -> Invoice -> Bayar
+                                                              |
+                                               Cek status / Konfirmasi
+                                                              |
+                                               Login murid -> Dashboard (jadwal, absensi, karya, investasi)
 
-Admin → Login → Dashboard
-              ↓
-  Pendaftar | Murid | Kelas | Jadwal | Absensi | Pembayaran | Karya | Produk
+Admin -> Login -> Dashboard
+              |
+  Pendaftar | Murid (lihat minat gambar) | Kelas | Hari&Jam | Jadwal | Absensi | Karya | Pembayaran | Produk | Testimoni
 
-Pelanggan → `/store` → Lihat produk → Pilih ukuran/warna/jumlah →
-             Isi form (nama, WA) → Klik Pesan WA → wa.me/628111150563
+Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 ```
 
 ---
 
-## 🌐 DEPLOY (aaPanel)
+## DEPLOY (aaPanel)
 
 | Item | Detail |
 |------|--------|
@@ -100,8 +102,8 @@ Pelanggan → `/store` → Lihat produk → Pilih ukuran/warna/jumlah →
 | **SSH** | `root@192.168.110.105` |
 | **App path** | `/www/wwwroot/magic-pencil/` |
 | **Panel** | aaPanel port 1050 |
-| **PM2** | `magic-pencil` → port 3000 → online |
-| **Domain** | Cloudflare Tunnel → aaPanel:1050 → localhost:3000 |
+| **PM2** | `magic-pencil` -> port 3000 -> online |
+| **Domain** | Cloudflare Tunnel -> aaPanel:1050 -> localhost:3000 |
 | **Node** | v22.22.2 |
 
 ### Deploy normal (GitHub jalan)
@@ -120,7 +122,7 @@ Pelanggan → `/store` → Lihat produk → Pilih ukuran/warna/jumlah →
 
 ---
 
-## 💾 BACKUP (Manual via update mat)
+## BACKUP (Manual via update mat)
 
 | Step | Perintah | Tujuan |
 |------|----------|--------|
@@ -130,19 +132,24 @@ Pelanggan → `/store` → Lihat produk → Pilih ukuran/warna/jumlah →
 
 ---
 
-## 📝 NOTES
+## NOTES
 
 - **Transfer:** BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182)
 - **Telegram Bot:** @magicpencil_notif_bot
 - **Admin password:** `Pencil@dmin`
 - **Server CPU:** KVM tua - gak support `sharp`, pake `jimp`
 - **Next.js 16:** route handler `params` wajib di-await
+- **Design System:** monochrome gray (Inter body, Playfair Display heading, Lucide Icons, gak pake emoji)
+- **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan/Arsitektur, Benda Solid)
 
 ---
 
-## 🎯 NEXT
+## NEXT
 
 - [x] Tahap 22 - Like + Reaction
 - [x] Tahap 23 - Auto Akun Murid
-- [x] **Tahap 24 - Online Store** (katalog, order WA, admin CRUD, upload + proxy image) ✅
-- [ ] ~~Testimoni Full, Events, Payment, Dashboard~~ — skip, nunggu WA API
+- [x] Tahap 24 - Online Store
+- [x] Tahap 25-28 - Navbar UX, Kompres, Like Karya, Leaderboard
+- [x] Tahap 29 - Auto-generate Jadwal
+- [x] Tahap 30 - Minat Gambar + Design System
+- [ ] WA API integration (notifikasi ke WA ganti web push)

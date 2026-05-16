@@ -21,7 +21,7 @@
 | Lokasi | Status | Catatan |
 |--------|--------|---------|
 | Lokal (laptop) | ✅ Ready | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (16 Mei) — 28+ commit, PM2 ↺ 69 |
+| Server (aaPanel) | ✅ Running | Terkini (16 Mei) — 34+ commit, PM2 ↺ 69 |
 
 ---
 
@@ -37,10 +37,15 @@
 | 19 | Testimoni (simplified: no foto, no bintang) | 12 Mei |
 | 20 | Share ke Medsos (ShareModal + Native Share) + Istilah Investasi | 15 Mei |
 | 21 | Vertical Feed Lightbox (Instagram-style) | 15 Mei |
-| 22 | Like + Reaction (❤️, gallery_likes, fingerprint) | 15 Mei |
+| 22 | Like + Reaction (2 tabel: gallery_likes + karya_likes, fingerprint) | 15 Mei |
 | 23 | Auto Akun Murid (create pas daftar, kredensial setelah bayar, password di kartu murid) | 15 Mei |
-| **24** | **Online Store** (katalog `/store`, order WA, admin CRUD, upload gambar, beli merch di gallery) | **15 Mei** |
-| **29** | **Auto-generate Jadwal** (monthly=4x, single=1x, meeting_number, tanggal real) | **16 Mei** |
+| 24 | Online Store (katalog /store, order WA, admin CRUD, upload gambar, beli merch) | 15 Mei |
+| 25 | Navbar + Gallery UX Fixes (link Toko, Beli Merch, rename galeri) | 15 Mei |
+| 26 | Kompres Gambar Store (Jimp resize 800px, JPEG quality 80) | 15 Mei |
+| 27 | Like System Karya Murid (tabel karya_likes, API terpisah) | 15 Mei |
+| 28 | Leaderboard (top 10 approved + badge peringkat) | 15 Mei |
+| 29 | Auto-generate Jadwal (monthly=4x, single=1x, meeting_number, tanggal real) | 16 Mei |
+| 30 | Minat Gambar + Design System (dropdown minat, monochrome gray rules) | 16 Mei |
 
 ### Fitur Kecil (tanpa nomor tahap)
 | Fitur | Tanggal |
@@ -53,12 +58,13 @@
 
 ---
 
-## Data Server *(per 15 Mei 2026 — DB fresh)*
+## Data Server *(per 16 Mei 2026 — DB fresh)*
 
 | Item | Jumlah |
 |------|--------|
-| Kelas | 7 |
+| Kelas | 6 (3 monthly + 3 single) |
 | Pendaftar | **0** (fresh start setelah Tahap 23) |
+| Produk Store | 2 (Kaos polos + Kaos polo) |
 | Aktif | 0 |
 | Karya | 0 |
 | Absensi | 0 |
@@ -72,10 +78,13 @@
 | Tahap | Fitur | Status |
 |-------|-------|--------|
 | 23 | Auto Akun Murid | ✅ Selesai, deployed |
-| **24** | **Online Store** (katalog, order WA, admin CRUD, upload + proxy image) | **✅ Selesai, deployed** |
-| **29** | **Auto-generate Jadwal** (monthly=4x, single=1x, meeting_number, tanggal real) | **✅ Selesai, deployed (16 Mei)** |
-| **30** | **Minat Gambar + Design System** (monochrome gray, footer admin, minat dropdown) | **✅ Selesai, deployed (16 Mei)** |
-| ~~25-27~~ | ~~Testimoni Full, Events, Payment, Dashboard~~ | ⏸️ Skip — nunggu WA API |
+| 24 | Online Store | ✅ Selesai, deployed |
+| 25 | Navbar + Gallery UX Fixes | ✅ Selesai, deployed |
+| 26 | Kompres Gambar Store | ✅ Selesai, deployed |
+| 27 | Like System Karya Murid | ✅ Selesai, deployed |
+| 28 | Leaderboard | ✅ Selesai, deployed |
+| 29 | Auto-generate Jadwal | ✅ Selesai, deployed (16 Mei) |
+| 30 | Minat Gambar + Design System | ✅ Selesai, deployed (16 Mei) |
 
 ---
 
@@ -91,7 +100,7 @@
 | **password_plain** | Disimpan di DB (hash + plain) buat display admin & user |
 | **Store** | Katalog `/store` — grid produk, filter, modal detail, pilih ukuran/warna, WA order |
 | **Proxy Image** | `/api/produk/image/[...segments]` — anti cache issue, gak perlu restart PM2 |
-| **Beli Merch** | Tombol 🛍️ di Gallery lightbox → WA langsung |
+| **Beli Merch** | Tombol Beli di Gallery lightbox → WA langsung |
 
 ---
 
@@ -99,7 +108,7 @@
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
-| 2026-05-16 | **Tahap 29-30** — Auto-generate Jadwal ✅, Check-in validasi ✅, Investasi card ✅, Riwayat investasi ✅, Monochrome gray all pages ✅, Minat Gambar dropdown ✅, Design System rules ✅. PM2 ↺ 69. 28+ commit. |
+| 2026-05-16 | **Tahap 29-30** — Auto-generate Jadwal ✅, Check-in validasi ✅, Investasi card ✅, Riwayat investasi ✅, Monochrome gray all pages ✅, Minat Gambar dropdown ✅, Design System rules ✅. PM2 ↺ 69. 34+ commit. |
 | 2026-05-15 | **Tahap 24** — Online Store (katalog, order WA, admin CRUD, upload gambar, proxy API, beli merch, fitur warna). PM2 ↺ 47. |
 | 2026-05-15 | **Tahap 23** — Auto Akun Murid (8 commit, ↺ 39). DB fresh (0 pendaftar). |
 | 2026-05-15 | **Tahap 22** — Like + Reaction (gallery_likes, fingerprint) |
