@@ -58,7 +58,7 @@ export default function KelasAdmin() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
-          <BookOpen className="w-6 h-6 text-accent" />
+          <BookOpen className="w-6 h-6 text-gray-500" />
           Kelola Kelas & Investasi
         </h1>
         <p className="text-sm text-text-light mt-1">

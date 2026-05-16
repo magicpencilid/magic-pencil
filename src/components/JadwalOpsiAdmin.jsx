@@ -19,7 +19,7 @@ export default function JadwalOpsiAdmin() {
     <div className="p-6 lg:p-8 max-w-3xl mx-auto">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
-          <Clock className="w-6 h-6 text-accent" />
+          <Clock className="w-6 h-6 text-gray-500" />
           Kelola Hari & Jam
         </h1>
         <p className="text-sm text-text-light mt-1">
@@ -35,7 +35,7 @@ export default function JadwalOpsiAdmin() {
               className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-100"
             >
               <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-accent" />
+                <div className="w-3 h-3 rounded-full bg-gray-400" />
                 <span className="text-sm font-medium text-primary">{slot.day}</span>
               </div>
               <span className="text-sm font-semibold text-primary bg-white px-4 py-1.5 rounded-lg border border-gray-200">
@@ -47,7 +47,7 @@ export default function JadwalOpsiAdmin() {
       </div>
 
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-text-light mt-6">
-        <p className="font-semibold mb-1">📌 Informasi:</p>
+        <p className="font-semibold mb-1 text-gray-700">Informasi:</p>
         <p>• Jadwal bersifat tetap dan tidak bisa diubah dari sini.</p>
         <p>• Hubungi developer jika ada perubahan data jadwal.</p>
       </div>

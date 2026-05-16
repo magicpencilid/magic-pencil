@@ -122,7 +122,7 @@ export default function NotificationManager() {
       {notifStatus === null && (
         <button
           onClick={enableNotifications}
-          className="w-full bg-gray-800 text-white py-2.5 rounded-full text-sm font-semibold hover:bg-gray-900 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-gray-200 text-gray-700 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-300 transition-all flex items-center justify-center gap-2"
         >
           <Bell className="w-4 h-4" />
           Aktifkan Notifikasi

@@ -71,7 +71,7 @@ export default function MuridCards() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
       </div>
     );
   }
@@ -112,7 +112,7 @@ export default function MuridCards() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari nama murid..."
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
           />
         </div>
         <div className="flex gap-2">
@@ -122,8 +122,8 @@ export default function MuridCards() {
               onClick={() => setFilter(s.value)}
               className={`text-sm px-3 py-2 rounded-xl transition-colors ${
                 filter === s.value
-                  ? "bg-accent text-white"
-                  : "bg-white border border-gray-200 text-text-light hover:border-accent"
+                  ? "bg-gray-700 text-white"
+                  : "bg-white border border-gray-200 text-text-light hover:border-gray-400"
               }`}
             >
               {s.label}
@@ -197,29 +197,29 @@ export default function MuridCards() {
                     <span className="text-xs">{m.created_at}</span>
                   </div>
 
-                  {/* 🔑 Akun Login — langsung tampil */}
+                  {/* Akun Login — langsung tampil */}
                   <div className="pt-3 mt-3 border-t border-gray-100">
                     {m.akun_email && m.akun_password ? (
                       <div className="bg-gray-50 rounded-lg p-3 space-y-2">
                         {/* User ID */}
                         <div>
-                          <p className="text-[11px] font-semibold text-gray-400 mb-0.5">🆔 User ID</p>
+                          <p className="text-[11px] font-semibold text-gray-400 mb-0.5">User ID</p>
                           <p className="text-sm font-mono text-primary font-medium break-all">{m.akun_email}</p>
                         </div>
                         {/* Password */}
                         <div>
-                          <p className="text-[11px] font-semibold text-gray-400 mb-0.5">🔑 Password</p>
+                          <p className="text-[11px] font-semibold text-gray-400 mb-0.5">Password</p>
                           <p className="text-sm font-mono text-primary font-bold tracking-wider">{m.akun_password}</p>
                         </div>
                       </div>
                     ) : m.status === "aktif" ? (
-                      <div className="bg-amber-50 rounded-lg px-3 py-2">
-                        <p className="text-xs text-amber-700 font-medium">⚠️ Belum punya akun</p>
-                        <p className="text-[11px] text-amber-500 mt-0.5">Buat di halaman Pendaftar</p>
+                      <div className="bg-gray-100 rounded-lg px-3 py-2">
+                        <p className="text-xs text-gray-600 font-medium">Belum punya akun</p>
+                        <p className="text-[11px] text-gray-500 mt-0.5">Buat di halaman Pendaftar</p>
                       </div>
                     ) : (
                       <div className="bg-gray-50 rounded-lg px-3 py-2">
-                        <p className="text-xs text-gray-400 italic">🔑 Akun akan dibuat setelah terdaftar</p>
+                        <p className="text-xs text-gray-400 italic">Akun akan dibuat setelah terdaftar</p>
                       </div>
                     )}
                   </div>
