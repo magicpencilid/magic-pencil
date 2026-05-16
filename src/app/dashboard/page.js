@@ -112,7 +112,7 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
       </div>
     );
   }
@@ -138,7 +138,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-xs text-text-light hover:text-accent">
+            <Link href="/" className="text-xs text-text-light hover:text-gray-600">
               Beranda
             </Link>
             <button
@@ -221,7 +221,7 @@ export default function DashboardPage() {
               <button
                 onClick={handleCheckin}
                 disabled={absensiLoading}
-                className="flex-1 bg-accent text-white py-3 rounded-full text-sm font-semibold hover:bg-accent-dark transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 bg-gray-800 text-white py-3 rounded-full text-sm font-semibold hover:bg-gray-900 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {absensiLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
                 {absensiLoading ? "Memproses..." : "✅ Check-in"}

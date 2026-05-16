@@ -77,7 +77,7 @@ export default function UploadKaryaPage() {
   if (!murid) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
       </div>
     );
   }
@@ -98,7 +98,7 @@ export default function UploadKaryaPage() {
           {/* Preview / Upload Area */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <label className="block">
-              <div className="aspect-video bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 hover:border-accent transition-colors cursor-pointer flex items-center justify-center overflow-hidden relative">
+              <div className="aspect-video bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 transition-colors cursor-pointer flex items-center justify-center overflow-hidden relative">
                 {preview ? (
                   <>
                     <img src={preview} alt="Preview" className="w-full h-full object-contain" />
@@ -131,7 +131,7 @@ export default function UploadKaryaPage() {
                 value={judul}
                 onChange={(e) => setJudul(e.target.value)}
                 placeholder="Contoh: Pemandangan Gunung"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400"
                 maxLength={100}
               />
             </div>
@@ -143,7 +143,7 @@ export default function UploadKaryaPage() {
                 onChange={(e) => setDeskripsi(e.target.value)}
                 placeholder="Cerita singkat tentang karya ini..."
                 rows={3}
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent resize-none"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400 resize-none"
                 maxLength={500}
               />
             </div>
@@ -155,7 +155,7 @@ export default function UploadKaryaPage() {
                 value={kelas}
                 onChange={(e) => setKelas(e.target.value)}
                 placeholder="Contoh: Melukis Akrilik"
-                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-400"
               />
             </div>
 
@@ -164,7 +164,7 @@ export default function UploadKaryaPage() {
                 type="checkbox"
                 checked={isPublic}
                 onChange={(e) => setIsPublic(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent/30"
+                className="w-4 h-4 rounded border-gray-300 text-gray-700 focus:ring-gray-300"
               />
               <div>
                 <span className="text-sm font-semibold text-primary">Tampilkan di galeri publik</span>
@@ -174,7 +174,7 @@ export default function UploadKaryaPage() {
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl">
+            <div className="bg-gray-100 border border-gray-200 text-gray-600 text-sm px-4 py-3 rounded-xl">
               {error}
             </div>
           )}
@@ -182,7 +182,7 @@ export default function UploadKaryaPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-accent text-white py-3 rounded-xl font-semibold text-sm hover:bg-accent-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full bg-gray-800 text-white py-3 rounded-xl font-semibold text-sm hover:bg-gray-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
             {loading ? "Mengupload..." : "Upload Karya"}

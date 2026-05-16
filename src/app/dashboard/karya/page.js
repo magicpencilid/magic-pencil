@@ -60,7 +60,7 @@ export default function KaryaPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+        <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
       </div>
     );
   }
@@ -77,7 +77,7 @@ export default function KaryaPage() {
           </div>
           <Link
             href="/dashboard/karya/upload"
-            className="inline-flex items-center gap-1.5 bg-accent text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-accent-dark transition-colors"
+            className="inline-flex items-center gap-1.5 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-900 transition-colors"
           >
             <Plus className="w-4 h-4" /> Upload
           </Link>
@@ -92,7 +92,7 @@ export default function KaryaPage() {
             <p className="text-sm mb-6">Upload hasil karya pertamamu!</p>
             <Link
               href="/dashboard/karya/upload"
-              className="inline-flex items-center gap-2 bg-accent text-white px-6 py-3 rounded-xl text-sm font-semibold hover:bg-accent-dark transition-colors"
+              className="inline-flex items-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:bg-gray-900 transition-colors"
             >
               <Plus className="w-4 h-4" /> Upload Karya
             </Link>
@@ -131,7 +131,7 @@ export default function KaryaPage() {
                       </button>
                       <button
                         onClick={() => handleDelete(karya.id)}
-                        className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
                         title="Hapus"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

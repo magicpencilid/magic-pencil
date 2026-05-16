@@ -89,7 +89,7 @@ export default function InvestasiPage() {
         {/* Daftar Invoice */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-accent" />
+            <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
           </div>
         ) : invoices.length === 0 ? (
           <div className="text-center py-20 text-text-light">
@@ -150,7 +150,7 @@ export default function InvestasiPage() {
                   {!isLunas && (
                     <a
                       href="/status"
-                      className="mt-3 inline-flex items-center gap-1 text-accent text-xs font-semibold hover:text-accent-dark"
+                      className="mt-3 inline-flex items-center gap-1 text-gray-600 text-xs font-semibold hover:text-gray-800"
                     >
                       <AlertCircle className="w-3 h-3" />
                       Konfirmasi Pembayaran →

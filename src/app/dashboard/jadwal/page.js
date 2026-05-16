@@ -104,7 +104,7 @@ export default function JadwalMuridPage() {
         {/* Loading */}
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-accent" />
+            <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
           </div>
         )}
 
@@ -126,7 +126,7 @@ export default function JadwalMuridPage() {
         {/* Jadwal Cards */}
         {!loading &&
           data.map((item) => {
-            const todayClass = isToday(item.schedule_date) ? "ring-2 ring-accent/20" : "";
+            const todayClass = isToday(item.schedule_date) ? "ring-2 ring-gray-200" : "";
             return (
               <div
                 key={item.id}
