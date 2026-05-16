@@ -12,7 +12,7 @@ const quickLinks = [
   { label: "Galeri", href: "/#galeri" },
   { label: "Pendaftaran", href: "/daftar" },
   { label: "Cek Status", href: "/status" },
-  { label: "Invoice", href: "/invoice" },
+  { label: "Admin", href: "/admin/login" },
 ];
 
 const contacts = [
