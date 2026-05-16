@@ -1,7 +1,7 @@
 # 📘 Project Brief — Magic Pencil
 
 > File ini pegangan utama mamat. Update tiap kali ada perubahan besar.
-> Dibuat: 2026-05-08 | Update terakhir: 2026-05-15
+> Dibuat: 2026-05-08 | Update terakhir: 2026-05-15 (sore)
 
 ---
 
@@ -14,7 +14,7 @@
 | **Tema** | Monochrome modern grey — hitam, putih, abu-abu |
 | **Font** | Inter (body), Playfair Display (heading), Italiana |
 | **Warna** | `--color-primary: #1a1a1a`, `--color-accent: #666`, `--color-accent-dark: #444` |
-| **Mata uang** | "Investasi" (bukan "Rp") |
+| **Mata uang** | Rp (default) / "Investasi" di dashboard murid |
 | **WA nomor** | `628111150563` |
 | **Transfer** | BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182) |
 | **Telegram** | @magicpencil_notif_bot |
@@ -30,7 +30,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 │   ├── app/              ← Pages + API routes
 │   ├── components/       ← UI components
 │   └── lib/              ← Database, auth, helpers
-├── public/uploads/       ← bukti-bayar/ + karya/
+├── public/uploads/       ← gallery/ + karya/ + pembayaran/ + produk/
 ├── docs/                 ← Dokumentasi
 ├── scripts/              ← Utility scripts
 ├── magic-pencil.db       ← Database SQLite
@@ -42,7 +42,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 ```
 /www/wwwroot/magic-pencil/
 ├── .next/                ← Build output
-├── public/uploads/       ← Uploaded files (3.3MB)
+├── public/uploads/       ← gallery/ + karya/ + pembayaran/ + produk/
 ├── magic-pencil.db       ← Database (live)
 ├── package.json
 └── .env.local
@@ -81,21 +81,22 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | `jadwal` | Jadwal kelas per pendaftar |
 | `invoice` | Invoice auto-generated |
 | `pembayaran` | Konfirmasi bayar upload |
-| `kelas` | Daftar kelas + harga (7 kelas) |
+| `kelas` | Daftar kelas + harga (6 kelas) |
 | `schedule_config` | Hari & jam yang tersedia |
 | `notifikasi` | Log notifikasi terkirim |
-| `akun_murid` | Akun login murid + password_plain |
+| `akun_murid` | Akun login murid |
 | `absensi` | Check-in/out per murid |
 | `push_subscriptions` | Subscriber PWA |
 | `karya_murid` | Upload karya (watermark otomatis) |
-| `gallery_photos` | Galeri foto owner (admin upload) |
-| `gallery_likes` | Like foto gallery (fingerprint-based) |
-| `testimonials` | Testimoni (nama + teks) |
-| `produk` | Online store merchandise |
+| `gallery_photos` | Foto studio owner |
+| `gallery_likes` | Like foto studio (fingerprint-based) |
+| `karya_likes` | Like karya murid (fingerprint-based) |
+| `testimonials` | Testimoni murid |
+| `produk` | Produk merch/store |
 
-### Data (per 15 Mei)
-- Kelas: 7 | Pendaftar: 0 (fresh start) | Aktif: 0
-- DB dibersihin setelah Tahap 23 selesai
+### Data (15 Mei — fresh)
+- Kelas: 6 | Pendaftar: 0 | Aktif: 0
+- Karya: 0 | Absen: 0 | Invoice: 0 | Jadwal: 0
 
 ---
 
@@ -117,19 +118,18 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Pendaftaran + Syket | ✅ | Wajib setuju syarat & ketentuan |
 | Invoice + Pembayaran | ✅ | Upload bukti transfer |
 | Login murid + Dashboard | ✅ | Jadwal, absensi, karya |
-| Admin panel | ✅ | 11 sub: Dashboard, Murid, Pendaftar, Kelas, Hari&Jam, Jadwal, Absensi, Karya, Galeri Foto, Produk, Testimoni, Pembayaran |
+| Admin panel | ✅ | Dashboard, Murid, Pendaftar, Kelas, Jadwal, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran (+ Hari & Jam) |
 | Watermark otomatis | ✅ | jimp (resize 1000px + JPEG 65% + multiply blend) |
-| Galeri publik | ✅ | Lightbox + keyboard nav |
-| Galeri Foto Owner | ✅ | Instagram grid + admin upload + proxy image |
-| Testimoni | ✅ | Admin upload + section beranda (simplified: no foto, no bintang) |
+| Galeri publik | ✅ | Lightbox + keyboard nav, masonry grid |
+| Galeri Foto Owner (/koleksi) | ✅ | Instagram grid + tab galeri+murid, proxy API |
+| Like + Reaction | ✅ | gallery_likes + karya_likes, fingerprint, count selalu tampil |
+| Auto Akun Murid | ✅ | Auto-create pas daftar, kredensial stlh bayar |
+| Testimoni | ✅ | Admin upload + section beranda (no foto, no bintang) |
+| Online Store | ✅ | Katalog /store, admin CRUD, upload+kompres, proxy API |
+| Leaderboard | ✅ | Top 10 karya populer di halaman depan |
 | PWA + Push notif | ✅ | VAPID keys |
 | Telegram Bot | ✅ | @magicpencil_notif_bot |
 | WA floating button | ✅ | wa.me/628111150563 |
-| ShareModal | ✅ | Native share HP / modal desktop |
-| Vertical Feed Lightbox | ✅ | Scroll feed kayak IG |
-| Like + Reaction | ✅ | ❤️ gallery_likes, fingerprint-based |
-| Auto Akun Murid | ✅ | Auto-create pas daftar, kredensial setelah bayar |
-| Online Store | ✅ | Katalog `/store`, order WA, admin CRUD, upload + proxy image |
 
 ---
 
@@ -149,10 +149,16 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 19 | Testimoni (Simplified) | ✅ Selesai, deployed |
 | 20 | Share ke Medsos (ShareModal) | ✅ Selesai, deployed |
 | 21 | Vertical Feed Lightbox (Instagram-style) | ✅ Selesai, deployed |
-| 22 | Like + Reaction | ✅ Selesai, deployed |
-| 23 | Auto Akun Murid | ✅ Selesai, deployed |
-| 24 | Online Store — katalog + order WA + admin CRUD | ✅ Selesai, deployed |
-| ~25-27~ | Testimoni Full, Events, Payment, Dashboard | ⏸️ Skip — nunggu WA API |
+| 22 | Like + Reaction | ✅ Selesai |
+| 23 | Auto Akun Murid | ✅ Selesai |
+| 24 | Online Store | ✅ Selesai |
+| 25 | Navbar + Gallery UX Fixes | ✅ Selesai |
+| 26 | Kompres Gambar Store | ✅ Selesai |
+| 27 | Like Karya Murid | ✅ Selesai |
+| 28 | Leaderboard | ✅ Selesai |
+| 29 | Upgrade Store — Multi Gambar + Slider | 🟡 Next Plan |
+| — | Bundle Kelas + Merch pas daftar | 🔵 Rencana |
+| — | Komentar per Karya Murid | 🔵 Rencana |
 
 ---
 
@@ -164,6 +170,3 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **Server CPU KVM** tua — gak support sharp, pake jimp
 - **Next.js 16** — route handler params wajib di-await
 - **ShareModal** — native share di HP, modal platform di desktop
-- **Proxy image produk** — `/api/produk/image/[...segments]` anti cache issue (gak perlu restart PM2)
-- **Online Store** — semua order lewat WA (gak perlu payment gateway)
-- **password_plain** — disimpan di DB buat display admin + user setelah bayar

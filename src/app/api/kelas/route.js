@@ -42,12 +42,13 @@ export async function POST(request) {
     }
 
     const stmt = db.prepare(
-      "INSERT INTO kelas (name, price, description) VALUES (@name, @price, @description)"
+      "INSERT INTO kelas (name, price, description, type) VALUES (@name, @price, @description, @type)"
     );
     const result = stmt.run({
       name: body.name.trim(),
       price: isPrivate ? 0 : Number(body.price),
       description: body.description?.trim() || null,
+      type: body.type?.trim() || 'monthly',
     });
 
     return NextResponse.json({

@@ -222,19 +222,20 @@ function initTables() {
   try { db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms INTEGER NOT NULL DEFAULT 0"); } catch (e) { /* kolom udah ada */ }
   try { db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms_at TEXT"); } catch (e) { /* kolom udah ada */ }
   try { db.exec("ALTER TABLE kelas ADD COLUMN type TEXT NOT NULL DEFAULT 'monthly'"); } catch (e) { /* kolom udah ada */ }
+  try { db.exec("ALTER TABLE jadwal ADD COLUMN meeting_number INTEGER"); } catch (e) { /* kolom udah ada */ }
 
   // Seed data kelas (kalo tabelnya baru dibuat)
   const kelasCount = db.prepare("SELECT COUNT(*) as count FROM kelas").get();
   if (kelasCount.count === 0) {
     const seedClasses = [
-      { name: "Melukis Akrilik", price: 500000, description: "Teknik melukis dengan cat akrilik di atas kanvas" },
-      { name: "Sketsa & Drawing", price: 400000, description: "Dasar-dasar menggambar dengan pensil dan arsiran" },
-      { name: "Mewarnai Anak", price: 350000, description: "Mewarnai gambar untuk anak-anak (usia 3-8 tahun)" },
-      { name: "Ilustrasi Digital", price: 600000, description: "Menggambar digital menggunakan tablet" },
-      { name: "Cat Air", price: 450000, description: "Teknik melukis dengan cat air" },
-      { name: "Kelas Private", price: 800000, description: "Bimbingan personal 1-on-1 dengan pengajar" },
+      { name: "Kelas Sketsa", price: 1000000, description: "Belajar menyeket bentuk global sebagai pondasi drawing", type: "monthly" },
+      { name: "Kelas Gambar", price: 1000000, description: "Mengarsir volume, proporsi, depth, hingga komposisi", type: "monthly" },
+      { name: "Kelas Private", price: 0, description: "Bimbingan personal 1-on-1 dengan pengajar. Materi, jadwal, dan durasi bisa disesuaikan.", type: "monthly" },
+      { name: "Sesi Lukis Anabul", price: 350000, description: "Lukis anabul kesayanganmu — 1x sesi, alat lengkap", type: "single" },
+      { name: "Sesi Sketsa", price: 300000, description: "Sketsa sesuai keinginanmu — 1x sesi, alat lengkap", type: "single" },
+      { name: "Sesi Gambar", price: 300000, description: "Gambar apapun yang kamu suka — 1x sesi, alat lengkap", type: "single" },
     ];
-    const ins = db.prepare("INSERT INTO kelas (name, price, description) VALUES (@name, @price, @description)");
+    const ins = db.prepare("INSERT INTO kelas (name, price, description, type) VALUES (@name, @price, @description, @type)");
     for (const k of seedClasses) ins.run(k);
   }
 
@@ -249,3 +250,23 @@ function initTables() {
     jam.forEach((j, i) => insJam.run(j, i));
   }
 }
+
+/* ===== MIGRASI: Update kelas seed lama ke yang baru ===== */
+// DB lama mungkin masih pake nama kelas "Melukis Akrilik" dll.
+// Ganti dengan daftar kelas yang sesuai admin UI.
+try {
+  const oldExist = db.prepare("SELECT COUNT(*) as count FROM kelas WHERE name = 'Melukis Akrilik'").get();
+  if (oldExist.count > 0) {
+    db.exec("DELETE FROM kelas");
+    const seed = [
+      { name: "Kelas Sketsa", price: 1000000, description: "Belajar menyeket bentuk global sebagai pondasi drawing", type: "monthly" },
+      { name: "Kelas Gambar", price: 1000000, description: "Mengarsir volume, proporsi, depth, hingga komposisi", type: "monthly" },
+      { name: "Kelas Private", price: 0, description: "Bimbingan personal 1-on-1 dengan pengajar. Materi, jadwal, dan durasi bisa disesuaikan.", type: "monthly" },
+      { name: "Sesi Lukis Anabul", price: 350000, description: "Lukis anabul kesayanganmu — 1x sesi, alat lengkap", type: "single" },
+      { name: "Sesi Sketsa", price: 300000, description: "Sketsa sesuai keinginanmu — 1x sesi, alat lengkap", type: "single" },
+      { name: "Sesi Gambar", price: 300000, description: "Gambar apapun yang kamu suka — 1x sesi, alat lengkap", type: "single" },
+    ];
+    const ins = db.prepare("INSERT INTO kelas (name, price, description, type) VALUES (@name, @price, @description, @type)");
+    for (const k of seed) ins.run(k);
+  }
+} catch (e) { /* aman */ }

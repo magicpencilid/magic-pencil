@@ -21,7 +21,7 @@ export async function GET(request) {
     // Ambil jadwal berdasarkan class_name murid
     let query = `
       SELECT j.id, j.class_name, j.schedule_date, j.schedule_time,
-             j.teacher_name, j.location, j.notes,
+             j.teacher_name, j.location, j.notes, j.meeting_number,
              p.participant_name, p.full_name
       FROM jadwal j
       JOIN pendaftar p ON j.registration_id = p.id

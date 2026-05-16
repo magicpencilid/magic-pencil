@@ -90,17 +90,42 @@ export async function POST(request) {
       rawPassword
     );
 
-    /* 3b️⃣ Simpan jadwal pilihan kalo ada */
+    /* 3b️⃣ Auto-generate jadwal berdasarkan tipe kelas
+      - Monthly (kelas sketsa/gambar): 4 pertemuan, 1x/minggu
+      - Sesi: 1 pertemuan aja */
     if (body.pilihHari && body.pilihJam) {
-      db.prepare(`
-        INSERT INTO jadwal (registration_id, class_name, schedule_date, schedule_time)
-        VALUES (@registration_id, @class_name, @schedule_date, @schedule_time)
-      `).run({
-        registration_id: regId,
-        class_name: body.className,
-        schedule_date: body.pilihHari,
-        schedule_time: body.pilihJam,
-      });
+      // Cek tipe kelas dari DB
+      const kelasInfo = db.prepare("SELECT type FROM kelas WHERE name = ?").get(body.className);
+      const isMonthly = kelasInfo?.type === 'monthly';
+      const meetingCount = isMonthly ? 4 : 1;
+
+      // Map nama hari ke number (0=Minggu)
+      const hariMap = {"Minggu":0,"Senin":1,"Selasa":2,"Rabu":3,"Kamis":4,"Jumat":5,"Sabtu":6};
+      const targetDay = hariMap[body.pilihHari];
+
+      if (targetDay !== undefined) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const currentDay = today.getDay(); // 0=Minggu
+        let diff = targetDay - currentDay;
+        if (diff < 0) diff += 7; // Kalo hari udah lewat, cari minggu depan
+
+        const insertJadwal = db.prepare(`
+          INSERT INTO jadwal (registration_id, class_name, schedule_date, schedule_time, meeting_number)
+          VALUES (?, ?, ?, ?, ?)
+        `);
+
+        for (let i = 0; i < meetingCount; i++) {
+          const jadwalDate = new Date(today);
+          jadwalDate.setDate(today.getDate() + diff + (i * 7));
+          const yyyy = jadwalDate.getFullYear();
+          const mm = String(jadwalDate.getMonth() + 1).padStart(2, '0');
+          const dd = String(jadwalDate.getDate()).padStart(2, '0');
+          const dateStr = `${yyyy}-${mm}-${dd}`;
+
+          insertJadwal.run(regId, body.className, dateStr, body.pilihJam, i + 1);
+        }
+      }
     }
 
     /* 3c️⃣ Kirim notifikasi ke admin via push + telegram */

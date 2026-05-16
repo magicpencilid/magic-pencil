@@ -7,7 +7,7 @@
 ## 🖥️ APP
 
 **Nama:** Magic Pencil
-**Tujuan:** Web landing + pendaftaran + galeri karya lukis
+**Tujuan:** Web landing + pendaftaran + galeri karya murid + online store
 **URL:** https://magicpencil.my.id
 
 ---
@@ -17,11 +17,11 @@
 | Layer | Teknologi |
 |-------|-----------|
 | **Frontend** | Next.js 16.2.4 + React 19 + Tailwind CSS 4 |
-| **Backend** | Next.js API Routes (server-side, 46 routes) |
+| **Backend** | Next.js API Routes (server-side, 49 routes) |
 | **DB** | SQLite (better-sqlite3) - `magic-pencil.db` |
 | **Font** | Playfair Display (heading), Inter (body), Italiana |
 | **Warna** | Monochrome grey - `--color-primary: #1a1a1a` |
-| **Mata uang** | "Investasi" (bukan "Rp") |
+| **Mata uang** | Rp (default) / "Investasi" di dashboard murid |
 
 ---
 
@@ -30,11 +30,11 @@
 ```
 magic-pencil-app/
 ├── src/
-│   ├── app/              ← 26 pages + 46 API routes
-│   ├── components/       ← 27 UI components
+│   ├── app/              ← 26 pages + 49 API routes
+│   ├── components/       ← 28 UI components
 │   └── lib/              ← DB, auth, helpers
 ├── public/
-│   └── uploads/          ← bukti-bayar/ + karya/
+│   └── uploads/          ← gallery/ + karya/ + pembayaran/ + produk/
 ├── docs/                 ← Dokumentasi
 ├── scripts/              ← Utility (watermark, process image, dll)
 ├── magic-pencil.db       ← Database
@@ -56,18 +56,19 @@ magic-pencil-app/
 | **Absensi check-in/out** | ✅ |
 | **Galeri karya murid** | ✅ (upload + approve + publik) |
 | **Watermark otomatis (jimp)** | ✅ (max 1000px, 65%, multiply blend pixel-level) |
-| **Galeri Foto Owner (/gallery)** | ✅ (Instagram grid, proxy API, admin upload) |
+| **Galeri Foto Owner (/koleksi)** | ✅ (Instagram grid, proxy API, admin upload, tab galeri+murid) |
 | **Testimoni** | ✅ (no foto, no bintang, section beranda) |
-| **Online Store** | ✅ (katalog `/store`, order WA, admin CRUD, upload gambar, proxy API, beli merch di gallery) |
-| **Auto Akun Murid** | ✅ (auto-create pas daftar, kredensial setelah bayar, password di kartu murid) |
 | **ShareModal + Native Share** | ✅ (navigator.share HP / modal desktop) |
-| **Vertical Feed Lightbox** | ✅ (scroll feed kayak IG, ganti prev/next) |
-| **Like + Reaction** | ✅ (❤️ gallery_likes, fingerprint-based) |
+| **Vertical Feed Lightbox** | ✅ (scroll feed vertikal kayak IG) |
 | **PWA + notifikasi push** | ✅ |
 | **Telegram Bot** | ✅ (@magicpencil_notif_bot) |
 | **WA floating button** | ✅ (wa.me/628111150563) |
+| **Like + Reaction** | ✅ (gallery_likes + karya_likes, fingerprint-based) |
+| **Auto Akun Murid** | ✅ (auto-create pas daftar, kredensial stlh bayar) |
+| **Online Store** | ✅ (katalog /store, admin CRUD, upload+kompres) |
+| **Leaderboard** | ✅ (top 10 karya populer di halaman depan) |
 | **Dashboard murid** | ✅ (jadwal, absensi, karya) |
-| **Dashboard admin** | ✅ (11 sub: Dashboard, Murid, Pendaftar, Kelas, Hari&Jam, Jadwal, Absensi, Karya, Galeri Foto, **Produk**, Testimoni, Pembayaran) |
+| **Dashboard admin** | ✅ (10 sub: Dashboard, Murid, Pendaftar, Kelas, Jadwal+Opsi, Absensi, Karya, Galeri Foto, Testimoni, Pembayaran) |
 
 ---
 
@@ -84,10 +85,7 @@ User → Landing → Daftar + setuju Syket → Invoice → Bayar
 
 Admin → Login → Dashboard
               ↓
-  Pendaftar | Murid | Kelas | Jadwal | Absensi | Pembayaran | Karya | Produk
-
-Pelanggan → `/store` → Lihat produk → Pilih ukuran/warna/jumlah →
-             Isi form (nama, WA) → Klik Pesan WA → wa.me/628111150563
+  Pendaftar | Murid | Kelas | Jadwal | Absensi | Pembayaran | Karya
 ```
 
 ---
@@ -142,7 +140,6 @@ Pelanggan → `/store` → Lihat produk → Pilih ukuran/warna/jumlah →
 
 ## 🎯 NEXT
 
-- [x] Tahap 22 - Like + Reaction
-- [x] Tahap 23 - Auto Akun Murid
-- [x] **Tahap 24 - Online Store** (katalog, order WA, admin CRUD, upload + proxy image) ✅
-- [ ] ~~Testimoni Full, Events, Payment, Dashboard~~ — skip, nunggu WA API
+- [ ] Upgrade Store — Multi Gambar + Slider
+- [ ] Bundle "Kelas + Merch" pas daftar
+- [ ] Komentar per Karya Murid

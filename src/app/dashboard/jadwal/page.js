@@ -135,7 +135,14 @@ export default function JadwalMuridPage() {
                 {/* Baris 1: Tanggal + Label */}
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <p className="text-sm font-semibold text-primary">{item.class_name}</p>
+                    <p className="text-sm font-semibold text-primary">
+                      {item.class_name}
+                      {item.meeting_number && (
+                        <span className="text-xs text-text-light font-normal ml-1.5">
+                          Pertemuan {item.meeting_number}/4
+                        </span>
+                      )}
+                    </p>
                     <p className="text-xs text-text-light mt-0.5">{item.participant_name}</p>
                   </div>
                   {isToday(item.schedule_date) && (
