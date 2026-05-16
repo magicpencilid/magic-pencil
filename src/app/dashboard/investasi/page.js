@@ -42,7 +42,13 @@ export default function InvestasiPage() {
 
   function formatDate(dateStr) {
     if (!dateStr) return "-";
-    const d = new Date(dateStr + "T00:00:00");
+    // Handle format: "2026-05-23" (date-only) atau "2026-05-16 15:48:00" (datetime)
+    const clean = dateStr.split(" ")[0]; // ambil YYYY-MM-DD aja
+    if (!clean) return "-";
+    const parts = clean.split("-");
+    if (parts.length !== 3) return dateStr;
+    const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+    if (isNaN(d.getTime())) return dateStr;
     const bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
     return `${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}`;
   }
@@ -98,20 +104,12 @@ export default function InvestasiPage() {
               return (
                 <div
                   key={inv.id}
-                  className={`bg-white rounded-2xl shadow-sm border p-5 ${
-                    isLunas ? "border-green-100" : "border-gray-100"
-                  }`}
+                  className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                        isLunas ? "bg-green-50" : "bg-yellow-50"
-                      }`}>
-                        {isLunas ? (
-                          <CheckCircle className="w-5 h-5 text-green-600" />
-                        ) : (
-                          <Clock className="w-5 h-5 text-yellow-600" />
-                        )}
+                      <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
+                        <CreditCard className={`w-5 h-5 ${isLunas ? "text-gray-600" : "text-gray-400"}`} />
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-primary">{inv.class_name}</p>
@@ -120,10 +118,10 @@ export default function InvestasiPage() {
                     </div>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                       isLunas
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
+                        ? "bg-gray-200 text-gray-700"
+                        : "bg-gray-100 text-gray-500"
                     }`}>
-                      {isLunas ? "✓ Lunas" : "⏳ Pending"}
+                      {isLunas ? "Lunas" : "Pending"}
                     </span>
                   </div>
 
@@ -142,8 +140,8 @@ export default function InvestasiPage() {
                       </div>
                     </div>
                     {inv.pembayaran?.verified_at && (
-                      <p className="text-green-600 text-xs mt-2 flex items-center gap-1">
-                        <CheckCircle className="w-3 h-3" />
+                      <p className="text-gray-600 text-xs mt-2 flex items-center gap-1">
+                        <CheckCircle className="w-3 h-3 text-gray-400" />
                         Dibayar & terverifikasi {formatDate(inv.pembayaran.verified_at)}
                       </p>
                     )}
