@@ -19,6 +19,7 @@ import {
   Calendar,
   BookOpen,
   Clock,
+  MessageSquare,
 } from "lucide-react";
 
 const statusFilter = [
@@ -196,6 +197,13 @@ export default function MuridCards() {
                     <Clock className="w-3.5 h-3.5 shrink-0 text-gray-400" />
                     <span className="text-xs">{m.created_at}</span>
                   </div>
+
+                  {m.notes && (
+                    <div className="flex items-center gap-2 text-text-light">
+                      <MessageSquare className="w-3.5 h-3.5 shrink-0 text-gray-400" />
+                      <span className="text-xs">Minat: {m.notes}</span>
+                    </div>
+                  )}
 
                   {/* Akun Login — langsung tampil */}
                   <div className="pt-3 mt-3 border-t border-gray-100">
