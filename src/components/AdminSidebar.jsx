@@ -118,7 +118,7 @@ export default function AdminSidebar() {
             await fetch("/api/admin/logout", { method: "POST" });
             window.location.href = "/admin/login";
           }}
-          className={`flex items-center gap-2 px-3 py-2.5 text-sm text-red-500 hover:bg-red-50 rounded-xl transition-colors w-full text-left ${
+          className={`flex items-center gap-2 px-3 py-2.5 text-sm text-gray-500 hover:bg-gray-100 rounded-xl transition-colors w-full text-left ${
             collapsed ? "justify-center px-2" : ""
           }`}
           title={collapsed ? "Keluar" : undefined}
