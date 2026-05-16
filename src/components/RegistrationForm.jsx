@@ -108,6 +108,7 @@ export default function RegistrationForm() {
       newErrors.age = "Usia harus antara 3-99 tahun";
     }
     if (!form.className) newErrors.className = "Pilih kelas yang diinginkan";
+    if (!form.notes) newErrors.notes = "Pilih minat gambar";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -353,19 +354,27 @@ export default function RegistrationForm() {
       {/* ===== BARIS 5: Catatan ===== */}
       <div>
         <label className="block text-sm font-semibold text-primary mb-1.5">
-          Catatan Tambahan
+          Minat Gambar <span className="text-red-500">*</span>
         </label>
         <div className="relative">
-          <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-          <textarea
+          <MessageSquare className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <select
             name="notes"
             value={form.notes}
             onChange={handleChange}
-            rows="3"
-            placeholder="Ada yang ingin ditanyakan? (opsional)"
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors resize-none"
-          />
+            className={`w-full pl-10 pr-4 py-2.5 rounded-xl border appearance-none bg-white ${
+              errors.notes ? "border-red-400 bg-red-50" : "border-gray-200"
+            } focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-colors`}
+          >
+            <option value="">Pilih minat gambar...</option>
+            <option value="Alam">Alam</option>
+            <option value="Manusia">Manusia</option>
+            <option value="Hewan">Hewan</option>
+            <option value="Bangunan/Arsitektur">Bangunan/Arsitektur</option>
+            <option value="Benda Solid">Benda Solid</option>
+          </select>
         </div>
+        {errors.notes && <p className="text-red-500 text-xs mt-1">{errors.notes}</p>}
       </div>
 
       {/* ===== PESAN ERROR ===== */}
