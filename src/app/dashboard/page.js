@@ -266,55 +266,27 @@ export default function DashboardPage() {
             <p className="text-sm font-semibold text-primary">Karya Saya</p>
             <p className="text-xs text-text-light">Upload & galeri pribadi</p>
           </Link>
-          {/* Investasi Card — dinamis dari API, klik masuk riwayat */}
+          {/* Investasi Card — sepola sama Jadwal, Absensi, Karya */}
           <Link
             href="/dashboard/investasi"
-            className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all block">
+            className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-all text-center"
+          >
+            <CreditCard className="w-7 h-7 text-gray-400 mx-auto mb-2" />
+            <p className="text-sm font-semibold text-primary">Investasi</p>
             {invoiceLoading ? (
-              <div className="text-center">
-                <Loader2 className="w-6 h-6 animate-spin text-gray-300 mx-auto mb-2" />
-              </div>
-            ) : !invoiceData ? (
-              <div className="text-center">
-                <CreditCard className="w-7 h-7 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-gray-400">Investasi</p>
-                <p className="text-xs text-text-light">Belum ada invoice</p>
-              </div>
+              <Loader2 className="w-4 h-4 animate-spin text-gray-300 mx-auto mt-1" />
+            ) : invoiceData ? (
+              <p className={`text-xs mt-1 ${
+                invoiceData.payment_status === 'lunas'
+                  ? 'text-gray-600'
+                  : 'text-accent'
+              }`}>
+                {invoiceData.payment_status === 'lunas'
+                  ? 'Lunas'
+                  : `Rp ${Number(invoiceData.amount).toLocaleString("id-ID")}`}
+              </p>
             ) : (
-              <>
-                {/* Header: Status + Icon */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <CreditCard className="w-5 h-5 text-gray-400" />
-                    <p className="text-sm font-semibold text-primary">Investasi</p>
-                  </div>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                    invoiceData.payment_status === 'lunas'
-                      ? 'bg-gray-200 text-gray-700'
-                      : 'bg-gray-100 text-gray-500'
-                  }`}>
-                    {invoiceData.payment_status === 'lunas' ? 'Lunas' : 'Pending'}
-                  </span>
-                </div>
-
-                {/* Detail */}
-                <div className="space-y-1 text-xs text-text-light">
-                  <p className="font-medium text-primary text-sm">
-                    Investasi {Number(invoiceData.amount).toLocaleString("id-ID")}
-                  </p>
-                  {invoiceData.payment_status !== 'lunas' && (
-                    <>
-                      <p>No. {invoiceData.invoice_number}</p>
-                      <p>Batas: {invoiceData.payment_due_date}</p>
-                    </>
-                  )}
-                  {invoiceData.pembayaran?.verified_at && (
-                    <p className="text-gray-600 text-xs mt-1">
-                      ✓ Terverifikasi
-                    </p>
-                  )}
-                </div>
-              </>
+              <p className="text-xs text-text-light mt-1">Riwayat pembayaran</p>
             )}
           </Link>
         </div>
