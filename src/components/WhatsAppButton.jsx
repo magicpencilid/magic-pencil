@@ -42,6 +42,10 @@ export default function WhatsAppButton() {
           transform: scale(1.1);
           box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
+        /* Sembunyiin pas modal store kebuka */
+        body.store-modal-open #wa-wrap {
+          display: none !important;
+        }
         #wa-wrap svg {
           width: 30px;
           height: 30px;

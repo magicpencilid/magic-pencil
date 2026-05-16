@@ -42,10 +42,12 @@ export default function StorePage() {
     setJumlah(1);
     setNamaPemesan("");
     setWaPemesan("");
+    document.body.classList.add("store-modal-open");
   }
 
   function closeDetail() {
     setSelected(null);
+    document.body.classList.remove("store-modal-open");
   }
 
   function buatWaLink() {
