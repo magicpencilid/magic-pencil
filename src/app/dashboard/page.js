@@ -276,13 +276,9 @@ export default function DashboardPage() {
             {invoiceLoading ? (
               <Loader2 className="w-4 h-4 animate-spin text-gray-300 mx-auto mt-1" />
             ) : invoiceData ? (
-              <p className={`text-xs mt-1 ${
-                invoiceData.payment_status === 'lunas'
-                  ? 'text-gray-600'
-                  : 'text-accent'
-              }`}>
+              <p className="text-xs text-text-light mt-1">
                 {invoiceData.payment_status === 'lunas'
-                  ? 'Lunas'
+                  ? 'Daftar investasi'
                   : `Rp ${Number(invoiceData.amount).toLocaleString("id-ID")}`}
               </p>
             ) : (
