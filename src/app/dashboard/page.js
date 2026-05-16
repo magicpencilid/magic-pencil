@@ -204,9 +204,9 @@ export default function DashboardPage() {
             </div>
             <div>
               <p className="text-sm font-semibold text-primary">
-                {sudahCheckout ? "✅ Selesai (Check-out)" :
-                 sudahCheckin ? "⏳ Belum Check-out" :
-                 "⏳ Belum Check-in"}
+                {sudahCheckout ? "Selesai (Check-out)" :
+                 sudahCheckin ? "Belum Check-out" :
+                 "Belum Check-in"}
               </p>
               <p className="text-xs text-text-light">
                 {sudahCheckin ? `Masuk: ${absensiHariIni.check_in}` : "Belum absen hari ini"}
@@ -221,10 +221,10 @@ export default function DashboardPage() {
               <button
                 onClick={handleCheckin}
                 disabled={absensiLoading}
-                className="flex-1 bg-gray-800 text-white py-3 rounded-full text-sm font-semibold hover:bg-gray-900 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-full text-sm font-semibold hover:bg-gray-300 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {absensiLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
-                {absensiLoading ? "Memproses..." : "✅ Check-in"}
+                {absensiLoading ? "Memproses..." : "Check-in"}
               </button>
             )}
             {sudahCheckin && !sudahCheckout && (
@@ -234,7 +234,7 @@ export default function DashboardPage() {
                 className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-full text-sm font-semibold hover:bg-gray-200 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {absensiLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
-                {absensiLoading ? "Memproses..." : "🚪 Check-out"}
+                {absensiLoading ? "Memproses..." : "Check-out"}
               </button>
             )}
           </div>
