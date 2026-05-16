@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft, Calendar, Clock, BookOpen, CreditCard,
-  CheckCircle, XCircle, Loader2, LogIn, User, LogOut, ImageIcon,
+  CheckCircle, XCircle, Loader2, LogIn, User, LogOut, ImageIcon, AlertCircle,
 } from "lucide-react";
 import NotificationManager from "@/components/NotificationManager";
 
@@ -28,6 +28,8 @@ export default function DashboardPage() {
   const [absensiLoading, setAbsensiLoading] = useState(false);
   const [absensiMsg, setAbsensiMsg] = useState("");
   const [riwayat, setRiwayat] = useState([]);
+  const [invoiceData, setInvoiceData] = useState(null);
+  const [invoiceLoading, setInvoiceLoading] = useState(true);
 
   const fetchAbsensi = useCallback(async () => {
     try {
@@ -42,6 +44,15 @@ export default function DashboardPage() {
     } catch {}
   }, []);
 
+  const fetchInvoice = useCallback(async () => {
+    try {
+      const res = await fetch("/api/invoice/mine");
+      const data = await res.json();
+      if (data.success) setInvoiceData(data.data);
+    } catch {}
+    setInvoiceLoading(false);
+  }, []);
+
   const fetchUser = useCallback(async () => {
     try {
       const res = await fetch("/api/auth-murid/me");
@@ -52,6 +63,7 @@ export default function DashboardPage() {
       }
       setUser(data.data);
       fetchAbsensi();
+      fetchInvoice();
     } catch {
       router.push("/login");
     } finally {
@@ -254,10 +266,61 @@ export default function DashboardPage() {
             <p className="text-sm font-semibold text-primary">Karya Saya</p>
             <p className="text-xs text-text-light">Upload & galeri pribadi</p>
           </Link>
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 text-center">
-            <CreditCard className="w-7 h-7 text-gray-400 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-primary">Investasi</p>
-            <p className="text-xs text-text-light">Cek status investasi</p>
+          {/* Investasi Card — dinamis dari API */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+            {invoiceLoading ? (
+              <div className="text-center">
+                <Loader2 className="w-6 h-6 animate-spin text-gray-300 mx-auto mb-2" />
+              </div>
+            ) : !invoiceData ? (
+              <div className="text-center">
+                <CreditCard className="w-7 h-7 text-gray-300 mx-auto mb-2" />
+                <p className="text-sm font-semibold text-gray-400">Investasi</p>
+                <p className="text-xs text-text-light">Belum ada invoice</p>
+              </div>
+            ) : (
+              <>
+                {/* Header: Status + Icon */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <CreditCard className={`w-5 h-5 ${invoiceData.payment_status === 'lunas' ? 'text-green-500' : 'text-gray-400'}`} />
+                    <p className="text-sm font-semibold text-primary">Investasi</p>
+                  </div>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    invoiceData.payment_status === 'lunas'
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-yellow-100 text-yellow-700'
+                  }`}>
+                    {invoiceData.payment_status === 'lunas' ? '✓ Lunas' : '⏳ Pending'}
+                  </span>
+                </div>
+
+                {/* Detail */}
+                <div className="space-y-1 text-xs text-text-light">
+                  <p className="font-medium text-primary text-sm">
+                    Investasi {Number(invoiceData.amount).toLocaleString("id-ID")}
+                  </p>
+                  {invoiceData.payment_status !== 'lunas' && (
+                    <>
+                      <p>No. {invoiceData.invoice_number}</p>
+                      <p>Batas: {invoiceData.payment_due_date}</p>
+                      <a
+                        href="/status"
+                        className="inline-flex items-center gap-1 mt-2 text-accent text-xs font-semibold hover:text-accent-dark"
+                      >
+                        <AlertCircle className="w-3 h-3" />
+                        Konfirmasi Pembayaran
+                      </a>
+                    </>
+                  )}
+                  {invoiceData.pembayaran?.verified_at && (
+                    <p className="text-green-600 text-xs mt-1">
+                      ✓ Terverifikasi {invoiceData.pembayaran.verified_at}
+                    </p>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
 
