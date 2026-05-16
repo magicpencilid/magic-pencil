@@ -159,7 +159,42 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 
 ---
 
-## 8. Catatan Penting
+## 8. Design System — Monochrome Modern Gray
+
+**Rules (wajib untuk semua fitur ke depan):**
+
+### 8a. Warna
+- **Semua** teks, icon, border, background, button, badge → **monochrome gray**
+- DILARANG pakai warna: `text-accent`, `bg-accent`, `text-{red|green|yellow|blue|amber}-*` di halaman publik/murid/admin
+- Pengecualian: halaman marketing/landing page (seperti CTA button) BOLEH pake accent
+- Gradasi gray yang dipakai:
+  - `text-gray-300` / `text-gray-400` — icon dekoratif, placeholder
+  - `text-gray-500` / `text-gray-600` — teks sekunder, badge
+  - `text-gray-700` — teks aksi, status
+  - `text-primary` / `text-text-light` — teks utama (dari CSS variable)
+  - `bg-gray-50` sampai `bg-gray-800` — background, button
+
+### 8b. Font
+- **Body:** `Inter` (sans-serif) — via CSS variable `--font-sans`
+- **Judul/Display:** `Playfair Display` (serif) — via CSS variable `--font-display`
+- **Navbar:** `Muli` — class `font-muli`
+- **Dekoratif:** `Italiana` — class `font-italiana` (jarang dipake)
+
+### 8c. Icons
+- **WAJIB** pakai [Lucide Icons](https://lucide.dev) (`lucide-react`)
+- Jangan pake emoji (✅❌⚠️🔑🆔📌🎨🚪⏳🟢🔴🟡 dll) — ganti dengan Lucide Icon yang gray
+- Kalo gak ada icon Lucide yang cocok, pilih yang paling mirip
+
+### 8d. Aturan Tambahan
+- Loading spinner: `text-gray-300` (jangan `text-accent`)
+- Badge status: `bg-gray-100 text-gray-500` (pending) / `bg-gray-200 text-gray-700` (lunas/aktif)
+- Button primary: `bg-gray-200 text-gray-700 hover:bg-gray-300`
+- Button secondary: `bg-gray-100 text-gray-700 hover:bg-gray-200`
+- Focus ring input: `focus:ring-2 focus:ring-gray-300`
+
+---
+
+## 9. Catatan Penting
 
 - **Backup + docs** — manual via `update mat` (git push + sync docs + backup DB)
 - **New chat threshold** — 70% context

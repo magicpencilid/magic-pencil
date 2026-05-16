@@ -4,6 +4,35 @@
 
 ---
 
+### 2026-05-16: Tahap 30 — Minat Gambar + Design System 🎨 ✅
+
+**Minat Gambar:**
+- Ganti field Catatan Tambahan (textarea opsional) → Minat Gambar (dropdown wajib)
+- 5 opsi: Alam, Manusia, Hewan, Bangunan/Arsitektur, Benda Solid
+- Validasi required + tampil di Admin Murid
+- Reuse field `notes` di DB (gak perlu migrasi)
+
+**Design System Rules:**
+- Semua icon/font/emoji → monochrome gray (gak ada accent, red, green, yellow)
+- Font: Inter (body) + Playfair Display (display) + Muli (navbar) + Italiana (dekoratif)
+- Icon: Lucide Icons wajib (gak pake emoji)
+- Button: bg-gray-200 text-gray-700, Badge: bg-gray-100/200
+- Rules dicatat di project-brief.md section 8
+
+**Perbaikan Warna (monochrome gray):**
+- Dashboard murid: semua loading spinner, check-in/out button, emoji
+- Admin murid: loading, filter, emoji 🆔🔑⚠️, amber box
+- Admin kelas: icon heading, emoji 📌
+- Admin jadwal opsi: icon, dot, emoji
+- Admin sidebar: tombol Keluar (red → gray)
+- NotificationManager: button hitam → gray
+- Footer: link Invoice → Admin
+
+**Files:** RegistrationForm.jsx, MuridCards.jsx, AdminSidebar.jsx, KelasAdmin.jsx, JadwalOpsiAdmin.jsx, NotificationManager.jsx, semua halaman dashboard
+**Deploy:** 12+ commit, PM2 ↺ 69
+
+---
+
 ### 2026-05-16: Tahap 29 — Auto-generate Jadwal Pertemuan 📅 ✅
 
 **Fitur:**

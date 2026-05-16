@@ -8,8 +8,8 @@
 
 | Item | Status |
 |------|--------|
-| **Tahap Terakhir** | 29 — Auto-generate Jadwal ✅ |
-| **Versi Terdeploy** | ✅ 16 Mei 2026 — Auto-generate Jadwal (PM2 ↺ 55) |
+| **Tahap Terakhir** | 30 — Minat Gambar + Design System ✅ |
+| **Versi Terdeploy** | ✅ 16 Mei 2026 — Minat Gambar (PM2 ↺ 69) |
 | **Status Server** | ✅ PM2 online |
 | **DB** | SQLite — `magic-pencil.db` (fresh, 0 pendaftar, 2 produk) |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
@@ -21,7 +21,7 @@
 | Lokasi | Status | Catatan |
 |--------|--------|---------|
 | Lokal (laptop) | ✅ Ready | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (16 Mei) — 15 commit, PM2 ↺ 55 |
+| Server (aaPanel) | ✅ Running | Terkini (16 Mei) — 28+ commit, PM2 ↺ 69 |
 
 ---
 
@@ -74,6 +74,7 @@
 | 23 | Auto Akun Murid | ✅ Selesai, deployed |
 | **24** | **Online Store** (katalog, order WA, admin CRUD, upload + proxy image) | **✅ Selesai, deployed** |
 | **29** | **Auto-generate Jadwal** (monthly=4x, single=1x, meeting_number, tanggal real) | **✅ Selesai, deployed (16 Mei)** |
+| **30** | **Minat Gambar + Design System** (monochrome gray, footer admin, minat dropdown) | **✅ Selesai, deployed (16 Mei)** |
 | ~~25-27~~ | ~~Testimoni Full, Events, Payment, Dashboard~~ | ⏸️ Skip — nunggu WA API |
 
 ---
@@ -98,7 +99,7 @@
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
-| 2026-05-16 | **Tahap 29** — Auto-generate Jadwal (monthly=4x, single=1x, meeting_number, tanggal real, seed data baru). PM2 ↺ 55. commit `1fc0f2c`. |
+| 2026-05-16 | **Tahap 29-30** — Auto-generate Jadwal ✅, Check-in validasi ✅, Investasi card ✅, Riwayat investasi ✅, Monochrome gray all pages ✅, Minat Gambar dropdown ✅, Design System rules ✅. PM2 ↺ 69. 28+ commit. |
 | 2026-05-15 | **Tahap 24** — Online Store (katalog, order WA, admin CRUD, upload gambar, proxy API, beli merch, fitur warna). PM2 ↺ 47. |
 | 2026-05-15 | **Tahap 23** — Auto Akun Murid (8 commit, ↺ 39). DB fresh (0 pendaftar). |
 | 2026-05-15 | **Tahap 22** — Like + Reaction (gallery_likes, fingerprint) |
