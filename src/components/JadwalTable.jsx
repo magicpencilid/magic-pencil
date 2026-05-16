@@ -13,6 +13,7 @@ export default function JadwalTable() {
   const [editingLokasi, setEditingLokasi] = useState(null); // id yg lagi diedit
   const [editValue, setEditValue] = useState("");
   const [saving, setSaving] = useState(false);
+  const [showAll, setShowAll] = useState(false);
 
   const fetchData = () => {
     setLoading(true);
@@ -152,6 +153,28 @@ export default function JadwalTable() {
         )}
       </div>
 
+      {/* Toggle tampilkan semua */}
+      {(() => {
+        const today = new Date();
+        const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+        const filteredByClass = filterKelas === "Semua" ? data : data.filter((d) => d.class_name === filterKelas);
+        const pastCount = filteredByClass.filter((d) => d.schedule_date && d.schedule_date < todayStr).length;
+        if (pastCount === 0) return null;
+        return (
+          <div className="mb-3">
+            <label className="inline-flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showAll}
+                onChange={(e) => setShowAll(e.target.checked)}
+                className="rounded border-gray-300 text-gray-600 focus:ring-gray-300"
+              />
+              Tampilkan {pastCount} jadwal yang sudah lewat
+            </label>
+          </div>
+        );
+      })()}
+
       {loading && (
         <div className="flex justify-center py-12"><div className="w-8 h-8 border-2 border-gray-300 border-t-transparent rounded-full animate-spin" /></div>
       )}
@@ -173,7 +196,10 @@ export default function JadwalTable() {
               </thead>
               <tbody>
                 {(() => {
-                  const filtered = filterKelas === "Semua" ? data : data.filter((d) => d.class_name === filterKelas);
+                  const today = new Date();
+                  const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+                  const byClass = filterKelas === "Semua" ? data : data.filter((d) => d.class_name === filterKelas);
+                  const filtered = showAll ? byClass : byClass.filter((d) => !d.schedule_date || d.schedule_date >= todayStr);
                   if (filtered.length === 0) return <tr key="empty"><td colSpan="7" className="text-center py-12 text-text-light"><Calendar className="w-8 h-8 mx-auto mb-2 opacity-30" />Belum ada jadwal</td></tr>;
                   return filtered.map((row, i) => (
                   <tr key={row.id} className="border-b border-gray-50 hover:bg-gray-50/50">
@@ -219,7 +245,15 @@ export default function JadwalTable() {
               </tbody>
             </table>
           </div>
-          <div className="p-3 text-xs text-text-light border-t border-gray-50">{(filterKelas === "Semua" ? data : data.filter((d) => d.class_name === filterKelas)).length} jadwal</div>
+          <div className="p-3 text-xs text-text-light border-t border-gray-50">
+            {(() => {
+              const today = new Date();
+              const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+              const byClass = filterKelas === "Semua" ? data : data.filter((d) => d.class_name === filterKelas);
+              const shown = showAll ? byClass : byClass.filter((d) => !d.schedule_date || d.schedule_date >= todayStr);
+              return `${shown.length} dari ${byClass.length} jadwal`;
+            })()}
+          </div>
         </div>
       )}
     </div>
