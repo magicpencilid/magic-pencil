@@ -95,7 +95,7 @@ export default function KelasAdmin() {
       </div>
 
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-text-light mt-6">
-        <p className="font-semibold mb-1">📌 Informasi:</p>
+        <p className="font-semibold mb-1 text-gray-700">Informasi:</p>
         <p>• Daftar kelas & investasi bersifat tetap dan tidak bisa diubah dari sini.</p>
         <p>• Hubungi developer jika ada perubahan data kelas.</p>
       </div>
