@@ -99,6 +99,10 @@ export async function POST(request) {
       const isMonthly = kelasInfo?.type === 'monthly';
       const meetingCount = isMonthly ? 4 : 1;
 
+      // Ambil lokasi default
+      const defaultLoc = db.prepare("SELECT value FROM schedule_config WHERE type = 'default_location' LIMIT 1").get();
+      const defaultLocation = defaultLoc?.value || '';
+
       // Map nama hari ke number (0=Minggu)
       const hariMap = {"Minggu":0,"Senin":1,"Selasa":2,"Rabu":3,"Kamis":4,"Jumat":5,"Sabtu":6};
       const targetDay = hariMap[body.pilihHari];
@@ -111,8 +115,8 @@ export async function POST(request) {
         if (diff < 0) diff += 7; // Kalo hari udah lewat, cari minggu depan
 
         const insertJadwal = db.prepare(`
-          INSERT INTO jadwal (registration_id, class_name, schedule_date, schedule_time, meeting_number)
-          VALUES (?, ?, ?, ?, ?)
+          INSERT INTO jadwal (registration_id, class_name, schedule_date, schedule_time, meeting_number, location)
+          VALUES (?, ?, ?, ?, ?, ?)
         `);
 
         for (let i = 0; i < meetingCount; i++) {
@@ -123,7 +127,7 @@ export async function POST(request) {
           const dd = String(jadwalDate.getDate()).padStart(2, '0');
           const dateStr = `${yyyy}-${mm}-${dd}`;
 
-          insertJadwal.run(regId, body.className, dateStr, body.pilihJam, i + 1);
+          insertJadwal.run(regId, body.className, dateStr, body.pilihJam, i + 1, defaultLocation || null);
         }
       }
     }

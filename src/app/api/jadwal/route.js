@@ -51,6 +51,41 @@ export async function POST(request) {
   }
 }
 
+export async function PATCH(request) {
+  try {
+    const body = await request.json();
+    const db = getDb();
+
+    // Mass update lokasi untuk semua jadwal
+    if (body.action === 'update_all_locations' && body.location) {
+      db.prepare("UPDATE jadwal SET location = ? WHERE location IS NULL OR location = ''").run(body.location);
+      return NextResponse.json({ success: true, message: "Semua lokasi diperbarui" });
+    }
+
+    // Update single jadwal
+    if (!body.id) return NextResponse.json({ success: false, errors: ["ID diperlukan"] }, { status: 400 });
+
+    const updates = [];
+    const params = {};
+    if (body.location !== undefined) { updates.push("location = @location"); params.location = body.location; }
+    if (body.notes !== undefined) { updates.push("notes = @notes"); params.notes = body.notes; }
+
+    if (updates.length === 0) {
+      return NextResponse.json({ success: false, errors: ["Tidak ada field yang diupdate"] }, { status: 400 });
+    }
+
+    params.id = Number(body.id);
+    db.prepare(`UPDATE jadwal SET ${updates.join(", ")} WHERE id = @id`).run(params);
+
+    return NextResponse.json({ success: true, message: "Jadwal diperbarui" });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, errors: ["Gagal memperbarui jadwal"] },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(request) {
   try {
     const id = request.nextUrl.searchParams.get("id");
