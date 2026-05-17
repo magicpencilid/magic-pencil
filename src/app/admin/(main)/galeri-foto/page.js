@@ -20,7 +20,7 @@ export default function AdminGaleriFotoPage() {
   const [preview, setPreview] = useState(null);
   const [showHomepage, setShowHomepage] = useState(true);
   const fileRef = useRef(null);
-  const homeCount = homeCount;
+  const homeCount = photos.filter(p => p.show_on_homepage).length;
 
   const fetchPhotos = () => {
     setLoading(true);
