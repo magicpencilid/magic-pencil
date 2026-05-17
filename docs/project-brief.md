@@ -142,6 +142,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Kompres Gambar Store | ✅ | Jimp resize 800px, JPEG quality 80 |
 | Navbar + Gallery UX Fixes | ✅ | Link Toko, Beli Merch, rename galeri |
 | Galeri Sketsa Dinamis | ✅ | Dari gallery_photos (show_on_homepage), limit 6, no lightbox |
+| 1 Button Beranda Toggle (admin) | ✅ | Dark/light state, bg-accent serasi |
 
 ---
 
@@ -172,6 +173,8 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 30 | Minat Gambar + Design System (dropdown minat, monochrome gray rules) | ✅ Selesai, deployed (16 Mei) |
 | 31 | Floating WA di Admin + Aturan Baru | ✅ Selesai, deployed (17 Mei) |
 | 32 | Galeri Sketsa Dinamis + Limit 6 Beranda | ✅ Selesai, deployed (17 Mei) |
+| -- | 1 Button Beranda Toggle (admin galeri) | ✅ Selesai, deployed (17 Mei) — `ac640cf` |
+| -- | Warna serasi bg-accent | ✅ Selesai, deployed (17 Mei) — `c5dfe7f` |
 
 ---
 
@@ -222,4 +225,4 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
 - **Design System** — monochrome gray (Inter, Playfair Display, Italiana, Lucide Icons, gak pake emoji)
 - **Floating WA** — sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
-- **Galeri Sketsa** — dinamis dari gallery_photos, admin toggle Beranda, limit 6, tanpa lightbox
+- **Galeri Sketsa** — dinamis dari gallery_photos, admin 1 button Beranda toggle (dark/light state, bg-accent), limit 6, tanpa lightbox

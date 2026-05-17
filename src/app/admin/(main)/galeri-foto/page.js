@@ -18,7 +18,6 @@ export default function AdminGaleriFotoPage() {
   const [deskripsi, setDeskripsi] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [showHomepage, setShowHomepage] = useState(true);
   const fileRef = useRef(null);
   const homeCount = photos.filter(p => p.show_on_homepage).length;
 
@@ -52,7 +51,7 @@ export default function AdminGaleriFotoPage() {
     const formData = new FormData();
     formData.append("title", title.trim());
     formData.append("deskripsi", deskripsi.trim());
-    formData.append("show_homepage", showHomepage ? "1" : "0");
+    formData.append("show_homepage", "0");
     formData.append("file", file);
 
     try {
@@ -185,23 +184,6 @@ export default function AdminGaleriFotoPage() {
                   <Upload className="w-4 h-4" /> Pilih Gambar
                 </button>
               )}
-            </div>
-
-            {/* Show on Homepage */}
-            <div>
-              <button
-                type="button"
-                onClick={() => setShowHomepage(!showHomepage)}
-                disabled={!showHomepage && homeCount >= 6}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
-                  showHomepage
-                    ? "bg-accent text-white hover:bg-accent-dark"
-                    : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-                }`}
-              >
-                <House className="w-3.5 h-3.5" />
-                {showHomepage ? "Tampil" : homeCount >= 6 ? "Penuh" : "Jangan Tampil"}
-              </button>
             </div>
 
             {/* Submit */}

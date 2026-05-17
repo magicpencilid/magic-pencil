@@ -47,6 +47,30 @@
 
 ---
 
+### 2026-05-17: Tahap 31 — Floating WA di Admin + Aturan Baru
+
+**Floating WA di Admin:**
+- CSS `body:has(#admin-root) #wa-wrap { display: none }` di WhatsAppButton.jsx
+- `id="admin-root"` di admin/(main)/layout.js
+- Halaman admin gak perlu floating WA (cuma wil yang akses)
+
+**Deploy issues & fixes:**
+- Zip deploy gagal: package.json ketimpa file dari .next/build/
+- Cross-platform build rawan eror: Windows better-sqlite3 hash beda sama Linux
+- Solusi: `git pull` + build langsung di server
+
+**Aturan baru ditetapkan:**
+- Panggilan: wil (user), mamat/asisten (sopan)
+- Gak boleh: lo/gua/lu, kata berbau agama
+- Workflow: one at a time, bikin step list dulu, kerjakan satu-satu
+- Summary/ringkasan wajib ke Obsidian
+
+**Files:** WhatsAppButton.jsx, admin/(main)/layout.js
+**Commit:** `491b5fa` | **PM2:** ↺ 77
+**Status:** ✅ Selesai
+
+---
+
 ### 2026-05-17: Tahap 32 — Galeri Sketsa Dinamis + Limit 6 Beranda
 
 **Galeri sketsa dinamis:**
@@ -74,26 +98,18 @@
 
 ---
 
-### 2026-05-17: Tahap 31 — Floating WA di Admin + Aturan Baru
+### 2026-05-17: 1 Button Beranda Toggle (admin galeri foto)
 
-**Floating WA di Admin:**
-- CSS `body:has(#admin-root) #wa-wrap { display: none }` di WhatsAppButton.jsx
-- `id="admin-root"` di admin/(main)/layout.js
-- Halaman admin gak perlu floating WA (cuma wil yang akses)
+**Simplifikasi UI:**
+- Hapus badge "Beranda"/"Sembunyi" + toggle button — ganti 1 button icon House (Lucide)
+- **Aktif:** bg-accent text putih — "Di Beranda"
+- **Non-aktif:** bg-gray-100 text gray-500 — "Beranda"
+- **Penuh (limit 6):** disabled
+- Upload form: checkbox diganti button toggle ("Tampil"/"Jangan Tampil")
+- Warna button active disamain pake `bg-accent` biar serasi sama "+ Upload Foto"
 
-**Deploy issues & fixes:**
-- Zip deploy gagal: package.json ketimpa file dari .next/build/
-- Cross-platform build rawan eror: Windows better-sqlite3 hash beda sama Linux
-- Solusi: `git pull` + build langsung di server
-
-**Aturan baru ditetapkan:**
-- Panggilan: wil (user), mamat/asisten (sopan)
-- Gak boleh: lo/gua/lu, kata berbau agama
-- Workflow: one at a time, bikin step list dulu, kerjakan satu-satu
-- Summary/ringkasan wajib ke Obsidian
-
-**Files:** WhatsAppButton.jsx, admin/(main)/layout.js
-**Commit:** `491b5fa` | **PM2:** ↺ 77
+**Files:** galeri-foto/page.js
+**Commit:** `ac640cf`, `c5dfe7f` | **PM2:** ↺ 8
 **Status:** ✅ Selesai
 
 ---

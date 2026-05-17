@@ -9,7 +9,7 @@
 | Item | Status |
 |------|--------|
 | **Tahap Terakhir** | 32 — Galeri Sketsa Dinamis + Limit 6 Beranda |
-| **Versi Terdeploy** | ✅ 17 Mei 2026 — Galeri Sketsa Dinamis (commit `3132ef1`, PM2 ↺ 80+) |
+| **Versi Terdeploy** | ✅ 17 Mei 2026 — Galeri 1 Button toggle (commit `c5dfe7f`, PM2 ↺ 8) |
 | **Status Server** | ✅ PM2 online |
 | **DB** | SQLite — `magic-pencil.db` (fresh, 0 pendaftar, 2 produk) |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
@@ -21,7 +21,7 @@
 | Lokasi | Status | Catatan |
 |--------|--------|---------|
 | Lokal (laptop) | ✅ Ready | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (17 Mei) — commit `3132ef1`, PM2 ↺ 80+ |
+| Server (aaPanel) | ✅ Running | Terkini (17 Mei) — commit `c5dfe7f`, PM2 ↺ 8 |
 
 ---
 
@@ -54,6 +54,8 @@
 | -- | Aturan baru: panggilan wil, larangan lo/gua, larangan agama, workflow step | 17 Mei |
 | -- | Galeri Sketsa dinamis dari DB (show_on_homepage, limit 6, no lightbox) | 17 Mei |
 | -- | Toggle Beranda di admin galeri foto + limit counter admin | 17 Mei |
+| -- | **1 Button Beranda toggle** — hapus badge + toggle, ganti 1 button (dark/light state) | 17 Mei |
+| -- | **Button warna serasi** — pake bg-accent biar sama kayak +Upload Foto | 17 Mei |
 
 ### Fitur Kecil (tanpa nomor tahap)
 | Fitur | Tanggal |
@@ -95,6 +97,8 @@
 | 30 | Minat Gambar + Design System | Selesai, deployed (16 Mei) |
 | 31 | Floating WA di Admin + Aturan Baru | Selesai, deployed (17 Mei) |
 | 32 | Galeri Sketsa Dinamis + Limit 6 Beranda | Selesai, deployed (17 Mei) |
+| -- | **1 Button Beranda Toggle** (admin galeri) | Selesai, deployed (17 Mei) — `ac640cf` |
+| -- | **Warna serasi bg-accent** | Selesai, deployed (17 Mei) — `c5dfe7f` |
 
 ---
 
@@ -115,7 +119,7 @@
 | **Jadwal** | Auto-generate (monthly 4x, single 1x), filter kelas, toggle lewat |
 | **Lokasi** | API default-location siap, UI skip (nunggu WA API) |
 | **Floating WA** | Sembunyi otomatis di halaman admin (body:has(#admin-root)) |
-| **Galeri Sketsa** | Dinamis dari gallery_photos, show_on_homepage=1, limit 6, no lightbox |
+| **Galeri Sketsa** | Dinamis dari gallery_photos, show_on_homepage=1, limit 6, no lightbox. Admin: 1 button Beranda toggle (dark/light state, bg-accent) |
 
 ---
 
@@ -124,6 +128,8 @@
 | Tanggal | Yang Diubah |
 |---------|-------------|
 | 2026-05-17 | **Tahap 32** — Galeri Sketsa dinamis dari DB, Admin toggle + limit 6, Gallery.jsx rewrite (no lightbox). Commit `3132ef1`. PM2 ↺ 80+. |
+| 2026-05-17 | **1 Button Beranda Toggle** — hapus badge + toggle, ganti 1 button dark/light state + icon House. Commit `ac640cf`. |
+| 2026-05-17 | **Warna serasi** — button active pake bg-accent biar serasi sama +Upload Foto. Commit `c5dfe7f`. PM2 ↺ 8. |
 | 2026-05-17 | **Tahap 31** — Floating WA sembunyi di admin, Aturan baru (panggilan/larangan/workflow), Startup script dihapus. Commit `491b5fa`. PM2 ↺ 77. |
 | 2026-05-16 | **Perbaikan Sore** — Hapus box WA daftar, Fix floating WA nutup modal store, Admin jadwal total rework, API lokasi default (skip UI), Docs audit 7 file, Cleanup 6 file sisa. PM2 ↺ 76. 37+ commit. |
 | 2026-05-16 | **Tahap 29-30** — Auto-generate Jadwal, Check-in validasi, Investasi card, Monochrome gray, Minat Gambar dropdown, Design System. PM2 ↺ 69. |
