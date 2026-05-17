@@ -19,16 +19,25 @@ export const dynamic = "force-dynamic";
    GET — Ambil semua foto
    Gabung: gallery_photos (willy) + karya approved (murid)
    ============================================= */
-export async function GET() {
+export async function GET(request) {
   try {
     const db = getDb();
+    const { searchParams } = new URL(request.url);
+    const homepage = searchParams.get("homepage");
+
+    let willyQuery = `
+      SELECT id, title, deskripsi, image_path, show_on_homepage, 'willy' as source, created_at
+      FROM gallery_photos
+    `;
+
+    if (homepage === "1") {
+      willyQuery += ` WHERE show_on_homepage = 1 ORDER BY created_at DESC LIMIT 6`;
+    } else {
+      willyQuery += ` ORDER BY created_at DESC`;
+    }
 
     // Ambil foto willy
-    const willyPhotos = db.prepare(`
-      SELECT id, title, deskripsi, image_path, 'willy' as source, created_at
-      FROM gallery_photos
-      ORDER BY created_at DESC
-    `).all();
+    const willyPhotos = db.prepare(willyQuery).all();
 
     // Ambil karya murid yang approved
     const muridKarya = db.prepare(`
@@ -76,6 +85,7 @@ export async function POST(request) {
     const formData = await request.formData();
     const title = formData.get("title");
     const deskripsi = formData.get("deskripsi") || "";
+    const show_homepage = formData.get("show_homepage") === "1" ? 1 : 0;
     const file = formData.get("file");
 
     // Validasi
@@ -115,14 +125,15 @@ export async function POST(request) {
     // Simpan ke database
     const db = getDb();
     const stmt = db.prepare(`
-      INSERT INTO gallery_photos (title, deskripsi, image_path)
-      VALUES (@title, @deskripsi, @image_path)
+      INSERT INTO gallery_photos (title, deskripsi, image_path, show_on_homepage)
+      VALUES (@title, @deskripsi, @image_path, @show_on_homepage)
     `);
 
     const result = stmt.run({
       title: title.trim(),
       deskripsi: deskripsi.trim() || null,
       image_path: imagePath,
+      show_on_homepage: show_homepage,
     });
 
     return NextResponse.json({

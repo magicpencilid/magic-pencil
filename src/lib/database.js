@@ -174,6 +174,7 @@ function initTables() {
       title TEXT NOT NULL,
       deskripsi TEXT,
       image_path TEXT NOT NULL,
+      show_on_homepage INTEGER DEFAULT 0,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -223,6 +224,7 @@ function initTables() {
   try { db.exec("ALTER TABLE pendaftar ADD COLUMN agree_terms_at TEXT"); } catch (e) { /* kolom udah ada */ }
   try { db.exec("ALTER TABLE kelas ADD COLUMN type TEXT NOT NULL DEFAULT 'monthly'"); } catch (e) { /* kolom udah ada */ }
   try { db.exec("ALTER TABLE jadwal ADD COLUMN meeting_number INTEGER"); } catch (e) { /* kolom udah ada */ }
+  try { db.exec("ALTER TABLE gallery_photos ADD COLUMN show_on_homepage INTEGER DEFAULT 0"); } catch (e) { /* kolom udah ada */ }
 
   // Seed data kelas (kalo tabelnya baru dibuat)
   const kelasCount = db.prepare("SELECT COUNT(*) as count FROM kelas").get();

@@ -18,6 +18,7 @@ export default function AdminGaleriFotoPage() {
   const [deskripsi, setDeskripsi] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [showHomepage, setShowHomepage] = useState(true);
   const fileRef = useRef(null);
 
   const fetchPhotos = () => {
@@ -50,6 +51,7 @@ export default function AdminGaleriFotoPage() {
     const formData = new FormData();
     formData.append("title", title.trim());
     formData.append("deskripsi", deskripsi.trim());
+    formData.append("show_homepage", showHomepage ? "1" : "0");
     formData.append("file", file);
 
     try {
@@ -78,6 +80,17 @@ export default function AdminGaleriFotoPage() {
     const json = await res.json();
     if (json.success) fetchPhotos();
     else alert(json.errors?.join(", ") || "Gagal hapus");
+  };
+
+  const handleToggleHomepage = async (id, current) => {
+    const res = await fetch(`/api/gallery/${id}/toggle-homepage`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ show_on_homepage: current ? 0 : 1 }),
+    });
+    const json = await res.json();
+    if (json.success) fetchPhotos();
+    else alert(json.errors?.join(", ") || "Gagal mengubah status");
   };
 
   return (
@@ -173,6 +186,20 @@ export default function AdminGaleriFotoPage() {
               )}
             </div>
 
+            {/* Show on Homepage */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="showHomepage"
+                checked={showHomepage}
+                onChange={(e) => setShowHomepage(e.target.checked)}
+                className="w-4 h-4 rounded border-gray-300 text-gray-700 focus:ring-gray-400"
+              />
+              <label htmlFor="showHomepage" className="text-sm text-primary">
+                Tampilkan di Beranda
+              </label>
+            </div>
+
             {/* Submit */}
             <div className="flex gap-2 pt-2">
               <button
@@ -223,7 +250,26 @@ export default function AdminGaleriFotoPage() {
                 {photo.deskripsi && (
                   <p className="text-xs text-text-light mt-0.5 truncate">{photo.deskripsi}</p>
                 )}
-                <div className="flex items-center justify-between mt-2">
+                <div className="flex items-center gap-2 mt-1.5">
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                    photo.show_on_homepage
+                      ? "bg-gray-200 text-gray-700"
+                      : "bg-gray-100 text-gray-400"
+                  }`}>
+                    {photo.show_on_homepage ? "Beranda" : "Sembunyi"}
+                  </span>
+                  <button
+                    onClick={() => handleToggleHomepage(photo.id, photo.show_on_homepage)}
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full transition-colors ${
+                      photo.show_on_homepage
+                        ? "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                    }`}
+                  >
+                    {photo.show_on_homepage ? "Sembunyikan" : "Tampilkan"}
+                  </button>
+                </div>
+                <div className="flex items-center justify-between mt-1">
                   <span className="text-[10px] text-gray-400">
                     {new Date(photo.created_at + "Z").toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
                   </span>
