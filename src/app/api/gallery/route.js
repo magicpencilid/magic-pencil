@@ -86,6 +86,19 @@ export async function POST(request) {
     const title = formData.get("title");
     const deskripsi = formData.get("deskripsi") || "";
     const show_homepage = formData.get("show_homepage") === "1" ? 1 : 0;
+
+    // Limit check: max 6 foto di Beranda
+    if (show_homepage === 1) {
+      const db = getDb();
+      const currentCount = db.prepare("SELECT COUNT(*) as count FROM gallery_photos WHERE show_on_homepage = 1").get();
+      if (currentCount.count >= 6) {
+        return NextResponse.json({
+          success: false,
+          errors: ["Maksimal 6 foto yang bisa ditampilkan di Beranda. Hapus centang dari foto lain dulu."]
+        }, { status: 400 });
+      }
+    }
+
     const file = formData.get("file");
 
     // Validasi

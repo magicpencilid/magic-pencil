@@ -27,6 +27,18 @@ export async function PATCH(request, props) {
     }
 
     const db = getDb();
+
+    // Limit check: max 6 foto di Beranda
+    if (show_on_homepage === 1) {
+      const currentCount = db.prepare("SELECT COUNT(*) as count FROM gallery_photos WHERE show_on_homepage = 1 AND id != ?").get(id);
+      if (currentCount.count >= 6) {
+        return NextResponse.json({
+          success: false,
+          errors: ["Maksimal 6 foto yang bisa ditampilkan di Beranda. Sembunyikan salah satu dulu."]
+        }, { status: 400 });
+      }
+    }
+
     const result = db.prepare("UPDATE gallery_photos SET show_on_homepage = ? WHERE id = ?").run(show_on_homepage, id);
 
     if (result.changes === 0) {

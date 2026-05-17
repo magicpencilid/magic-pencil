@@ -20,6 +20,7 @@ export default function AdminGaleriFotoPage() {
   const [preview, setPreview] = useState(null);
   const [showHomepage, setShowHomepage] = useState(true);
   const fileRef = useRef(null);
+  const homeCount = homeCount;
 
   const fetchPhotos = () => {
     setLoading(true);
@@ -191,11 +192,12 @@ export default function AdminGaleriFotoPage() {
               <input
                 type="checkbox"
                 id="showHomepage"
-                checked={showHomepage}
+                checked={showHomepage && homeCount < 6}
                 onChange={(e) => setShowHomepage(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-gray-700 focus:ring-gray-400"
+                disabled={homeCount >= 6}
+                className="w-4 h-4 rounded border-gray-300 text-gray-700 focus:ring-gray-400 disabled:opacity-40"
               />
-              <label htmlFor="showHomepage" className="text-sm text-primary">
+              <label htmlFor="showHomepage" className={`text-sm ${homeCount >= 6 ? 'text-gray-400' : 'text-primary'}`}>
                 Tampilkan di Beranda
               </label>
             </div>
@@ -234,7 +236,11 @@ export default function AdminGaleriFotoPage() {
           <p className="text-sm">Upload foto pertama untuk galeri!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <>
+          <p className="text-xs text-gray-400 mb-3">
+            {homeCount}/6 foto ditampilkan di Beranda
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {photos.map((photo) => (
             <div key={photo.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group">
               <div className="aspect-square bg-gray-100 relative overflow-hidden">
@@ -260,13 +266,14 @@ export default function AdminGaleriFotoPage() {
                   </span>
                   <button
                     onClick={() => handleToggleHomepage(photo.id, photo.show_on_homepage)}
-                    className={`text-[10px] px-1.5 py-0.5 rounded-full transition-colors ${
+                    disabled={!photo.show_on_homepage && homeCount >= 6}
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                       photo.show_on_homepage
                         ? "bg-gray-100 text-gray-500 hover:bg-gray-200"
                         : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
                   >
-                    {photo.show_on_homepage ? "Sembunyikan" : "Tampilkan"}
+                    {photo.show_on_homepage ? "Sembunyikan" : homeCount >= 6 ? "Penuh" : "Tampilkan"}
                   </button>
                 </div>
                 <div className="flex items-center justify-between mt-1">
@@ -285,7 +292,7 @@ export default function AdminGaleriFotoPage() {
             </div>
           ))}
         </div>
-      )}
+      </>)}
     </div>
   );
 }
