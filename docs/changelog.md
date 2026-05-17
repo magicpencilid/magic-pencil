@@ -4,6 +4,37 @@
 
 ---
 
+### 2026-05-16: Perbaikan Sore — Hapus Box WA + Fix Store Modal + Admin Jadwal Rework
+
+**Hapus Box WA Redudan di Halaman Daftar:**
+- Box "Ada pertanyaan?" + Chat WhatsApp di sidebar daftar dihapus (redudan)
+- Icon benefits: bg-accent/10 text-accent -> bg-gray-100 text-gray-500
+- Commit: `279a29c`, PM2 ↺ 70
+
+**Fix Floating WA Nutup Tombol WA di Modal Store (HP):**
+- Tambah body class `store-modal-open` pas modal kebuka
+- CSS: body.store-modal-open #wa-wrap { display: none !important; }
+- Commit: `0f921f3`, PM2 ↺ 71
+
+**Admin Jadwal Rework (4 steps):**
+- Step 1: Hapus +Tambah + form manual + design system (loading spinner gray, delete gray)
+- Step 2: Filter kelas dropdown + fokus ring gray
+- Step 3: API settings/default-location, PATCH endpoint, auto-fill lokasi pas daftar (UI skip nunggu WA API)
+- Step 4: Filter otomatis jadwal lewat (toggle), hapus kolom Pengajar
+- Commits: `e01a567` `caf285c` `c6c8050` `555f0d5` `93931bc`, PM2 ↺ 72->76
+
+**Full Docs Audit + Cleanup:**
+- 7 workspace docs diaudit: hapus emoji, Muli -> Inter, update dates/numbers/tahap
+- 6 file sisa dibersihin: magic-pencil.db, magic pencil, check_css.sh, _tmp, parse_posts/parse_sql
+- docs/image-standards.md dibersihin
+- docs/tahap19-checklist.md dihapus
+
+**Files baru:** api/settings/default-location/route.js
+**Files diubah:** daftar/page.js, store/page.js, WhatsAppButton.jsx, JadwalTable.jsx (5x), api/jadwal/route.js, api/register/route.js
+**Deploy:** 37+ commits, PM2 ↺ 55->76
+
+---
+
 ### 2026-05-16: Tahap 30 — Minat Gambar + Design System
 
 **Minat Gambar:**

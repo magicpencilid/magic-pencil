@@ -115,8 +115,6 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 
 | Fitur | Status | Catatan |
 |-------|--------|---------|
-| Fitur | Status | Catatan |
-|-------|--------|---------|
 | Landing page | ✅ | Hero + galeri sketsa owner |
 | Pendaftaran + Syket | ✅ | Wajib setuju syarat & ketentuan + Minat Gambar dropdown |
 | Invoice + Pembayaran | ✅ | Upload bukti transfer |
@@ -216,4 +214,4 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **Proxy image produk** — `/api/produk/image/[...segments]` anti cache issue (gak perlu restart PM2)
 - **Online Store** — semua order lewat WA (gak perlu payment gateway)
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
-- **Design System** — monochrome gray (Inter, Playfair Display, Muli, Lucide Icons, gak pake emoji)
+- **Design System** — monochrome gray (Inter, Playfair Display, Italiana, Lucide Icons, gak pake emoji)

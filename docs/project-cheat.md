@@ -68,6 +68,8 @@ magic-pencil-app/
 | Kompres Gambar Store (Jimp resize 800px, JPEG 80%) | Selesai |
 | Box Investasi klikable + Riwayat Invoice | Selesai |
 | Minat Gambar dropdown (form daftar, wajib) | Selesai |
+| Admin jadwal rework (filter kelas, filter lewat, hapus +Tambah) | Selesai |
+| Lokasi kelas (API + auto-fill, skip UI nunggu WA API) | Selesai |
 | PWA + notifikasi push (on hold — nunggu WA API) | On Hold |
 | Telegram Bot (@magicpencil_notif_bot) | Selesai |
 | WA floating button (wa.me/628111150563) | Selesai |
@@ -152,4 +154,4 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - [x] Tahap 25-28 - Navbar UX, Kompres, Like Karya, Leaderboard
 - [x] Tahap 29 - Auto-generate Jadwal
 - [x] Tahap 30 - Minat Gambar + Design System
-- [ ] WA API integration (notifikasi ke WA ganti web push)
+- [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal)

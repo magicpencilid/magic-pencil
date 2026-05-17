@@ -46,6 +46,10 @@ export default function WhatsAppButton() {
         body.store-modal-open #wa-wrap {
           display: none !important;
         }
+        /* Sembunyiin di halaman admin */
+        body:has(#admin-root) #wa-wrap {
+          display: none !important;
+        }
         #wa-wrap svg {
           width: 30px;
           height: 30px;

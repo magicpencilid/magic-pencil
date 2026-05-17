@@ -46,6 +46,10 @@
 | 28 | Leaderboard (top 10 approved + badge peringkat) | 15 Mei |
 | 29 | Auto-generate Jadwal (monthly=4x, single=1x, meeting_number, tanggal real) | 16 Mei |
 | 30 | Minat Gambar + Design System (dropdown minat, monochrome gray rules) | 16 Mei |
+| -- | Hapus box WA redudan di halaman daftar + fix design system icon | 16 Mei |
+| -- | Fix floating WA nutup tombol WA di modal store (HP) | 16 Mei |
+| -- | Admin jadwal: hapus +Tambah, filter kelas, filter jadwal lewat | 16 Mei |
+| -- | API default-location (skip UI, nunggu WA API) | 16 Mei |
 
 ### Fitur Kecil (tanpa nomor tahap)
 | Fitur | Tanggal |
@@ -108,7 +112,8 @@
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
-| 2026-05-16 | **Tahap 29-30** — Auto-generate Jadwal ✅, Check-in validasi ✅, Investasi card ✅, Riwayat investasi ✅, Monochrome gray all pages ✅, Minat Gambar dropdown ✅, Design System rules ✅. PM2 ↺ 69. 34+ commit. |
+| 2026-05-16 | **Perbaikan Sore** — Hapus box WA daftar, Fix floating WA nutup modal store, Admin jadwal total rework, API lokasi default (skip UI), Docs audit 7 file, Cleanup 6 file sisa. PM2 ↺ 76. 37+ commit. |
+| 2026-05-16 | **Tahap 29-30** — Auto-generate Jadwal, Check-in validasi, Investasi card, Riwayat investasi, Monochrome gray all pages, Minat Gambar dropdown, Design System rules. PM2 ↺ 69. 34+ commit. |
 | 2026-05-15 | **Tahap 24** — Online Store (katalog, order WA, admin CRUD, upload gambar, proxy API, beli merch, fitur warna). PM2 ↺ 47. |
 | 2026-05-15 | **Tahap 23** — Auto Akun Murid (8 commit, ↺ 39). DB fresh (0 pendaftar). |
 | 2026-05-15 | **Tahap 22** — Like + Reaction (gallery_likes, fingerprint) |
