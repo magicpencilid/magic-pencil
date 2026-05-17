@@ -1,4 +1,4 @@
-# Magic Pencil - Project Cheat Sheet
+# Magic Pencil — Project Cheat Sheet
 
 > Satu halaman untuk lihat sekilas. Update tiap kali ada perubahan.
 
@@ -18,7 +18,7 @@
 |-------|-----------|
 | **Frontend** | Next.js 16.2.4 + React 19 + Tailwind CSS 4 |
 | **Backend** | Next.js API Routes (server-side) |
-| **DB** | SQLite (better-sqlite3) - `magic-pencil.db` |
+| **DB** | SQLite (better-sqlite3) — `magic-pencil.db` |
 | **Font** | Inter (body & navbar), Playfair Display (heading), Italiana (dekoratif) |
 | **Warna** | Monochrome gray — `--color-primary: #1a1a1a` |
 | **Design System** | Semua gray, gak pake emoji, Lucide Icons wajib |
@@ -34,7 +34,7 @@ magic-pencil-app/
 │   ├── components/       ← UI components
 │   └── lib/              ← DB, auth, helpers
 ├── public/
-│   └── uploads/          ← bukti-bayar/ + karya/
+│   └── uploads/          ← bukti-bayar/ + karya/ + produk/
 ├── docs/                 ← Dokumentasi
 ├── scripts/              ← Utility (watermark, process image, dll)
 ├── magic-pencil.db       ← Database
@@ -57,20 +57,20 @@ magic-pencil-app/
 | Absensi check-in/out | Selesai |
 | Galeri karya murid (upload + approve + publik) | Selesai |
 | Watermark otomatis (jimp, max 1000px, 65%, multiply) | Selesai |
-| Galeri Foto Owner (/gallery) | Selesai |
+| Galeri Foto Owner (/koleksi) | Selesai |
 | Testimoni (no foto, no bintang) | Selesai |
-| Online Store (katalog, order WA, admin CRUD, proxy image) | Selesai |
-| Auto Akun Murid (create pas daftar, kredensial setelah bayar) | Selesai |
-| ShareModal + Native Share (navigator.share / modal) | Selesai |
+| ShareModal + Native Share | Selesai |
 | Vertical Feed Lightbox (scroll feed kayak IG) | Selesai |
 | Like + Reaction (2 tabel: gallery_likes + karya_likes, fingerprint) | Selesai |
-| Leaderboard (top 10 approved, badge peringkat) | Selesai |
+| Auto Akun Murid (create pas daftar, kredensial setelah bayar) | Selesai |
+| Online Store (katalog, order WA, admin CRUD, proxy image) | Selesai |
 | Kompres Gambar Store (Jimp resize 800px, JPEG 80%) | Selesai |
+| Leaderboard (top 10 approved, badge peringkat) | Selesai |
 | Box Investasi klikable + Riwayat Invoice | Selesai |
 | Minat Gambar dropdown (form daftar, wajib) | Selesai |
 | Admin jadwal rework (filter kelas, filter lewat, hapus +Tambah) | Selesai |
 | Lokasi kelas (API + auto-fill, skip UI nunggu WA API) | Selesai |
-| PWA + notifikasi push (on hold — nunggu WA API) | On Hold |
+| Floating WA sembunyi di admin (CSS :has selector) | Selesai |
 | Telegram Bot (@magicpencil_notif_bot) | Selesai |
 | WA floating button (wa.me/628111150563) | Selesai |
 | Dashboard murid (jadwal, absensi, karya, investasi) | Selesai |
@@ -109,9 +109,9 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 | **Node** | v22.22.2 |
 
 ### Deploy normal (GitHub jalan)
-1. `npm run build` di lokal
+1. `npm run build` engine: `next build` (Turbopack, ~10 detik)
 2. Git commit + push
-3. Server: `git pull` + `npm install` + `npm run build`
+3. Server: `git pull` + `rm -rf .next` + `npm run build`
 4. `pm2 restart magic-pencil`
 
 ### Deploy fallback (GitHub 503)
@@ -120,7 +120,11 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 3. `npm install` (kalo ada package baru)
 4. `pm2 restart magic-pencil`
 
-> Server CPU KVM tua: build di lokal, kirim `.next/` aja ke server
+### Catatan Deploy
+- **Jangan pake zip** — file .next/build/package.json bisa nimpa package.json asli
+- **Kalo source code ada di server**, build langsung di server lebih reliable (hindari cross-platform native module issue)
+- **Better-sqlite3**: hash native module beda antara Windows build dan Linux runtime
+- **Server CPU KVM tua** — gak support `sharp`, pake `jimp`
 
 ---
 
@@ -139,19 +143,21 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - **Transfer:** BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182)
 - **Telegram Bot:** @magicpencil_notif_bot
 - **Admin password:** `Pencil@dmin`
-- **Server CPU:** KVM tua - gak support `sharp`, pake `jimp`
+- **Server CPU:** KVM tua — gak support `sharp`, pake `jimp`
 - **Next.js 16:** route handler `params` wajib di-await
 - **Design System:** monochrome gray (Inter body, Playfair Display heading, Lucide Icons, gak pake emoji)
-- **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan/Arsitektur, Benda Solid)
+- **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
+- **Floating WA:** sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
 
 ---
 
 ## NEXT
 
-- [x] Tahap 22 - Like + Reaction
-- [x] Tahap 23 - Auto Akun Murid
-- [x] Tahap 24 - Online Store
-- [x] Tahap 25-28 - Navbar UX, Kompres, Like Karya, Leaderboard
-- [x] Tahap 29 - Auto-generate Jadwal
-- [x] Tahap 30 - Minat Gambar + Design System
+- [x] Tahap 22 — Like + Reaction
+- [x] Tahap 23 — Auto Akun Murid
+- [x] Tahap 24 — Online Store
+- [x] Tahap 25-28 — Navbar UX, Kompres, Like Karya, Leaderboard
+- [x] Tahap 29 — Auto-generate Jadwal
+- [x] Tahap 30 — Minat Gambar + Design System
+- [x] Tahap 31 — Floating WA di Admin + Aturan Baru
 - [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal)

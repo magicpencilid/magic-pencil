@@ -1,7 +1,7 @@
 # Project Brief — Magic Pencil
 
 > File ini pegangan utama mamat. Update tiap kali ada perubahan besar.
-> Dibuat: 2026-05-08 | Update terakhir: 2026-05-16
+> Dibuat: 2026-05-08 | Update terakhir: 2026-05-17
 
 ---
 
@@ -135,6 +135,9 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Auto Akun Murid | ✅ | Auto-create pas daftar, kredensial setelah bayar |
 | Online Store | ✅ | Katalog /store, order WA, admin CRUD, proxy image |
 | Box Investasi klikable | ✅ | Riwayat invoice di /dashboard/investasi |
+| Admin jadwal rework | ✅ | Filter kelas dropdown, filter lewat, hapus +Tambah |
+| Lokasi kelas | ✅ | API + auto-fill (skip UI, nunggu WA API) |
+| Floating WA sembunyi di admin | ✅ | CSS `body:has(#admin-root)` |
 | Minat Gambar | ✅ | Dropdown wajib di form daftar (5 opsi) |
 | Kompres Gambar Store | ✅ | Jimp resize 800px, JPEG quality 80 |
 | Navbar + Gallery UX Fixes | ✅ | Link Toko, Beli Merch, rename galeri |
@@ -166,6 +169,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 28 | Leaderboard (top 10 approved + badge peringkat) | ✅ Selesai, deployed |
 | 29 | Auto-generate Jadwal (monthly=4x, single=1x, meeting_number, tanggal real, seed baru) | ✅ Selesai, deployed (16 Mei) |
 | 30 | Minat Gambar + Design System (dropdown minat, monochrome gray rules) | ✅ Selesai, deployed (16 Mei) |
+| 31 | Floating WA di Admin + Aturan Baru | ✅ Selesai, deployed (17 Mei) |
 
 ---
 
@@ -215,3 +219,4 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **Online Store** — semua order lewat WA (gak perlu payment gateway)
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
 - **Design System** — monochrome gray (Inter, Playfair Display, Italiana, Lucide Icons, gak pake emoji)
+- **Floating WA** — sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`

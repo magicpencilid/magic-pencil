@@ -1,17 +1,17 @@
 # STATE -- Magic Pencil
-> Auto: 2026-05-16 18:32
+> Auto: 2026-05-17 10:55
 
 ## APP
 nama:Magic Pencil
 tujuan:Landing page + pendaftaran + galeri karya murid + online store
-tahap:30 (Minat Gambar + Design System)
-server:PM2 online (↺ 69)
+tahap:30 (Minat Gambar + Design System) + perbaikan sore
+server:PM2 online (↺ 77+)
 
 ## STATS
 pages:~29
 api:~50
 comps:~28
-kelas:6 (3 monthly + 3 single)
+kelas:6
 pendaftar:0 (fresh 16 Mei)
 karya:0
 absen:0
@@ -19,27 +19,30 @@ invoice:0
 jadwal:0
 minat_gambar:field di pendaftar (notes)
 
+## WORKFLOW RULES
+- One at a time, no rush
+- Selalu bikin tahapan kerja: step 1, step 2, step 3, dst — kasi liat wil dulu sebelum mulai
+- Kerjakan step satu-satu
+
 ## NOTES
 - No.Rek BLU BY BCA DIGITAL: 001662116182
 - ShareModal: native share di HP, modal platform di desktop
-- Like: 2 tabel — gallery_likes (foto studio) + karya_likes (karya murid), fingerprint-based
+- Like: 2 tabel — `gallery_likes` (foto studio) + `karya_likes` (karya murid), fingerprint-based
 - Auto Akun Murid: akun auto-create pas daftar, kredensial muncul setelah konfirmasi bayar
 - MuridCards langsung tampilin User ID + Password + Minat Gambar
 - password_plain disimpan di DB buat display admin & user
-- Online Store: katalog /store, order WA, admin CRUD, upload+kompres gambar, proxy API
-- Proxy image: /api/produk/image/[...segments] — anti cache issue
+- Online Store: katalog `/store`, order WA, admin CRUD, upload+kompres gambar, proxy API
+- Proxy image: `/api/produk/image/[...segments]` — anti cache issue
 - Leaderboard: top 10 karya populer di halaman depan
 - Store images: auto-kompres JPEG quality 80, resize 800px
-- Auto-generate Jadwal: monthly=4x, single=1x, meeting_number
-- Check-in validation: cek jadwal dulu sebelum check-in
-- Investasi card klikable di dashboard + riwayat invoice
-- Navbar: link Toko, Beli Merch di Gallery, rename galeri
-- Design System: monochrome gray (Inter body+navbar, Playfair Display heading, Italiana dekoratif, Lucide Icons, gak pake emoji)
-- Minat Gambar: dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
-- WA floating button: wa.me/628111150563
+- **Design System:** monochrome gray (Inter body+navbar, Playfair Display heading, Italiana dekoratif, Lucide Icons, gak pake emoji)
+- **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
+- **Admin jadwal rework:** filter kelas dropdown, filter jadwal lewat otomatis, hapus +Tambah manual, hapus kolom Pengajar
+- **Lokasi kelas:** API settings/default-location, auto-fill pas daftar, UI skip nunggu WA API
+- **Docs audit + cleanup:** 7 docs dibersihin, 6 file sisa dihapus
 
 ## NEXT
-- WA API integration (notif ke WA ganti web push)
+- WA API integration (notif ke WA ganti web push + lokasi kelas + jadwal)
 
 ## ROADMAP
 - Tahap 20 - Share + Investasi (selesai)

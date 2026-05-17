@@ -4,142 +4,127 @@
 
 ---
 
-### 2026-05-16: Perbaikan Sore — Hapus Box WA + Fix Store Modal + Admin Jadwal Rework
+### 2026-05-16: Tahap 29 — Auto-generate Jadwal
 
-**Hapus Box WA Redudan di Halaman Daftar:**
-- Box "Ada pertanyaan?" + Chat WhatsApp di sidebar daftar dihapus (redudan)
-- Icon benefits: bg-accent/10 text-accent -> bg-gray-100 text-gray-500
-- Commit: `279a29c`, PM2 ↺ 70
+**Auto-generate jadwal:**
+- Monthly=4x otomatis, Single=1x otomatis
+- meeting_number + tanggal real dari schedule_config
+- Seed pertama jalan pas generate
 
-**Fix Floating WA Nutup Tombol WA di Modal Store (HP):**
-- Tambah body class `store-modal-open` pas modal kebuka
-- CSS: body.store-modal-open #wa-wrap { display: none !important; }
-- Commit: `0f921f3`, PM2 ↺ 71
+**Check-in validasi:**
+- Cek jadwal dulu sebelum check-in — gak bisa asal klik
 
-**Admin Jadwal Rework (4 steps):**
-- Step 1: Hapus +Tambah + form manual + design system (loading spinner gray, delete gray)
-- Step 2: Filter kelas dropdown + fokus ring gray
-- Step 3: API settings/default-location, PATCH endpoint, auto-fill lokasi pas daftar (UI skip nunggu WA API)
-- Step 4: Filter otomatis jadwal lewat (toggle), hapus kolom Pengajar
-- Commits: `e01a567` `caf285c` `c6c8050` `555f0d5` `93931bc`, PM2 ↺ 72->76
+**Investasi card:**
+- Box investasi klikable → riwayat invoice di /dashboard/investasi
 
-**Full Docs Audit + Cleanup:**
-- 7 workspace docs diaudit: hapus emoji, Muli -> Inter, update dates/numbers/tahap
-- 6 file sisa dibersihin: magic-pencil.db, magic pencil, check_css.sh, _tmp, parse_posts/parse_sql
-- docs/image-standards.md dibersihin
-- docs/tahap19-checklist.md dihapus
-
-**Files baru:** api/settings/default-location/route.js
-**Files diubah:** daftar/page.js, store/page.js, WhatsAppButton.jsx, JadwalTable.jsx (5x), api/jadwal/route.js, api/register/route.js
-**Deploy:** 37+ commits, PM2 ↺ 55->76
+**Files:** JadwalTable.jsx, api/jadwal/route.js, api/register/route.js
+**Commit:** multiple | **PM2:** ↺ 55-69
+**Status:** ✅ Selesai
 
 ---
 
 ### 2026-05-16: Tahap 30 — Minat Gambar + Design System
 
 **Minat Gambar:**
-- Ganti field Catatan Tambahan (textarea opsional) → Minat Gambar (dropdown wajib)
-- 5 opsi: Alam, Manusia, Hewan, Bangunan/Arsitektur, Benda Solid
-- Validasi required + tampil di Admin Murid
-- Reuse field `notes` di DB (gak perlu migrasi)
+- Ganti catatan tambahan → dropdown wajib di form daftar
+- 5 opsi: Alam, Manusia, Hewan, Bangunan, Benda Solid
+- Admin lihat minat gambar di MuridCards
 
-**Design System Rules:**
-- Semua icon/font/emoji → monochrome gray (gak ada accent, red, green, yellow)
-- Font: Inter (body+navbar) + Playfair Display (display) + Italiana (dekoratif)
-- Icon: Lucide Icons wajib (gak pake emoji)
-- Button: bg-gray-200 text-gray-700, Badge: bg-gray-100/200
-- Rules dicatat di project-brief.md section 8
+**Design System:**
+- Monochrome gray rules (semua gray, Lucide Icons, gak pake emoji)
+- Inter (body+navbar), Playfair Display (heading), Italiana (dekoratif)
+- Footer: link Invoice → Admin
 
-**Perbaikan Warna (monochrome gray):**
-- Dashboard murid: semua loading spinner, check-in/out button, emoji diganti Lucide icons
-- Admin murid: loading, filter, emoji UserID/Password/Warning, amber box
-- Admin kelas: icon heading, emoji pin di Informasi
-- Admin jadwal opsi: icon, dot, emoji pin
-- Admin sidebar: tombol Keluar (red ke gray)
-- NotificationManager: button hitam ke gray
-- Footer: link Invoice ke Admin
+**Perbaikan UI Sore:**
+- Halaman daftar: hapus box WA redudan + icon benefits gray
+- Store modal: floating WA nutup tombol WA → sembunyiin floating WA pas modal kebuka
+- Admin jadwal: hapus +Tambah, filter kelas dropdown, filter lewat toggle
+- API default-location (skip UI, nunggu WA API)
 
-**Files:** RegistrationForm.jsx, MuridCards.jsx, AdminSidebar.jsx, KelasAdmin.jsx, JadwalOpsiAdmin.jsx, NotificationManager.jsx, semua halaman dashboard
-**Deploy:** 34+ commit, PM2 ↺ 69
+**Files:** 10+ file design system, daftar/page.js, store/page.js, WhatsAppButton.jsx, JadwalTable.jsx (5x)
+**Commit:** ~37 commit | **PM2:** ↺ 55-76
+**Status:** ✅ Selesai
 
 ---
 
-### 2026-05-16: Tahap 29 — Auto-generate Jadwal Pertemuan
+### 2026-05-17: Tahap 31 — Floating WA di Admin + Aturan Baru
 
-**Fitur:**
-- Monthly (Kelas Sketsa, Kelas Gambar, Kelas Private) → 4 jadwal auto, 1x/minggu
-- Single/Sesi (Sesi Lukis Anabul, Sesi Sketsa, Sesi Gambar) → 1 jadwal aja
-- Tanggal pake format YYYY-MM-DD real, bukan nama hari
-- Kolom `meeting_number` di tabel jadwal buat tracking pertemuan ke-
-- Dashboard murid tampilin "Pertemuan X/4"
+**Floating WA di Admin:**
+- CSS `body:has(#admin-root) #wa-wrap { display: none }` di WhatsAppButton.jsx
+- `id="admin-root"` di admin/(main)/layout.js
+- Halaman admin gak perlu floating WA (cuma wil yang akses)
 
-**Seed data kelas baru:**
-- Kelas Sketsa (1jt), Kelas Gambar (1jt), Kelas Private (hub admin)
-- Sesi Lukis Anabul (350k), Sesi Sketsa (300k), Sesi Gambar (300k)
+**Deploy issues & fixes:**
+- Zip deploy gagal: package.json ketimpa file dari .next/build/
+- Cross-platform build rawan eror: Windows better-sqlite3 hash beda sama Linux
+- Solusi: `git pull` + build langsung di server
 
-**Migration:**
-- Kelas lama ("Melukis Akrilik" dll) otomatis diganti pas init
-- Kolom meeting_number ditambah via ALTER TABLE
+**Aturan baru ditetapkan:**
+- Panggilan: wil (user), mamat/asisten (sopan)
+- Gak boleh: lo/gua/lu, kata berbau agama
+- Workflow: one at a time, bikin step list dulu, kerjakan satu-satu
+- Summary/ringkasan wajib ke Obsidian
 
-**Files:** `database.js`, `api/register/route.js`, `api/jadwal-murid/route.js`, `api/kelas/route.js`, `dashboard/jadwal/page.js`
-**Deploy:** commit `1fc0f2c`, PM2 ↺ 55
-
----
-
-### 2026-05-15: Tahap 24 — Online Store
-
-**Fitur:**
-- Katalog `/store` — grid produk 2-4 kolom, filter kategori, modal detail
-- Order via WhatsApp — form pemesan + template WA lengkap (produk, ukuran, warna, jumlah)
-- Admin CRUD produk — tambah/edit/hapus, toggle status, upload gambar
-- Fitur ukuran + warna (tag chips input, tersimpan di DB sebagai JSON)
-- Tombol Beli Merch di Gallery lightbox -> WA langsung
-- Proxy API `/api/produk/image/[...segments]` — anti cache issue (gak perlu restart PM2)
-
-**Perbaikan:**
-- object-cover → object-contain + fixed height biar foto gak ke-crop
-- Warna_tersedia fix — tadinya gak ke-save di body request
-
-**Files baru:** `api/produk`, `api/produk/[id]`, `api/produk/upload`, `api/produk/image/[...segments]`, `app/store`, `admin/produk`
-**Files diubah:** `database.js`, `AdminSidebar.jsx`, `Gallery.jsx`
-**Produk:** Kaos polos Rp120rb + Kaos polo Rp135rb
-**Deploy:** 6 commits, PM2 ↺ 47
+**Files:** WhatsAppButton.jsx, admin/(main)/layout.js
+**Commit:** `491b5fa` | **PM2:** ↺ 77
+**Status:** ✅ Selesai
 
 ---
 
-### 2026-05-15: Tahap 23 — Auto Akun Murid ✅
+### 2026-05-15: Tahap 28 — Leaderboard Karya Populer
 
-**Flow baru:**
-- Akun auto-create pas daftar (email user + password mp + 4 random)
-- Kredensial disimpan di DB (hash + password_plain)
-- Gak tampil di halaman sukses — muncul **setelah** user klik "Ya, Saya Sudah Transfer"
-- Halaman /status → akunInfo + tombol Login
+**Leaderboard:**
+- API `/api/karya/populer` — top 10 karya approved with most likes
+- `Leaderboard.jsx` — grid responsive, badge peringkat (#1🏆 #2 #3) + ring oranye untuk top 3
+- Letak di halaman depan antara Galeri Sketsa dan Testimoni
+- Auto-hide kalo data kosong
 
-**Admin changes:**
-- MuridCards langsung tampilin User ID + Password (gak ada tombol reset/backfill)
-- PendaftarTable: hapus tombol Buat Akun (➕)
-- Admin masih bisa reset password via API
-
-**DB clean:**
-- Kolom password_plain ditambah
-- Semua data pendaftar dihapus (fresh start, 0 pendaftar)
-
-**Files:** auth-murid.js (baru), register, pendaftar, status, murid API + KonfirmasiPembayaran, MuridCards, PendaftarTable
-
-**Deploy:** 8 commits, PM2 ↺ 39
+**Commit:** `77432df` | **PM2:** ↺ 54
+**Status:** ✅ Selesai
 
 ---
 
-### 2026-05-15: Tahap 22 — Like + Reaction IG-style
+### 2026-05-15: Tahap 27 — Like System Karya Murid
 
-**Fitur:**
-- Like heart button + counter di Gallery publik
-- DB `gallery_likes` + fingerprint-based (no login needed)
-- GET count & POST toggle via API
+**Like untuk karya murid:**
+- Tabel baru `karya_likes` (pattern: karya_id + fingerprint, UNIQUE)
+- API `/api/karya/[id]/like` (GET status + POST toggle)
+- ❤️ button + count di lightbox `/galeri`
 
-**Files:** Gallery.jsx, gallery/page.js, /api/gallery/[id]/like (baru)
+**Fix count display:**
+- Count ❤️ selalu kelihatan walaupun 0 (IG-style)
+- Fix `/koleksi` page: routing like berdasarkan source (gallery vs karya)
 
-**Deploy:** PM2 ↺ 31
+**Commit:** `f5645a9` | **PM2:** ↺ 53
+**Status:** ✅ Selesai
+
+---
+
+### 2026-05-15: Tahap 26 — Kompres Gambar Store
+
+**Fix gambar store berat:**
+- PNG 1.3MB + 2.0MB dikompres ke JPEG quality 80 @800px → 27KB + 36KB
+- DB path diupdate ke file baru, PNG lama dihapus
+- API upload produk otomatis kompres pake Jimp
+
+**Commit:** `7ee7623` | **PM2:** ↺ 52
+**Status:** ✅ Selesai
+
+---
+
+### 2026-05-15: Tahap 25 — Navbar, Gallery UX Fixes
+
+**Navbar:**
+- Tambah link Toko (`/store`) di navbar
+- Beli Merch button di Gallery lightbox (WA → `/store`)
+
+**Rename & cleanup:**
+- Rename `/gallery` → `/koleksi` (biar gak bingung sama `/galeri`)
+- Update Navbar href + label
+- Hapus deskripsi dari galeri sketsa di home page
+
+**Commit:** `46f48a2`, `49b46b3`, `7a4a088`, `7b6ccd3` | **PM2:** ↺ 48-51
+**Status:** ✅ Selesai
 
 ---
 
@@ -151,14 +136,13 @@
 - Auto-scroll ke foto yang dipilih pas buka
 - Tombol X fixed di atas
 
-**Layout & Polish:**
-- Judul di kiri dengan prefix "Judul :"
-- Tombol Bagikan di kanan (bg-white/10, rounded-full pill)
-- Alignment rapi (items-center, py-0.5)
-- Hapus teks sumber foto & counter 1/10
-- Spacing rapat antar gambar
+**Layout final (setelah polish):**
+- Title overlay kiri atas (gradient bg, drop-shadow)
+- Action bar bawah: ❤️ + count, Repost, Share, Beli Merch
+- Caption di bawah action bar (kalo ada deskripsi)
+- Style konsisten antara Gallery home, /koleksi, /galeri
 
-**File berubah:** `Gallery.jsx`, `gallery/page.js`
+**File berubah:** `Gallery.jsx`
 
 ---
 
@@ -195,9 +179,10 @@
 - Judul: "Mereka dan Gambar"
 - Fix: `force-dynamic` biar data fresh tiap render
 
-**Rencana Fitur Baru:**
-- Auto akun murid pas daftar (email + mpXXXX)
-- Share medsos, swipe down, like — di tunda
+**Rencana Fitur Baru (saat itu, semua udah jadi):**
+- Auto akun murid → ✅ Tahap 23
+- Share medsos → ✅ Tahap 20
+- Like → ✅ Tahap 22
 
 ---
 
