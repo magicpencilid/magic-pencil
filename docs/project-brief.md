@@ -141,6 +141,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Minat Gambar | ✅ | Dropdown wajib di form daftar (5 opsi) |
 | Kompres Gambar Store | ✅ | Jimp resize 800px, JPEG quality 80 |
 | Navbar + Gallery UX Fixes | ✅ | Link Toko, Beli Merch, rename galeri |
+| Galeri Sketsa Dinamis | ✅ | Dari gallery_photos (show_on_homepage), limit 6, no lightbox |
 
 ---
 
@@ -170,6 +171,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 29 | Auto-generate Jadwal (monthly=4x, single=1x, meeting_number, tanggal real, seed baru) | ✅ Selesai, deployed (16 Mei) |
 | 30 | Minat Gambar + Design System (dropdown minat, monochrome gray rules) | ✅ Selesai, deployed (16 Mei) |
 | 31 | Floating WA di Admin + Aturan Baru | ✅ Selesai, deployed (17 Mei) |
+| 32 | Galeri Sketsa Dinamis + Limit 6 Beranda | ✅ Selesai, deployed (17 Mei) |
 
 ---
 
@@ -220,3 +222,4 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
 - **Design System** — monochrome gray (Inter, Playfair Display, Italiana, Lucide Icons, gak pake emoji)
 - **Floating WA** — sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
+- **Galeri Sketsa** — dinamis dari gallery_photos, admin toggle Beranda, limit 6, tanpa lightbox

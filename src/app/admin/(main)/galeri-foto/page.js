@@ -7,7 +7,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Plus, Trash2, Loader2, ImageIcon, Upload, X } from "lucide-react";
+import { Plus, Trash2, Loader2, ImageIcon, Upload, X, House } from "lucide-react";
 
 export default function AdminGaleriFotoPage() {
   const [photos, setPhotos] = useState([]);
@@ -188,18 +188,20 @@ export default function AdminGaleriFotoPage() {
             </div>
 
             {/* Show on Homepage */}
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="showHomepage"
-                checked={showHomepage && homeCount < 6}
-                onChange={(e) => setShowHomepage(e.target.checked)}
-                disabled={homeCount >= 6}
-                className="w-4 h-4 rounded border-gray-300 text-gray-700 focus:ring-gray-400 disabled:opacity-40"
-              />
-              <label htmlFor="showHomepage" className={`text-sm ${homeCount >= 6 ? 'text-gray-400' : 'text-primary'}`}>
-                Tampilkan di Beranda
-              </label>
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowHomepage(!showHomepage)}
+                disabled={!showHomepage && homeCount >= 6}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+                  showHomepage
+                    ? "bg-gray-700 text-white hover:bg-gray-800"
+                    : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                }`}
+              >
+                <House className="w-3.5 h-3.5" />
+                {showHomepage ? "Tampil" : homeCount >= 6 ? "Penuh" : "Jangan Tampil"}
+              </button>
             </div>
 
             {/* Submit */}
@@ -256,24 +258,18 @@ export default function AdminGaleriFotoPage() {
                 {photo.deskripsi && (
                   <p className="text-xs text-text-light mt-0.5 truncate">{photo.deskripsi}</p>
                 )}
-                <div className="flex items-center gap-2 mt-1.5">
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                    photo.show_on_homepage
-                      ? "bg-gray-200 text-gray-700"
-                      : "bg-gray-100 text-gray-400"
-                  }`}>
-                    {photo.show_on_homepage ? "Beranda" : "Sembunyi"}
-                  </span>
+                <div className="mt-1.5">
                   <button
                     onClick={() => handleToggleHomepage(photo.id, photo.show_on_homepage)}
                     disabled={!photo.show_on_homepage && homeCount >= 6}
-                    className={`text-[10px] px-1.5 py-0.5 rounded-full transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+                    className={`w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                       photo.show_on_homepage
-                        ? "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                        ? "bg-gray-700 text-white hover:bg-gray-800"
                         : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
                   >
-                    {photo.show_on_homepage ? "Sembunyikan" : homeCount >= 6 ? "Penuh" : "Tampilkan"}
+                    <House className="w-3.5 h-3.5" />
+                    {photo.show_on_homepage ? "Di Beranda" : homeCount >= 6 ? "Penuh" : "Beranda"}
                   </button>
                 </div>
                 <div className="flex items-center justify-between mt-1">

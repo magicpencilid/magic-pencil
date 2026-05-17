@@ -71,6 +71,7 @@ magic-pencil-app/
 | Admin jadwal rework (filter kelas, filter lewat, hapus +Tambah) | Selesai |
 | Lokasi kelas (API + auto-fill, skip UI nunggu WA API) | Selesai |
 | Floating WA sembunyi di admin (CSS :has selector) | Selesai |
+| Galeri Sketsa dinamis dari DB (show_on_homepage, limit 6) | Selesai |
 | Telegram Bot (@magicpencil_notif_bot) | Selesai |
 | WA floating button (wa.me/628111150563) | Selesai |
 | Dashboard murid (jadwal, absensi, karya, investasi) | Selesai |
@@ -148,6 +149,7 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - **Design System:** monochrome gray (Inter body, Playfair Display heading, Lucide Icons, gak pake emoji)
 - **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Floating WA:** sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
+- **Galeri Sketsa:** dinamis dari gallery_photos, admin toggle Beranda, limit 6, no lightbox
 
 ---
 
@@ -160,4 +162,5 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - [x] Tahap 29 — Auto-generate Jadwal
 - [x] Tahap 30 — Minat Gambar + Design System
 - [x] Tahap 31 — Floating WA di Admin + Aturan Baru
+- [x] Tahap 32 — Galeri Sketsa Dinamis + Limit 6 Beranda
 - [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal)

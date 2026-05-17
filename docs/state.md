@@ -1,23 +1,23 @@
 # STATE -- Magic Pencil
-> Auto: 2026-05-17 10:55
+> Auto: 2026-05-17 12:17
 
 ## APP
 nama:Magic Pencil
 tujuan:Landing page + pendaftaran + galeri karya murid + online store
-tahap:30 (Minat Gambar + Design System) + perbaikan sore
-server:PM2 online (↺ 77+)
+tahap:32 (Galeri Sketsa Dinamis + Limit 6 Beranda)
+server:PM2 online (↺ 80+)
 
 ## STATS
 pages:~29
 api:~50
 comps:~28
 kelas:6
-pendaftar:0 (fresh 16 Mei)
+pendaftar:0 (fresh 17 Mei)
 karya:0
 absen:0
 invoice:0
 jadwal:0
-minat_gambar:field di pendaftar (notes)
+minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 
 ## WORKFLOW RULES
 - One at a time, no rush
@@ -38,6 +38,10 @@ minat_gambar:field di pendaftar (notes)
 - **Design System:** monochrome gray (Inter body+navbar, Playfair Display heading, Italiana dekoratif, Lucide Icons, gak pake emoji)
 - **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Admin jadwal rework:** filter kelas dropdown, filter jadwal lewat otomatis, hapus +Tambah manual, hapus kolom Pengajar
+- **Galeri Sketsa:** dinamis dari gallery_photos (show_on_homepage), limit 6, gak ada lightbox, toggle dari admin
+- **Floating WA:** sembunyi di admin via CSS body:has(#admin-root)
+- **Aturan baru:** panggilan wil/mamat, larangan lo/gua/agama, workflow step
+- **Docs audit (17 Mei):** USER.md, SOUL.md, project-brief, project-cheat, project-state, changelog, MEMORY.md, state/magic-pencil — semua dirapihin
 - **Lokasi kelas:** API settings/default-location, auto-fill pas daftar, UI skip nunggu WA API
 - **Docs audit + cleanup:** 7 docs dibersihin, 6 file sisa dihapus
 
@@ -56,4 +60,6 @@ minat_gambar:field di pendaftar (notes)
 - Tahap 28 - Leaderboard (selesai)
 - Tahap 29 - Auto-generate Jadwal (selesai)
 - Tahap 30 - Minat Gambar + Design System (selesai)
+- Tahap 31 - Floating WA Admin + Aturan Baru (selesai)
+- Tahap 32 - Galeri Sketsa Dinamis + Limit 6 Beranda (selesai)
 - Next - WA API integration

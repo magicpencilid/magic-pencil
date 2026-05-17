@@ -47,6 +47,33 @@
 
 ---
 
+### 2026-05-17: Tahap 32 — Galeri Sketsa Dinamis + Limit 6 Beranda
+
+**Galeri sketsa dinamis:**
+- Homepage Gallery.jsx rewrite: hardcoded data + lightbox IG-style (like/share/merch) -> fetch dari DB + showcase statis
+- Kolom baru `show_on_homepage` di tabel `gallery_photos`
+- API `/api/gallery?homepage=1` — filter 6 foto dengan `show_on_homepage = 1`
+
+**Admin toggle:**
+- Checkbox "Tampilkan di Beranda" pas upload foto
+- Tombol Tampilkan/Sembunyikan di setiap kartu foto
+- API toggle: `/api/gallery/[id]/toggle-homepage` (PATCH, admin only)
+
+**Limit 6:**
+- Maksimal 6 foto ditampilkan di Beranda
+- API toggle + upload reject kalo udah 6
+- Admin UI: tombol jadi "Penuh" & disabled, checkbox auto-disable, counter X/6
+
+**Bug:**
+- Global replace kebablasan: `const homeCount = homeCount;` -> ReferenceError
+- Fix: commit `3132ef1`
+
+**Files:** database.js, Gallery.jsx (rewrite 300->80 line), galeri-foto/page.js, api/gallery/route.js, toggle-homepage/route.js (baru)
+**Commit:** `2e8355e`, `8008549`, `3132ef1` | **PM2:** ↺ 80+
+**Status:** ✅ Selesai
+
+---
+
 ### 2026-05-17: Tahap 31 — Floating WA di Admin + Aturan Baru
 
 **Floating WA di Admin:**
