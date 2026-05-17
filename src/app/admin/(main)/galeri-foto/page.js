@@ -195,7 +195,7 @@ export default function AdminGaleriFotoPage() {
                 disabled={!showHomepage && homeCount >= 6}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                   showHomepage
-                    ? "bg-gray-700 text-white hover:bg-gray-800"
+                    ? "bg-accent text-white hover:bg-accent-dark"
                     : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                 }`}
               >
@@ -264,7 +264,7 @@ export default function AdminGaleriFotoPage() {
                     disabled={!photo.show_on_homepage && homeCount >= 6}
                     className={`w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                       photo.show_on_homepage
-                        ? "bg-gray-700 text-white hover:bg-gray-800"
+                        ? "bg-accent text-white hover:bg-accent-dark"
                         : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
                   >
