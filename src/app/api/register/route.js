@@ -1,11 +1,11 @@
 /* =============================================
-   📡 API: POST /api/register
+   API: POST /api/register
    
    Fungsi: Menerima data pendaftaran dari form
    dan menyimpannya ke database SQLite.
    
    Di Next.js App Router:
-   - route.js di folder api/register/ → /api/register
+   - route.js di folder api/register/ -> /api/register
    - export async function POST(request) = handle POST request
    - Response.json() = kirim response JSON
    ============================================= */
@@ -18,10 +18,10 @@ import { hashPassword, generatePassword, generateEmail } from "@/lib/auth-murid"
 
 export async function POST(request) {
   try {
-    /* 1️⃣ Ambil data dari request body */
+    /* 1. Ambil data dari request body */
     const body = await request.json();
     
-    /* 2️⃣ Validasi data */
+    /* 2. Validasi data */
     const errors = [];
     if (!body.fullName?.trim()) errors.push("Nama lengkap wajib diisi");
     if (!body.participantName?.trim()) errors.push("Nama peserta wajib diisi");
@@ -35,7 +35,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    /* 3️⃣ Simpan ke database */
+    /* 3. Simpan ke database */
     const db = getDb();
     
     const now = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" });
@@ -61,7 +61,7 @@ export async function POST(request) {
 
     const regId = result.lastInsertRowid;
 
-    /* 🔐 Auto-create akun murid */
+    /* Auto-create akun murid */
     const rawPassword = generatePassword();
     const passwordHash = hashPassword(rawPassword);
 
@@ -90,7 +90,7 @@ export async function POST(request) {
       rawPassword
     );
 
-    /* 3b️⃣ Auto-generate jadwal berdasarkan tipe kelas
+    /* 3b. Auto-generate jadwal berdasarkan tipe kelas
       - Monthly (kelas sketsa/gambar): 4 pertemuan, 1x/minggu
       - Sesi: 1 pertemuan aja */
     if (body.pilihHari && body.pilihJam) {
@@ -132,17 +132,17 @@ export async function POST(request) {
       }
     }
 
-    /* 3c️⃣ Kirim notifikasi ke admin via push + telegram */
-    const notifText = `📝 ${body.fullName} — ${body.participantName} (${body.age} th) daftar ${body.className}`;
+    /* 3c. Kirim notifikasi ke admin via push + telegram */
+    const notifText = `[Pendaftar] ${body.fullName} - ${body.participantName} (${body.age} th) daftar ${body.className}`;
     sendPushNotification({
-      title: "📝 Pendaftar Baru",
+      title: "Pendaftar Baru",
       body: notifText,
       url: "/admin/pendaftar",
       userType: "admin",
     }).catch(() => {});
     sendTelegram(notifText).catch(() => {});
 
-    /* 4️⃣ Kirim response sukses (tanpa akun — ditampilkan setelah bayar) */
+    /* 4. Kirim response sukses (tanpa akun - ditampilkan setelah bayar) */
     return NextResponse.json({
       success: true,
       data: {

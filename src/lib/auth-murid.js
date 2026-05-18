@@ -1,5 +1,5 @@
 /* =============================================
-   🔐 AUTH MURID — Login/Register/Logout
+   AUTH MURID - Login/Register/Logout
    
    Pake bcryptjs untuk hashing password + JWT
    sederhana via cookies.

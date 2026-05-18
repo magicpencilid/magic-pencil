@@ -1,17 +1,17 @@
 /* =============================================
-   📡 API: PUT/DELETE /api/pendaftar/[id]
+   API: PUT/DELETE /api/pendaftar/[id]
    
-   PUT  — update status pendaftar
-   DELETE — hapus data pendaftar
+   PUT  - update status pendaftar
+   DELETE - hapus data pendaftar
    
-   [id] = dynamic route — id dikirim via URL
+   [id] = dynamic route - id dikirim via URL
    ============================================= */
 
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/database";
 import { hashPassword, generatePassword, generateEmail } from "@/lib/auth-murid";
 
-/* 🔄 UPDATE data pendaftar (status + field lainnya) */
+/* UPDATE data pendaftar (status + field lainnya) */
 export async function PUT(request, { params }) {
   try {
     const id = Number(params.id);
@@ -65,7 +65,7 @@ export async function PUT(request, { params }) {
 
     db.prepare(sql).run(values);
 
-    /* 🚀 Auto-create akun murid kalo status berubah jadi "aktif" */
+    /* Auto-create akun murid kalo status berubah jadi "aktif" */
     let akun = null;
     if (body.status === "aktif") {
       const sudahPunyaAkun = db.prepare("SELECT id, email FROM akun_murid WHERE murid_id = ?").get(id);
@@ -119,7 +119,7 @@ export async function PUT(request, { params }) {
   }
 }
 
-/* 🗑️ HAPUS pendaftar */
+/* HAPUS pendaftar */
 export async function DELETE(request, { params }) {
   try {
     const id = Number(params.id);

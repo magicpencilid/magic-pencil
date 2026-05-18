@@ -1,6 +1,6 @@
 /* =============================================
-   📡 API: GET /api/invoice — List invoice
-        POST /api/invoice — Generate invoice baru
+   API: GET /api/invoice - List invoice
+        POST /api/invoice - Generate invoice baru
    ============================================= */
 
 import { NextResponse } from "next/server";
@@ -8,7 +8,7 @@ import { getDb } from "@/lib/database";
 import { sendPushNotification } from "@/lib/push";
 import { sendTelegram } from "@/lib/telegram";
 
-/* 🔍 GET: List semua invoice */
+/* GET: List semua invoice */
 export async function GET() {
   try {
     const db = getDb();
@@ -28,7 +28,7 @@ export async function GET() {
   }
 }
 
-/* 🆕 POST: Generate invoice untuk pendaftar */
+/* POST: Generate invoice untuk pendaftar */
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -69,9 +69,9 @@ export async function POST(request) {
     });
 
     // Notifikasi ke admin via push + telegram
-    const notifText = `🧾 ${registrant.full_name} — ${invoiceNumber} (Rp ${amount.toLocaleString("id-ID")})`;
+    const notifText = `[Invoice] ${registrant.full_name} - ${invoiceNumber} (Rp ${amount.toLocaleString("id-ID")})`;
     sendPushNotification({
-      title: "🧾 Invoice Baru",
+      title: "Invoice Baru",
       body: notifText,
       url: "/admin/pembayaran",
       userType: "admin",

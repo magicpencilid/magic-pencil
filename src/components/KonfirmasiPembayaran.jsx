@@ -1,8 +1,8 @@
 /* =============================================
-   💳 KONFIRMASI PEMBAYARAN
+   KONFIRMASI PEMBAYARAN
    
    User upload bukti transfer + konfirmasi.
-   3 step: form → confirm → done
+   3 step: form -> confirm -> done
    
    Setelah done, tampilin akun login (email + password).
    ============================================= */
@@ -16,13 +16,16 @@ import {
   Banknote,
   Loader2,
   ArrowLeft,
+  ArrowRight,
   Upload,
   Image as ImageIcon,
+  Key,
+  Paperclip,
   X,
 } from "lucide-react";
 
 export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, akunInfo }) {
-  const [step, setStep] = useState("form"); // form → confirm → done
+  const [step, setStep] = useState("form"); // form -> confirm -> done
   const [notes, setNotes] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -86,7 +89,7 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, a
     }
   };
 
-  // ✅ STEP: DONE (show credentials setelah bayar)
+  // STEP: DONE (show credentials setelah bayar)
   if (step === "done" && result) {
     return (
       <div className="bg-white rounded-2xl border border-green-200 p-6 shadow-sm animate-fade-in">
@@ -94,25 +97,25 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, a
           <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
-          <h3 className="text-lg font-bold text-primary mb-2">Konfirmasi Terkirim! 🎉</h3>
+          <h3 className="text-lg font-bold text-primary mb-2">Konfirmasi Terkirim!</h3>
           <p className="text-sm text-text-light mb-4">{result.message}</p>
 
-          {/* 🔑 AKUN LOGIN — muncul setelah konfirmasi bayar */}
+          {/* AKUN LOGIN — muncul setelah konfirmasi bayar */}
           {akunInfo && (
             <div className="bg-accent/5 border border-accent/20 rounded-xl p-4 text-left text-sm mb-4">
-              <p className="font-semibold text-primary mb-2">🔑 Akun Login Kamu</p>
+              <p className="font-semibold text-primary mb-2 flex items-center gap-2"><Key className="w-4 h-4" /> Akun Login Kamu</p>
               <div className="space-y-1 text-text-light">
                 <p>User ID: <strong className="text-primary font-mono">{akunInfo.email}</strong></p>
                 <p>Password: <strong className="text-primary font-mono">{akunInfo.password_plain}</strong></p>
               </div>
-              <div className="mt-3 pt-3 border-t border-accent/20 text-xs text-amber-600">
-                ⚠️ Simpan password ini! Kalo lupa, hubungi admin.
+              <div className="mt-3 pt-3 border-t border-accent/20 text-xs text-amber-600 flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 shrink-0" /> Simpan password ini! Kalo lupa, hubungi admin.
               </div>
               <a
                 href="/login"
                 className="mt-3 inline-flex items-center justify-center bg-accent text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-accent-dark transition-colors"
               >
-                Login Sekarang →
+                Login Sekarang <ArrowRight className="w-4 h-4" />
               </a>
             </div>
           )}
@@ -121,7 +124,7 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, a
             <p>Invoice: <strong>{result.invoice_number}</strong></p>
             <p>Total: <strong>Investasi {Number(result.amount).toLocaleString("id-ID")}</strong></p>
             {result.file_url && (
-              <p className="mt-1 text-green-600">✅ Bukti transfer terlampir</p>
+              <p className="mt-1 text-green-600 flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Bukti transfer terlampir</p>
             )}
           </div>
         </div>
@@ -129,7 +132,7 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, a
     );
   }
 
-  // ✅ STEP: CONFIRM
+  // STEP: CONFIRM
   if (step === "confirm") {
     return (
       <div className="bg-white rounded-2xl border border-yellow-200 p-6 shadow-sm animate-fade-in">
@@ -145,7 +148,7 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, a
             {notes && <p className="mt-2">Catatan: <em>{notes}</em></p>}
             {preview && (
               <div className="mt-2">
-                <p className="text-xs mb-1">📎 Bukti transfer:</p>
+                <p className="text-xs mb-1 flex items-center gap-1"><Paperclip className="w-3 h-3" /> Bukti transfer:</p>
                 <img
                   src={preview}
                   alt="Bukti transfer"
@@ -194,7 +197,7 @@ export default function KonfirmasiPembayaran({ registrant, invoice, onSuccess, a
     );
   }
 
-  // ✅ STEP: FORM (default)
+  // STEP: FORM (default)
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
       <div className="flex items-start gap-3 mb-4">

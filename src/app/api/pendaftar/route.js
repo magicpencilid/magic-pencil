@@ -1,11 +1,11 @@
 /* =============================================
-   📡 API: GET /api/pendaftar — List Pendaftar
+   API: GET /api/pendaftar - List Pendaftar
    
    Query params:
-   - page   (optional, int) → paginated response
+   - page   (optional, int) - paginated response
    - limit  (optional, int, default 20)
-   - search (optional, string) → filter nama/WA
-   - status (optional, string) → filter status
+   - search (optional, string) - filter nama/WA
+   - status (optional, string) - filter status
    ============================================= */
 
 import { NextResponse } from "next/server";
@@ -16,7 +16,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const db = getDb();
 
-    // Jika ada page → paginated
+    // Jika ada page - paginated
     if (searchParams.has("page")) {
       const page = Math.max(1, Number(searchParams.get("page")) || 1);
       const limit = Math.min(100, Math.max(1, Number(searchParams.get("limit")) || 20));
@@ -34,7 +34,7 @@ export async function GET(request) {
       });
     }
 
-    // Tanpa page → return semua (backward compat)
+    // Tanpa page -> return semua (backward compat)
     const rows = db.prepare("SELECT * FROM pendaftar ORDER BY created_at DESC").all();
     return NextResponse.json({ success: true, data: rows });
   } catch (error) {

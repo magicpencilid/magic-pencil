@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: GET /api/pembayaran — Daftar Pembayaran
+   API: GET /api/pembayaran - Daftar Pembayaran
    
    Support filter: ?status=pending
    Support limit: ?limit=5
@@ -72,7 +72,7 @@ export async function PUT(request) {
       admin_note: body.admin_note || null,
     });
 
-    // Kalo diverifikasi → update pendaftar jadi 'aktif' + invoice jadi 'lunas'
+    // Kalo diverifikasi -> update pendaftar jadi 'aktif' + invoice jadi 'lunas'
     if (body.status === "verified") {
       const payment = db.prepare(
         "SELECT registration_id, invoice_id FROM pembayaran WHERE id = ?"
@@ -102,11 +102,11 @@ export async function PUT(request) {
       ).get(body.id);
       
       const notifText = payment?.full_name 
-        ? `✅ ${payment.full_name} — pembayaran diverifikasi, status aktif` 
-        : `✅ Pembayaran #${body.id} diverifikasi`;
+        ? `[Verifikasi] ${payment.full_name} - pembayaran diverifikasi, status aktif` 
+        : `[Verifikasi] Pembayaran #${body.id} diverifikasi`;
       
       sendPushNotification({
-        title: "✅ Pembayaran Diverifikasi",
+        title: "Pembayaran Diverifikasi",
         body: notifText,
         url: "/admin/pendaftar",
         userType: "admin",

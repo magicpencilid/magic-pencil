@@ -1,5 +1,5 @@
 /* =============================================
-   🔍 STATUS PAGE — Cek Status Pendaftaran
+   STATUS PAGE - Cek Status Pendaftaran
    ============================================= */
 
 import StatusCheck from "@/components/StatusCheck";

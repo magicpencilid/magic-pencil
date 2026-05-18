@@ -80,13 +80,13 @@ export default function DashboardPage() {
       const res = await fetch("/api/absensi/checkin", { method: "POST" });
       const data = await res.json();
       if (data.success) {
-        setAbsensiMsg("✅ Check-in berhasil!");
+        setAbsensiMsg("success:Check-in berhasil!");
         fetchAbsensi();
       } else {
-        setAbsensiMsg("❌ " + (data.error || "Gagal check-in"));
+        setAbsensiMsg("error:" + (data.error || "Gagal check-in"));
       }
     } catch {
-      setAbsensiMsg("❌ Gagal menghubungi server");
+      setAbsensiMsg("error:Gagal menghubungi server");
     }
     setAbsensiLoading(false);
   }
@@ -98,13 +98,13 @@ export default function DashboardPage() {
       const res = await fetch("/api/absensi/checkout", { method: "POST" });
       const data = await res.json();
       if (data.success) {
-        setAbsensiMsg("✅ Check-out berhasil!");
+        setAbsensiMsg("success:Check-out berhasil!");
         fetchAbsensi();
       } else {
-        setAbsensiMsg("❌ " + (data.error || "Gagal check-out"));
+        setAbsensiMsg("error:" + (data.error || "Gagal check-out"));
       }
     } catch {
-      setAbsensiMsg("❌ Gagal menghubungi server");
+      setAbsensiMsg("error:Gagal menghubungi server");
     }
     setAbsensiLoading(false);
   }
@@ -182,7 +182,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* 🎯 ABSENSI CARD */}
+        {/* ABSENSI CARD */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           <h2 className="text-lg font-bold text-primary mb-4 flex items-center gap-2">
             <LogIn className="w-5 h-5 text-gray-400" />
@@ -190,7 +190,10 @@ export default function DashboardPage() {
           </h2>
 
           {absensiMsg && (
-            <div className="mb-4 text-sm font-medium">{absensiMsg}</div>
+            <div className={`mb-4 text-sm font-medium flex items-center gap-1.5 ${absensiMsg.startsWith("error:") ? "text-red-600" : "text-green-600"}`}>
+              {absensiMsg.startsWith("error:") ? <AlertCircle className="w-4 h-4 shrink-0" /> : <CheckCircle className="w-4 h-4 shrink-0" />}
+              {absensiMsg.replace(/^(success|error):/, "")}
+            </div>
           )}
 
           {/* Status badge */}
@@ -319,7 +322,7 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* 🔔 PWA + Notifikasi */}
+        {/* PWA + Notifikasi */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           <NotificationManager />
         </div>

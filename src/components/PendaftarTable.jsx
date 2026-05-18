@@ -1,5 +1,5 @@
 /* =============================================
-   📋 PENDAFTAR TABLE — Data Pendaftar
+   PENDAFTAR TABLE — Data Pendaftar
    
    Fitur:
    - Tabel semua pendaftar
@@ -13,7 +13,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Search, Trash2, RefreshCw, AlertCircle, Download, MessageSquare, Pencil, X } from "lucide-react";
+import { Search, Trash2, RefreshCw, AlertCircle, Download, MessageSquare, Pencil, CheckCircle, CreditCard, ChevronLeft, ChevronRight, Copy, Key, Save, AlertTriangle, X } from "lucide-react";
 import WATemplate from "./WATemplate";
 
 export default function PendaftarTable() {
@@ -122,10 +122,10 @@ export default function PendaftarTable() {
         setEditRow(null);
         fetchData();
       } else {
-        alert("❌ " + (json.errors?.[0] || "Gagal simpan"));
+        alert("[Gagal] " + (json.errors?.[0] || "Gagal simpan"));
       }
     } catch {
-      alert("❌ Gagal menghubungi server");
+      alert("[Gagal] Gagal menghubungi server");
     }
     setEditSaving(false);
   };
@@ -167,11 +167,11 @@ export default function PendaftarTable() {
       });
       const result = await res.json();
       if (result.success) {
-        alert(`✅ Invoice ${result.data.invoice_number} berhasil dibuat!`);
+        alert(`Invoice ${result.data.invoice_number} berhasil dibuat!`);
         fetchData();
       }
     } catch {
-      alert("❌ Gagal membuat invoice");
+      alert("[Gagal] Gagal membuat invoice");
     }
   };
 
@@ -319,7 +319,7 @@ export default function PendaftarTable() {
                             className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors text-xs font-bold"
                             title="Buat Invoice"
                           >
-                            💳
+                            <CreditCard className="w-4 h-4" />
                           </button>
                         )}
 
@@ -353,7 +353,7 @@ export default function PendaftarTable() {
                   disabled={currentPage === 1}
                   className="px-2 py-1 text-xs rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
-                  ‹
+                  <ChevronLeft className="w-3 h-3" />
                 </button>
                 {pageButtons.map((p) => (
                   <button
@@ -373,7 +373,7 @@ export default function PendaftarTable() {
                   disabled={currentPage === totalPages}
                   className="px-2 py-1 text-xs rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed"
                 >
-                  ›
+                  <ChevronRight className="w-3 h-3" />
                 </button>
               </div>
             )}
@@ -396,7 +396,7 @@ export default function PendaftarTable() {
         );
       })()}
 
-      {/* ✏️ Modal Edit Data */}
+      {/* Modal Edit Data */}
       {editRow && (() => {
         const row = data.find((r) => r.id === editRow);
         if (!row) return null;
@@ -404,7 +404,7 @@ export default function PendaftarTable() {
           <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setEditRow(null)}>
             <div className="bg-white rounded-2xl p-6 max-w-lg w-full shadow-xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-bold text-primary text-lg">✏️ Edit Data</h2>
+                <h2 className="font-bold text-primary text-lg flex items-center gap-2"><Pencil className="w-5 h-5" /> Edit Data</h2>
                 <button onClick={() => setEditRow(null)} className="text-gray-400 hover:text-gray-600">
                   <X className="w-5 h-5" />
                 </button>
@@ -508,7 +508,7 @@ export default function PendaftarTable() {
                   </button>
                   <button onClick={saveEdit} disabled={editSaving}
                     className="flex-1 bg-accent text-white font-semibold py-2.5 rounded-xl hover:bg-accent-dark transition-all disabled:opacity-60 text-sm">
-                    {editSaving ? "Menyimpan..." : "💾 Simpan"}
+                    {editSaving ? "Menyimpan..." : <><Save className="w-4 h-4" /> Simpan</>}
                   </button>
                 </div>
               </div>
@@ -517,7 +517,7 @@ export default function PendaftarTable() {
         );
       })()}
 
-      {/* 🔔 Notifikasi Toast */}
+      {/* Notifikasi Toast */}
       {notif && (
         <div className="fixed bottom-6 right-6 z-50 animate-fade-in">
           <div className={`rounded-2xl px-5 py-4 shadow-lg border max-w-sm ${
@@ -526,7 +526,7 @@ export default function PendaftarTable() {
               : "bg-green-50 border-green-200 text-green-800"
           }`}>
             <div className="flex items-start gap-3">
-              <span className="text-lg">{notif.type === "error" ? "❌" : "✅"}</span>
+              {notif.type === "error" ? <AlertCircle className="w-5 h-5 shrink-0 text-red-600" /> : <CheckCircle className="w-5 h-5 shrink-0 text-green-600" />}
               <p className="text-sm font-medium">{notif.message}</p>
               <button onClick={() => setNotif(null)} className="shrink-0 -mr-1 -mt-1 text-gray-400 hover:text-gray-600">
                 <X className="w-4 h-4" />
@@ -536,13 +536,13 @@ export default function PendaftarTable() {
         </div>
       )}
 
-      {/* 🎉 Modal Sukses — Auto-create Akun */}
+      {/* Modal Sukses — Auto-create Akun */}
       {akunBaru && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setAkunBaru(null)}>
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-bold text-primary text-lg flex items-center gap-2">
-                <span className="text-xl">🎉</span> Akun Berhasil Dibuat!
+                <CheckCircle className="w-5 h-5 text-green-600" /> Akun Berhasil Dibuat!
               </h2>
               <button onClick={() => setAkunBaru(null)} className="text-gray-400 hover:text-gray-600">
                 <X className="w-5 h-5" />
@@ -562,7 +562,7 @@ export default function PendaftarTable() {
                     onClick={() => navigator.clipboard.writeText(akunBaru.email)}
                     className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
                   >
-                    📋 Salin
+                    <Copy className="w-3.5 h-3.5" /> Salin
                   </button>
                 </div>
               </div>
@@ -574,14 +574,14 @@ export default function PendaftarTable() {
                     onClick={() => navigator.clipboard.writeText(akunBaru.password_plain)}
                     className="text-xs text-accent hover:text-accent-dark font-medium ml-2 whitespace-nowrap"
                   >
-                    📋 Salin
+                    <Copy className="w-3.5 h-3.5" /> Salin
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800 mb-4">
-              ⚠️ Password ini <strong>hanya tampil sekali</strong>. Salin sekarang sebelum menutup.
+              <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" /> Password ini <strong>hanya tampil sekali</strong>. Salin sekarang sebelum menutup.
             </div>
 
             <button
@@ -596,12 +596,12 @@ export default function PendaftarTable() {
         </div>
       )}
 
-      {/* 📝 Modal Buat Akun */}
+      {/* Modal Buat Akun */}
       {akunModal && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setAkunModal(null)}>
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-bold text-primary text-lg">🔑 Buat Akun</h2>
+              <h2 className="font-bold text-primary text-lg flex items-center gap-2"><Key className="w-5 h-5" /> Buat Akun</h2>
               <button onClick={() => setAkunModal(null)} className="text-gray-400 hover:text-gray-600">
                 <X className="w-5 h-5" />
               </button>
@@ -667,7 +667,7 @@ export default function PendaftarTable() {
                       });
                       const json = await res.json();
                       if (json.success) {
-                        alert("✅ Akun berhasil dibuat!");
+                        alert("Akun berhasil dibuat!");
                         setAkunModal(null);
                       } else {
                         setAkunForm({ ...akunForm, error: json.error });
