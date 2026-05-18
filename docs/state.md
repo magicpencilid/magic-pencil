@@ -1,11 +1,11 @@
 # STATE -- Magic Pencil
-> Auto: 2026-05-17 17:50
+> Auto: 2026-05-18 15:35
 
 ## APP
 nama:Magic Pencil
 tujuan:Landing page + pendaftaran + galeri karya murid + online store
-tahap:32 (Galeri Sketsa Dinamis + Limit 6 Beranda + Upload ke Galeri Aja)
-server:PM2 online (↺ 9)
+tahap:33 (Update Kontak + Emoji Cleanup Prioritas)
+server:PM2 online (↺ 11)
 
 ## STATS
 pages:~29
@@ -36,23 +36,25 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - Leaderboard: top 10 karya populer di halaman depan
 - Store images: auto-kompres JPEG quality 80, resize 800px
 - **Design System:** monochrome gray (Inter body+navbar, Playfair Display heading, Italiana dekoratif, Lucide Icons, gak pake emoji)
+- **Kontak baru:** WA `+628111199059`, TikTok `@magicpencil.id`, Facebook `facebook.com/magicpencilid`
 - **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Admin jadwal rework:** filter kelas dropdown, filter jadwal lewat otomatis, hapus +Tambah manual, hapus kolom Pengajar
 - **Galeri Sketsa:** dinamis dari gallery_photos, limit 6 beranda, 1 button toggle, gak ada lightbox. Upload masuk galeri aja, atur lewat grid.
 - **Floating WA:** sembunyi di admin via CSS body:has(#admin-root)
 - **Aturan baru:** panggilan willy/mamat, larangan lo/gua/agama, workflow step
-- **Docs audit (17 Mei):** USER.md, SOUL.md, project-brief, project-cheat, project-state, changelog, MEMORY.md, state/magic-pencil — semua dirapihin
 - **Lokasi kelas:** API settings/default-location, auto-fill pas daftar, UI skip nunggu WA API
-- **Docs audit + cleanup:** 7 docs dibersihin, 6 file sisa dihapus
 - **Bootstrap config:** bootstrapMaxChars 20rb, bootstrapTotalMaxChars 80rb
 - **1 Button Beranda Toggle:** admin galeri — 1 button icon House, dark/light state, disabled kalo penuh, bg-accent serasi
 - **Testimoni rencana:** pindah input ke dashboard murid (belum urgent)
 - **Upload galeri:** upload masuk galeri aja (gak langsung beranda), atur lewat grid toggle
 - **iOS PWA:** skip — bukan prioritas, masalah cuma di Safari Add to Home Screen
 - **Nama user:** willy (bukan wil)
+- **Aturan icon:** Semua icon harus Lucide, monochrome grey. Gak boleh pake emoji. Warna semantic boleh tp shade kalem.
+- **Emoji cleanup tahap 1:** 13 file selesai (KonfirmasiPembayaran, PendaftarTable, dashboard, store, API files, auth-murid, status)
+- **Sisa emoji:** ~30 file (ShareModal, syarat-ketentuan, HeroCarousel, dll) — belum
 
 ## NEXT
-- WA API integration (notif ke WA ganti web push + lokasi kelas + jadwal) — ✅ NIB jadi, Meta Business besok, nomor baru siap, domain siap
+- WA API integration (notif ke WA ganti web push + lokasi kelas + jadwal) — ✅ NIB jadi, nunggu Meta Business diverifikasi, nomor baru + domain siap
 
 ## ROADMAP
 - Tahap 20 - Share + Investasi (selesai)
@@ -68,4 +70,6 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - Tahap 30 - Minat Gambar + Design System (selesai)
 - Tahap 31 - Floating WA Admin + Aturan Baru (selesai)
 - Tahap 32 - Galeri Sketsa Dinamis + Limit 6 Beranda (selesai)
+- Tahap 33 - Update Kontak + Emoji Cleanup (selesai)
 - Next - WA API integration
+- Next - Lanjut emoji cleanup sisa ~30 file

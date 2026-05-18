@@ -46,7 +46,7 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      message: "Check-in berhasil! Selamat menggambar 🎨",
+      message: "Check-in berhasil! Selamat menggambar",
       check_in: now,
       jadwal: {
         waktu: jadwalHariIni.schedule_time,

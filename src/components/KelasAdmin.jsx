@@ -1,7 +1,7 @@
 /* =============================================
    💰 KELAS ADMIN — Kelola Kelas & Harga
    
-   ✅ FIXED — 5 kelas dengan harga tetap.
+   FIXED — 5 kelas dengan harga tetap.
    ============================================= */
 
 "use client";

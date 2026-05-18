@@ -99,7 +99,7 @@ export default function WhatsAppButton() {
         </a>
         <span id="wa-tooltip">
           <span className="line1">mau gambar apa</span>
-          <span className="line2">hari ini? 😊</span>
+          <span className="line2">hari ini?</span>
         </span>
       </div>
     </>

@@ -48,7 +48,7 @@ export default function KaryaPage() {
   };
 
   const handleShare = async (karya) => {
-    const text = `🎨 Karya "${karya.judul}" — Magic Pencil 🖌️\nLihat di: ${window.location.origin}/galeri/${karya.id}`;
+    const text = `Karya "${karya.judul}" — Magic Pencil\nLihat di: ${window.location.origin}/galeri/${karya.id}`;
     if (navigator.share) {
       navigator.share({ title: karya.judul, text, url: `/galeri/${karya.id}` }).catch(() => {});
     } else {

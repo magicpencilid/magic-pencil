@@ -6,42 +6,42 @@
 
 "use client";
 
-import { X } from "lucide-react";
+import { ArrowRight, Camera, Image, Link, MessageCircle, Music, ThumbsUp, X } from "lucide-react";
 
 const platforms = [
   {
     id: "instagram",
     name: "Instagram",
     color: "hover:bg-pink-50 hover:text-pink-600",
-    icon: "📸",
+    icon: Camera,
     getUrl: (url) => `https://www.instagram.com/share?url=${encodeURIComponent(url)}`,
   },
   {
     id: "tiktok",
     name: "TikTok",
     color: "hover:bg-gray-50 hover:text-gray-900",
-    icon: "🎵",
+    icon: Music,
     getUrl: (url) => `https://www.tiktok.com/share?url=${encodeURIComponent(url)}`,
   },
   {
     id: "facebook",
     name: "Facebook",
     color: "hover:bg-blue-50 hover:text-blue-600",
-    icon: "👍",
+    icon: ThumbsUp,
     getUrl: (url) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
   },
   {
     id: "whatsapp",
     name: "WhatsApp",
     color: "hover:bg-green-50 hover:text-green-600",
-    icon: "💬",
+    icon: MessageCircle,
     getUrl: (url, text) => `https://wa.me/?text=${encodeURIComponent(text + "\n" + url)}`,
   },
   {
     id: "twitter",
     name: "Twitter / X",
     color: "hover:bg-gray-50 hover:text-gray-900",
-    icon: "🐦",
+    icon: Image,
     getUrl: (url, text) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
   },
 ];
@@ -101,9 +101,9 @@ export default function ShareModal({ isOpen, onClose, item, shareUrl }) {
               onClick={() => handleShare(p.getUrl(shareUrl, shareText))}
               className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm text-gray-700 transition-all ${p.color}`}
             >
-              <span className="text-lg">{p.icon}</span>
+              <p.icon className="w-5 h-5 text-gray-500" />
               <span className="font-medium">{p.name}</span>
-              <span className="ml-auto text-[10px] text-gray-300">buka ➔</span>
+              <span className="ml-auto flex items-center gap-1 text-[10px] text-gray-300">buka <ArrowRight className="w-3 h-3" /></span>
             </button>
           ))}
         </div>
@@ -114,7 +114,7 @@ export default function ShareModal({ isOpen, onClose, item, shareUrl }) {
             onClick={handleCopyLink}
             className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-50 text-sm text-gray-600 font-medium hover:bg-gray-100 transition-all"
           >
-            🔗 Salin Link
+            <Link className="w-4 h-4" /> Salin Link
           </button>
         </div>
       </div>

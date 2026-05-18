@@ -9,7 +9,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FileText, Search, AlertCircle, Download, Printer } from "lucide-react";
+import { CheckCircle, Clock, FileText, Search, AlertCircle, Download, Printer } from "lucide-react";
 
 export default function InvoiceLookup() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -109,10 +109,10 @@ export default function InvoiceLookup() {
                   <Printer className="w-4 h-4" />
                   Print
                 </button>
-                <div className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
+                <div className={`px-4 py-1.5 rounded-full text-sm font-semibold flex items-center gap-1.5 ${
                   invoice.payment_status === "paid" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
                 }`}>
-                  {invoice.payment_status === "paid" ? "✅ LUNAS" : "⏳ PENDING"}
+                  {invoice.payment_status === "paid" ? <><CheckCircle className="w-4 h-4" /> LUNAS</> : <><Clock className="w-4 h-4" /> PENDING</>}
                 </div>
               </div>
             </div>

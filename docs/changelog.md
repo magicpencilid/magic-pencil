@@ -4,6 +4,31 @@
 
 ---
 
+### 2026-05-18: Tahap 33 — Update Kontak + Emoji Cleanup
+
+**Update Kontak:**
+- WhatsApp: +62 811 150 563 -> +62 811 199 059 (3 file: WhatsAppButton, Footer, Store)
+- TikTok: @magicpencilid -> @magicpencil.id
+- Facebook: facebook.com/magicpencilid (inline SVG, Lucide 1.14.0 belum punya icon FB)
+
+**Emoji Cleanup Tahap 1 (13 file):**
+- Store: semua emoji diganti Lucide (ShoppingBag, Shirt, Coffee, Gift, X, Minus, Plus)
+- KonfirmasiPembayaran: emoji > Lucide (CheckCircle, Key, AlertTriangle, ArrowRight, Paperclip)
+- PendaftarTable: 24+ emoji > Lucide (CreditCard, Chevron, Copy, Save, dll)
+- Dashboard: absensiMsg pake prefix success:/error: + Lucide CheckCircle/AlertCircle
+- API register/pendaftar/pembayaran/invoice: notif emoji > teks ([Pendaftar], [Verifikasi], [Invoice])
+- auth-murid + status page: header emoji dihapus
+
+**Aturan baru:**
+- Semua icon harus Lucide, monochrome grey. Gak boleh emoji.
+- Warna semantic (error/success/warning) pake shade kalem
+
+**Files:** 13 file (store/page.js, KonfirmasiPembayaran.jsx, PendaftarTable.jsx, dashboard/page.js, 5 API files, auth-murid.js, status/page.js)
+**Commits:** ecdddf5 (kontak) + ea52907 (emoji)
+**Status:** ✅ Selesai, deployed (PM2 ↺ 11)
+
+---
+
 ### 2026-05-16: Tahap 29 — Auto-generate Jadwal
 
 **Auto-generate jadwal:**
@@ -127,7 +152,7 @@
 
 **Leaderboard:**
 - API `/api/karya/populer` — top 10 karya approved with most likes
-- `Leaderboard.jsx` — grid responsive, badge peringkat (#1🏆 #2 #3) + ring oranye untuk top 3
+- `Leaderboard.jsx` — grid responsive, badge peringkat (monochrome gray)
 - Letak di halaman depan antara Galeri Sketsa dan Testimoni
 - Auto-hide kalo data kosong
 
@@ -140,10 +165,10 @@
 **Like untuk karya murid:**
 - Tabel baru `karya_likes` (pattern: karya_id + fingerprint, UNIQUE)
 - API `/api/karya/[id]/like` (GET status + POST toggle)
-- ❤️ button + count di lightbox `/galeri`
+- Like button + count di lightbox `/galeri`
 
 **Fix count display:**
-- Count ❤️ selalu kelihatan walaupun 0 (IG-style)
+- Count like selalu kelihatan walaupun 0 (IG-style)
 - Fix `/koleksi` page: routing like berdasarkan source (gallery vs karya)
 
 **Status:** ✅ Selesai
@@ -186,7 +211,7 @@
 
 **Layout final (setelah polish):**
 - Title overlay kiri atas (gradient bg, drop-shadow)
-- Action bar bawah: ❤️ + count, Repost, Share, Beli Merch
+- Action bar bawah: Like + count, Repost, Share, Beli Merch
 - Caption di bawah action bar (kalo ada deskripsi)
 - Style konsisten antara Gallery home, /koleksi, /galeri
 
@@ -311,9 +336,9 @@
 
 **Fitur:**
 - Floating WA button di semua halaman
-- Tooltip "Ada yang bisa dibantu? 😊" — 2 baris, CSS-only
+- Tooltip "mau gambar apa hari ini?" — 2 baris, CSS-only
 - Awal client component pake Tailwind → fix server component + inline styles (stacking context issue)
-- Nomor: 628111150563
+- Nomor: 628111150563 (diupdate ke 628111199059 pada 18 Mei)
 
 **Status:** ✅ Selesai, deployed
 

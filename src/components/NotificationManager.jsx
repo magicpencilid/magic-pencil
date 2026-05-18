@@ -10,7 +10,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Bell, BellOff, Download, Loader2 } from "lucide-react";
+import { Bell, BellOff, CheckCircle, Download, Loader2 } from "lucide-react";
 
 export default function NotificationManager() {
   const [notifStatus, setNotifStatus] = useState(null); // null | "loading" | "active" | "blocked" | "unsupported"
@@ -139,7 +139,7 @@ export default function NotificationManager() {
       {notifStatus === "active" && (
         <div className="bg-gray-100 rounded-2xl p-4 text-center">
           <Bell className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-          <p className="text-sm font-semibold text-primary">Notifikasi Aktif ✅</p>
+          <p className="text-sm font-semibold text-primary flex items-center justify-center gap-1.5"><CheckCircle className="w-4 h-4" /> Notifikasi Aktif</p>
           <p className="text-xs text-text-light mt-1">
             Kamu akan mendapat update jadwal & info kelas
           </p>

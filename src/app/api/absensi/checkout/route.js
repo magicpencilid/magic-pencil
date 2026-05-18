@@ -34,7 +34,7 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      message: "Check-out berhasil! Sampai jumpa lagi 🎨",
+      message: "Check-out berhasil! Sampai jumpa lagi",
       check_out: now,
     });
   } catch (error) {

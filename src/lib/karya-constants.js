@@ -28,7 +28,7 @@ export const STATUS_COLOR = {
  * Generate teks share ke sosmed
  */
 export function generateShareText(karya) {
-  return `🎨 Karya ${karya.participant_name || "Murid"} — "${karya.judul}"
-📚 Kelas: ${karya.kelas || "—"}
-✨ Magic Pencil`;
+  return `Karya ${karya.participant_name || "Murid"} — "${karya.judul}"
+Kelas: ${karya.kelas || "—"}
+Magic Pencil`;
 }

@@ -182,7 +182,7 @@ function SyaratKetentuanContent() {
             <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-primary mb-2">Pendaftaran Berhasil! 🎉</h2>
+            <h2 className="text-2xl font-bold text-primary mb-2">Pendaftaran Berhasil!</h2>
             <p className="text-text-light mb-2">
               Terima kasih {formData.fullName}! Data kamu sudah kami terima dan kamu telah menyetujui Syarat & Ketentuan yang berlaku.
             </p>

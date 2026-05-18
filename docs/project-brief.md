@@ -1,7 +1,7 @@
 # Project Brief — Magic Pencil
 
 > File ini pegangan utama mamat. Update tiap kali ada perubahan besar.
-> Dibuat: 2026-05-08 | Update terakhir: 2026-05-17
+> Dibuat: 2026-05-08 | Update terakhir: 2026-05-18
 
 ---
 
@@ -16,7 +16,8 @@
 | **Warna** | `--color-primary: #1a1a1a` (monochrome gray — gak pake accent colors) |
 | **Mata uang** | "Investasi" (bukan "Rp") |
 | **Design System** | Lihat Section 8 untuk rules lengkap |
-| **WA nomor** | `628111150563` |
+| **WA nomor** | `628111199059` |
+| **Kontak baru** | TikTok `@magicpencil.id`, FB `facebook.com/magicpencilid` |
 | **Transfer** | BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182) |
 | **Telegram** | @magicpencil_notif_bot |
 
@@ -127,7 +128,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Testimoni | ✅ | Simplified (no foto, no bintang) |
 | PWA + Push notif | ⏸️ On Hold | Nunggu WA API |
 | Telegram Bot | ✅ | @magicpencil_notif_bot |
-| WA floating button | ✅ | wa.me/628111150563 |
+| WA floating button | ✅ | wa.me/628111199059 |
 | ShareModal | ✅ | Native share HP / modal desktop |
 | Vertical Feed Lightbox | ✅ | Scroll feed kayak IG |
 | Like + Reaction (2 tabel) | ✅ | gallery_likes + karya_likes, fingerprint |
@@ -174,6 +175,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 32 | Galeri Sketsa Dinamis + Limit 6 Beranda | ✅ Selesai, deployed (17 Mei) |
 | -- | 1 Button Beranda Toggle + Warna serasi | ✅ Selesai, deployed (17 Mei) — `ac640cf`, `c5dfe7f` |
 | -- | Upload galeri default ke galeri aja | ✅ Selesai, deployed (17 Mei) — `2b7808a` |
+| 33 | Update Kontak (WA, TikTok, FB) + Emoji Cleanup Prioritas (13 file) | ✅ Selesai, deployed (18 Mei) — `ea52907` |
 
 ---
 
@@ -224,4 +226,6 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
 - **Design System** — monochrome gray (Inter, Playfair Display, Italiana, Lucide Icons, gak pake emoji)
 - **Floating WA** — sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
+- **Kontak baru:** WA +62 811 199 059, TikTok @magicpencil.id, FB facebook.com/magicpencilid
+- **Aturan icon:** Semua Lucide, monochrome grey (currentColor / text-accent / text-primary / text-text-light). Warna semantic pake shade kalem. Gak boleh pake emoji.
 - **Galeri Sketsa** — dinamis dari gallery_photos, admin 1 button Beranda toggle, limit 6 beranda, tanpa lightbox. Upload foto masuk galeri dulu, atur lewat grid toggle.
