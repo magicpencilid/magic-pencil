@@ -1,5 +1,5 @@
 /* =============================================
-   🔥 LEADERBOARD — Karya Murid Terpopuler
+   LEADERBOARD — Karya Murid Terpopuler
    
    Tampilkan 10 karya approved dengan like terbanyak.
    Kayak IG explore — vibe kompetisi sehat.

@@ -1,5 +1,5 @@
 /* =============================================
-   🔍 STATUS CHECK — Cek Status Pendaftaran
+   STATUS CHECK — Cek Status Pendaftaran
    
    User masukin nomor WA → API cek data →
    Nampilin status + invoice kalo ada.

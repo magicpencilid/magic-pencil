@@ -1,5 +1,5 @@
 /* =============================================
-   💰 KELAS ADMIN — Kelola Kelas & Harga
+   KELAS ADMIN — Kelola Kelas & Harga
    
    FIXED — 5 kelas dengan harga tetap.
    ============================================= */

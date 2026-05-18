@@ -1,5 +1,5 @@
 /* =============================================
-   📝 REGISTRATION FORM — Form Pendaftaran
+   REGISTRATION FORM — Form Pendaftaran
    
    Fungsi: Menerima data pendaftar baru.
    - Validasi input (required, format WA, email)
@@ -18,9 +18,9 @@
 import { useState, useEffect } from "react";
 import { Send, AlertCircle, User, Phone, Mail, Calendar, BookOpen, MessageSquare } from "lucide-react";
 
-/* 📝 Data kelas & investasi — diambil dari API pas form dimuat */
+/* Data kelas & investasi — diambil dari API pas form dimuat */
 
-/* 📝 Data sumber informasi */
+/* Data sumber informasi */
 const sourceOptions = [
   "Instagram",
   "Facebook",

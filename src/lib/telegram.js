@@ -1,5 +1,5 @@
 /* =============================================
-   🤖 TELEGRAM — Kirim notif ke admin via Bot
+   TELEGRAM — Kirim notif ke admin via Bot
    
    Butuh:
    - TELEGRAM_BOT_TOKEN dari @BotFather

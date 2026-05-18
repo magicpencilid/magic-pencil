@@ -1,5 +1,5 @@
 /* =============================================
-   🖼️ GALLERY — Galeri Sketsa Karya
+   GALLERY — Galeri Sketsa Karya
    
    Showcase grid dari gallery_photos (show_on_homepage=1).
    Statis — gak ada lightbox/click.

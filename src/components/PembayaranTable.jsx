@@ -1,5 +1,5 @@
 /* =============================================
-   💳 PEMBAYARAN TABLE — Admin Panel
+   PEMBAYARAN TABLE — Admin Panel
    
    Admin liat daftar konfirmasi pembayaran,
    bisa verifikasi (terima/tolak) dan liat bukti transfer.

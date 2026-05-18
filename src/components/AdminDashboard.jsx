@@ -1,5 +1,5 @@
 /* =============================================
-   📊 ADMIN DASHBOARD — Monochrome Gallery Style
+   ADMIN DASHBOARD — Monochrome Gallery Style
    Hitam, putih, abu-abu aja.
    ============================================= */
 

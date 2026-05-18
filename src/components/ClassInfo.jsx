@@ -1,5 +1,5 @@
 /* =============================================
-   📚 CLASS INFO — Info Kelas Yang Ditawarkan
+   CLASS INFO — Info Kelas Yang Ditawarkan
    
    5 kelas: sketsa, gambar, lukis anabul, sesi sketsa, sesi gambar
    ============================================= */

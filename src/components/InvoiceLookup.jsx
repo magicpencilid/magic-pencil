@@ -1,5 +1,5 @@
 /* =============================================
-   💳 INVOICE LOOKUP — Cari / Lihat Invoice
+   INVOICE LOOKUP — Cari / Lihat Invoice
    
    User bisa:
    - Cari invoice by nomor invoice

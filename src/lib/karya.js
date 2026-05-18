@@ -1,5 +1,5 @@
 /* =============================================
-   🛠️ KARYA — Shared Utility
+   KARYA — Shared Utility
    
    Helper queries, status mapping, share text.
    Server-only (database-dependent).

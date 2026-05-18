@@ -1,5 +1,5 @@
 /* =============================================
-   👤 MURID CARDS — Monochrome Grey
+   MURID CARDS — Monochrome Grey
    
    Tampilan visual profil murid dalam bentuk kartu.
    Langsung tampilin User ID & Password di kartu.

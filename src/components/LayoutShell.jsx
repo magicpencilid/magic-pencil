@@ -1,5 +1,5 @@
 /* =============================================
-   🏗️ LAYOUT SHELL — Conditional Navbar/Footer
+   LAYOUT SHELL — Conditional Navbar/Footer
    
    Client component pake usePathname() buat
    nyembunyiin Navbar + Footer di halaman admin.

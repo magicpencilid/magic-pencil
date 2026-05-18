@@ -1,5 +1,5 @@
 /* =============================================
-   🔔 NOTIFICATION MANAGER — PWA + Push Notification
+   NOTIFICATION MANAGER — PWA + Push Notification
    
    Fitur:
    - Register service worker

@@ -1,5 +1,5 @@
 /* =============================================
-   🔔 PUSH NOTIF — Web Push Utility
+   PUSH NOTIF — Web Push Utility
    
    Setup VAPID keys + kirim notification.
    ============================================= */

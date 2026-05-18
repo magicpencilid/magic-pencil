@@ -1,5 +1,5 @@
 /* =============================================
-   🔐 AUTH — Admin Session Utility
+   AUTH — Admin Session Utility
    
    Simple session token via httpOnly cookie.
    Password disimpan di .env.local

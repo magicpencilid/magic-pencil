@@ -1,5 +1,5 @@
 /* =============================================
-   💬 WHATSAPP BUTTON — Floating WA + tooltip tetap
+   WHATSAPP BUTTON — Floating WA + tooltip tetap
    
    Server component, zero JS.
    Tooltip selalu kelihatan, 2 baris.

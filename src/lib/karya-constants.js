@@ -1,5 +1,5 @@
 /* =============================================
-   🎨 KARYA CONSTANTS — Status & Label (Client-safe)
+   KARYA CONSTANTS — Status & Label (Client-safe)
    
    Dipisah dari server-side helper biar aman di client.
    ============================================= */

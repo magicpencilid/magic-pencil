@@ -1,5 +1,5 @@
 /* =============================================
-   📱 WHATSAPP TEMPLATE — Template Pesan WA
+   WHATSAPP TEMPLATE — Template Pesan WA
    
    Generate teks buat di-copy-paste ke WhatsApp.
    Monochrome modern grey style.

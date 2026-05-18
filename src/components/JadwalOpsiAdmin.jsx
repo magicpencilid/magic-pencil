@@ -1,5 +1,5 @@
 /* =============================================
-   🗓️ JADWAL OPSI — Kelola Hari & Jam
+   JADWAL OPSI — Kelola Hari & Jam
    
    FIXED — 3 slot waktu tetap.
    ============================================= */

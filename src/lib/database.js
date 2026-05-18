@@ -1,5 +1,5 @@
 /* =============================================
-   🗄️ DATABASE — Koneksi SQLite + Schema
+   DATABASE — Koneksi SQLite + Schema
    
    Pake better-sqlite3 — library SQLite buat Node.js.
    Cepet, synchronous, ngga perlu async/await.

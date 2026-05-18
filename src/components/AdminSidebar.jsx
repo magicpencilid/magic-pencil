@@ -1,5 +1,5 @@
 /* =============================================
-   📌 ADMIN SIDEBAR — Monochrome Gallery Style
+   ADMIN SIDEBAR — Monochrome Gallery Style
    Hitam, putih, abu-abu aja.
    ============================================= */
 

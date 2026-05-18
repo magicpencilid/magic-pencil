@@ -1,5 +1,5 @@
 /* =============================================
-   🔗 SHARE MODAL — Dialog Share ke Medsos
+   SHARE MODAL — Dialog Share ke Medsos
    
    Platform: Instagram, TikTok, Facebook, WhatsApp, Twitter, Copy Link
    ============================================= */
