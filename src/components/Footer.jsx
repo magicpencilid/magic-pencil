@@ -3,7 +3,7 @@
    White & Grey Theme, Monochrome
    ============================================= */
 
-import { Globe, Mail, Monitor, MessageCircle, Camera, Music, Facebook } from "lucide-react";
+import { Globe, Mail, Monitor, MessageCircle, Camera, Music } from "lucide-react";
 import Link from "next/link";
 
 const quickLinks = [
@@ -21,7 +21,11 @@ const contacts = [
   { icon: Monitor, text: "magicpencil.my.id", href: "https://magicpencil.my.id" },
   { icon: Camera, text: "@magicpencilid", href: "https://instagram.com/magicpencilid" },
   { icon: Music, text: "@magicpencil.id", href: "https://tiktok.com/@magicpencil.id" },
-  { icon: Facebook, text: "Magic Pencil", href: "https://facebook.com/magicpencilid" },
+  { icon: () => (
+    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  ), text: "Magic Pencil", href: "https://facebook.com/magicpencilid" },
 ];
 
 export default function Footer() {
