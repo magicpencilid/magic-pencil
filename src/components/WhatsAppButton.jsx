@@ -5,7 +5,7 @@
    Tooltip selalu kelihatan, 2 baris.
    ============================================= */
 
-const WA_NUMBER = "628111150563";
+const WA_NUMBER = "628111199059";
 const WA_MSG = encodeURIComponent(
   "Halo admin Magic Pencil! Saya mau tanya-tanya tentang kursus menggambar."
 );

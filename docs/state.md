@@ -1,11 +1,11 @@
 # STATE -- Magic Pencil
-> Auto: 2026-05-17 14:09
+> Auto: 2026-05-17 17:50
 
 ## APP
 nama:Magic Pencil
 tujuan:Landing page + pendaftaran + galeri karya murid + online store
-tahap:32 (Galeri Sketsa Dinamis + Limit 6 Beranda + 1 Button Toggle)
-server:PM2 online (↺ 8)
+tahap:32 (Galeri Sketsa Dinamis + Limit 6 Beranda + Upload ke Galeri Aja)
+server:PM2 online (↺ 9)
 
 ## STATS
 pages:~29
@@ -38,16 +38,18 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Design System:** monochrome gray (Inter body+navbar, Playfair Display heading, Italiana dekoratif, Lucide Icons, gak pake emoji)
 - **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Admin jadwal rework:** filter kelas dropdown, filter jadwal lewat otomatis, hapus +Tambah manual, hapus kolom Pengajar
-- **Galeri Sketsa:** dinamis dari gallery_photos (show_on_homepage), limit 6, gak ada lightbox, 1 button Beranda toggle (dark/light, bg-accent)
+- **Galeri Sketsa:** dinamis dari gallery_photos, limit 6 beranda, 1 button toggle, gak ada lightbox. Upload masuk galeri aja, atur lewat grid.
 - **Floating WA:** sembunyi di admin via CSS body:has(#admin-root)
-- **Aturan baru:** panggilan wil/mamat, larangan lo/gua/agama, workflow step
+- **Aturan baru:** panggilan willy/mamat, larangan lo/gua/agama, workflow step
 - **Docs audit (17 Mei):** USER.md, SOUL.md, project-brief, project-cheat, project-state, changelog, MEMORY.md, state/magic-pencil — semua dirapihin
 - **Lokasi kelas:** API settings/default-location, auto-fill pas daftar, UI skip nunggu WA API
 - **Docs audit + cleanup:** 7 docs dibersihin, 6 file sisa dihapus
 - **Bootstrap config:** bootstrapMaxChars 20rb, bootstrapTotalMaxChars 80rb
-- **1 Button Beranda Toggle:** admin galeri — 1 button icon House, dark/light state, disabled kalo penuh
-- **Button warna serasi:** pake bg-accent biar sama kayak +Upload Foto
+- **1 Button Beranda Toggle:** admin galeri — 1 button icon House, dark/light state, disabled kalo penuh, bg-accent serasi
 - **Testimoni rencana:** pindah input ke dashboard murid (belum urgent)
+- **Upload galeri:** upload masuk galeri aja (gak langsung beranda), atur lewat grid toggle
+- **iOS PWA:** skip — bukan prioritas, masalah cuma di Safari Add to Home Screen
+- **Nama user:** willy (bukan wil)
 
 ## NEXT
 - WA API integration (notif ke WA ganti web push + lokasi kelas + jadwal) — ✅ NIB jadi, Meta Business besok, nomor baru siap, domain siap

@@ -43,7 +43,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 ```
 /www/wwwroot/magic-pencil/
 ├── .next/                ← Build output
-├── public/uploads/       ← Uploaded files (3.3MB)
+├── public/uploads/       ← Uploaded files (~5.5MB)
 ├── magic-pencil.db       ← Database (live)
 ├── package.json
 └── .env.local
@@ -141,8 +141,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Minat Gambar | ✅ | Dropdown wajib di form daftar (5 opsi) |
 | Kompres Gambar Store | ✅ | Jimp resize 800px, JPEG quality 80 |
 | Navbar + Gallery UX Fixes | ✅ | Link Toko, Beli Merch, rename galeri |
-| Galeri Sketsa Dinamis | ✅ | Dari gallery_photos (show_on_homepage), limit 6, no lightbox |
-| 1 Button Beranda Toggle (admin) | ✅ | Dark/light state, bg-accent serasi |
+| Galeri Sketsa Dinamis | ✅ | Dari gallery_photos, limit 6 beranda, no lightbox. Upload foto masuk galeri dulu, atur lewat grid toggle. |
 
 ---
 
@@ -173,8 +172,8 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 30 | Minat Gambar + Design System (dropdown minat, monochrome gray rules) | ✅ Selesai, deployed (16 Mei) |
 | 31 | Floating WA di Admin + Aturan Baru | ✅ Selesai, deployed (17 Mei) |
 | 32 | Galeri Sketsa Dinamis + Limit 6 Beranda | ✅ Selesai, deployed (17 Mei) |
-| -- | 1 Button Beranda Toggle (admin galeri) | ✅ Selesai, deployed (17 Mei) — `ac640cf` |
-| -- | Warna serasi bg-accent | ✅ Selesai, deployed (17 Mei) — `c5dfe7f` |
+| -- | 1 Button Beranda Toggle + Warna serasi | ✅ Selesai, deployed (17 Mei) — `ac640cf`, `c5dfe7f` |
+| -- | Upload galeri default ke galeri aja | ✅ Selesai, deployed (17 Mei) — `2b7808a` |
 
 ---
 
@@ -225,4 +224,4 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
 - **Design System** — monochrome gray (Inter, Playfair Display, Italiana, Lucide Icons, gak pake emoji)
 - **Floating WA** — sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
-- **Galeri Sketsa** — dinamis dari gallery_photos, admin 1 button Beranda toggle (dark/light state, bg-accent), limit 6, tanpa lightbox
+- **Galeri Sketsa** — dinamis dari gallery_photos, admin 1 button Beranda toggle, limit 6 beranda, tanpa lightbox. Upload foto masuk galeri dulu, atur lewat grid toggle.

@@ -17,8 +17,6 @@
 **Investasi card:**
 - Box investasi klikable → riwayat invoice di /dashboard/investasi
 
-**Files:** JadwalTable.jsx, api/jadwal/route.js, api/register/route.js
-**Commit:** multiple | **PM2:** ↺ 55-69
 **Status:** ✅ Selesai
 
 ---
@@ -42,7 +40,6 @@
 - API default-location (skip UI, nunggu WA API)
 
 **Files:** 10+ file design system, daftar/page.js, store/page.js, WhatsAppButton.jsx, JadwalTable.jsx (5x)
-**Commit:** ~37 commit | **PM2:** ↺ 55-76
 **Status:** ✅ Selesai
 
 ---
@@ -60,13 +57,12 @@
 - Solusi: `git pull` + build langsung di server
 
 **Aturan baru ditetapkan:**
-- Panggilan: wil (user), mamat/asisten (sopan)
+- Panggilan: willy (user), mamat/asisten (sopan)
 - Gak boleh: lo/gua/lu, kata berbau agama
 - Workflow: one at a time, bikin step list dulu, kerjakan satu-satu
 - Summary/ringkasan wajib ke Obsidian
 
 **Files:** WhatsAppButton.jsx, admin/(main)/layout.js
-**Commit:** `491b5fa` | **PM2:** ↺ 77
 **Status:** ✅ Selesai
 
 ---
@@ -93,7 +89,6 @@
 - Fix: commit `3132ef1`
 
 **Files:** database.js, Gallery.jsx (rewrite 300->80 line), galeri-foto/page.js, api/gallery/route.js, toggle-homepage/route.js (baru)
-**Commit:** `2e8355e`, `8008549`, `3132ef1` | **PM2:** ↺ 80+
 **Status:** ✅ Selesai
 
 ---
@@ -109,7 +104,21 @@
 - Warna button active disamain pake `bg-accent` biar serasi sama "+ Upload Foto"
 
 **Files:** galeri-foto/page.js
-**Commit:** `ac640cf`, `c5dfe7f` | **PM2:** ↺ 8
+**Status:** ✅ Selesai
+
+---
+
+---
+
+### 2026-05-17: Upload Galeri — Default ke Galeri Aja
+
+**Perubahan flow upload:**
+- Hapus toggle "Tampil di Beranda" dari form upload
+- Default `show_homepage = 0` — upload foto masuk galeri aja
+- Admin atur dari grid toggle (button House) yang mana tampil di Beranda
+- Limit 6 tetap jalan lewat API toggle
+
+**Files:** galeri-foto/page.js
 **Status:** ✅ Selesai
 
 ---
@@ -122,7 +131,6 @@
 - Letak di halaman depan antara Galeri Sketsa dan Testimoni
 - Auto-hide kalo data kosong
 
-**Commit:** `77432df` | **PM2:** ↺ 54
 **Status:** ✅ Selesai
 
 ---
@@ -138,7 +146,6 @@
 - Count ❤️ selalu kelihatan walaupun 0 (IG-style)
 - Fix `/koleksi` page: routing like berdasarkan source (gallery vs karya)
 
-**Commit:** `f5645a9` | **PM2:** ↺ 53
 **Status:** ✅ Selesai
 
 ---
@@ -150,7 +157,6 @@
 - DB path diupdate ke file baru, PNG lama dihapus
 - API upload produk otomatis kompres pake Jimp
 
-**Commit:** `7ee7623` | **PM2:** ↺ 52
 **Status:** ✅ Selesai
 
 ---
@@ -166,7 +172,6 @@
 - Update Navbar href + label
 - Hapus deskripsi dari galeri sketsa di home page
 
-**Commit:** `46f48a2`, `49b46b3`, `7a4a088`, `7b6ccd3` | **PM2:** ↺ 48-51
 **Status:** ✅ Selesai
 
 ---

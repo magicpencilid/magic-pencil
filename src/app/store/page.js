@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { ShoppingBag, Shirt, Coffee, Gift, X, Minus, Plus } from "lucide-react";
 
 /* =============================================
-   🛍️ Halaman Store — Katalog Merch Magic Pencil
+   STORE — Katalog Merch Magic Pencil
    ============================================= */
 
 const KATEGORI = ["Semua", "Totebag", "Kaos", "Mug", "Lainnya"];
@@ -53,15 +54,15 @@ export default function StorePage() {
   function buatWaLink() {
     if (!selected) return "#";
     const namaBarang = `${selected.nama}`;
-    const ukuranTeks = ukuranDipilih ? `📏 Ukuran: ${ukuranDipilih}\n` : "";
-    const warnaTeks = warnaDipilih ? `🎨 Warna: ${warnaDipilih}\n` : "";
+    const ukuranTeks = ukuranDipilih ? `Ukuran: ${ukuranDipilih}\n` : "";
+    const warnaTeks = warnaDipilih ? `Warna: ${warnaDipilih}\n` : "";
     const text = encodeURIComponent(
-      `Halo kak, saya mau pesan:\n📦 ${namaBarang} - ${jumlah}x\n${ukuranTeks}${warnaTeks}👤 Nama: ${namaPemesan || "(isi nama)"}\n📱 WA: ${waPemesan || "(isi WA)"}\n\nMohon info biaya + ongkir. Terima kasih 🙏`
+      `Halo kak, saya mau pesan:\n${namaBarang} - ${jumlah}x\n${ukuranTeks}${warnaTeks}Nama: ${namaPemesan || "(isi nama)"}\nWA: ${waPemesan || "(isi WA)"}\n\nMohon info biaya + ongkir. Terima kasih`
     );
-    return `https://wa.me/628111150563?text=${text}`;
+    return `https://wa.me/628111199059?text=${text}`;
   }
 
-  /* ─── Loading ─── */
+  /* Loading */
   if (loading) {
     return (
       <div className="min-h-screen bg-white pt-28 pb-16 flex items-center justify-center">
@@ -73,7 +74,7 @@ export default function StorePage() {
   return (
     <div className="min-h-screen bg-white pt-28 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* ─── Header ─── */}
+        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="font-[var(--font-display)] text-3xl md:text-4xl text-[var(--color-primary)] mb-2">
             Merch Magic Pencil
@@ -83,7 +84,7 @@ export default function StorePage() {
           </p>
         </div>
 
-        {/* ─── Filter Kategori ─── */}
+        {/* Filter Kategori */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           {KATEGORI.map((k) => (
             <button
@@ -100,7 +101,7 @@ export default function StorePage() {
           ))}
         </div>
 
-        {/* ─── Grid Produk ─── */}
+        {/* Grid Produk */}
         {filtered.length === 0 ? (
           <p className="text-center text-[var(--color-text-light)] py-12">
             Belum ada produk tersedia.
@@ -125,7 +126,7 @@ export default function StorePage() {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[var(--color-text-light)] text-sm">
-                      {p.kategori === "totebag" ? "👜" : p.kategori === "kaos" ? "👕" : p.kategori === "mug" ? "☕" : "🎁"}
+                      {p.kategori === "totebag" ? <ShoppingBag className="w-6 h-6" /> : p.kategori === "kaos" ? <Shirt className="w-6 h-6" /> : p.kategori === "mug" ? <Coffee className="w-6 h-6" /> : <Gift className="w-6 h-6" />}
                     </div>
                   )}
                 </div>
@@ -147,7 +148,7 @@ export default function StorePage() {
         )}
       </div>
 
-      {/* ─── Modal Detail Produk ─── */}
+      {/* Modal Detail Produk */}
       {selected && (
         <div
           className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-4"
@@ -169,14 +170,14 @@ export default function StorePage() {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-6xl">
-                  {selected.kategori === "totebag" ? "👜" : selected.kategori === "kaos" ? "👕" : selected.kategori === "mug" ? "☕" : "🎁"}
+                  {selected.kategori === "totebag" ? <ShoppingBag className="w-12 h-12" /> : selected.kategori === "kaos" ? <Shirt className="w-12 h-12" /> : selected.kategori === "mug" ? <Coffee className="w-12 h-12" /> : <Gift className="w-12 h-12" />}
                 </div>
               )}
               <button
                 onClick={closeDetail}
                 className="absolute top-3 right-3 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-[var(--color-primary)] text-lg hover:bg-white transition-colors"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -258,7 +259,7 @@ export default function StorePage() {
                     onClick={() => setJumlah(Math.max(1, jumlah - 1))}
                     className="w-8 h-8 rounded-full border border-[var(--color-border)] flex items-center justify-center text-sm hover:border-[var(--color-accent)] transition-colors"
                   >
-                    –
+                    <Minus className="w-4 h-4" />
                   </button>
                   <span className="text-sm font-medium text-[var(--color-primary)] w-6 text-center">
                     {jumlah}
@@ -267,6 +268,7 @@ export default function StorePage() {
                     onClick={() => setJumlah(jumlah + 1)}
                     className="w-8 h-8 rounded-full border border-[var(--color-border)] flex items-center justify-center text-sm hover:border-[var(--color-accent)] transition-colors"
                   >
+                    <Plus className="w-4 h-4" />
                     +
                   </button>
                 </div>
