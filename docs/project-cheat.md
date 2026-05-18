@@ -165,4 +165,7 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - [x] Tahap 31 - Floating WA di Admin + Aturan Baru
 - [x] Tahap 32 - Galeri Sketsa Dinamis + Limit 6 Beranda
 - [x] Tahap 33 - Emoji Cleanup + Lucide Migration (87 file)
-- [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal)
+- [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal) — nunggu Meta Business diverifikasi
+- [ ] Mobile UX improvement (auto-save draft RegistrationForm + dashboard murid mobile polish)
+- [ ] Admin PembayaranTable: tambah kolom Catatan (admin_note)
+- [ ] Absensi alpha detection + status izin/makeup (dikerjain setelah WA API siap)

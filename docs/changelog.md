@@ -31,8 +31,34 @@
 - Inline comment: 📝 (2x) di RegistrationForm
 
 **Total:** 87 file, 3 commit (`c1e0b0f`, `27afc86`, `e104fed`)
-**PM2:** ↺ 14
+**PM2:** ↺ 14 (emoji cleanup) / ↺ 16 (after AlertTriangle fix)
 **Status:** ✅ Selesai
+
+---
+
+### 2026-05-18: Fix — AlertTriangle Missing Import ("This page couldn't load")
+
+**Bug:**
+- Commit `ea52907` (emoji cleanup Step 1) nambah `<AlertTriangle>` di JSX done step KonfirmasiPembayaran tapi lupa di-import dari lucide-react
+- Runtime error: React.createElement(undefined) → "Element type is invalid" → Next.js error page with black background "This page couldn't load"
+- Hanya muncul pas user klik "Ya, Saya Sudah Transfer" dan step berubah ke "done"
+
+**Fix:**
+- Tambah `AlertTriangle` ke import lucide-react di KonfirmasiPembayaran.jsx
+- Juga fix directory permissions server: `public/uploads/` dan `public/uploads/bukti-bayar/` dari 555 (read-only) ke 755
+
+**Admin Note Investigation:**
+- Catatan user (admin_note) tersimpan di DB ✅
+- API GET return admin_note ✅
+- Belum ada kolom display di admin PembayaranTable ❌
+
+**Analisis Absensi:**
+- Gap: gak ada auto-detect alpha, status 'alpha'/'izin', make-up system, notifikasi missed class
+- Rencana: fitur absensi lengkap dikerjain setelah WA API siap
+
+**Files:** KonfirmasiPembayaran.jsx
+**Commit:** `df677fe` | **PM2:** ↺ 16
+**Status:** ✅ Fixed
 
 ---
 
@@ -41,7 +67,7 @@
 **Floating WA di Admin:**
 - CSS `body:has(#admin-root) #wa-wrap { display: none }` di WhatsAppButton.jsx
 - `id="admin-root"` di admin/(main)/layout.js
-- Halaman admin gak perlu floating WA (cuma wil yang akses)
+- Halaman admin gak perlu floating WA (cuma willy yang akses)
 
 **Deploy issues & fixes:**
 - Zip deploy gagal: package.json ketimpa file dari .next/build/

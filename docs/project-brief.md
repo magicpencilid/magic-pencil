@@ -96,9 +96,10 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | `produk` | Online store merchandise |
 | `karya_likes` | Like karya murid (fingerprint-based) |
 
-### Data (per 18 Mei)
-- Kelas: 6 (3 monthly + 3 single) | Pendaftar: 0 (fresh start) | Aktif: 0 | Produk Store: 2
-- DB dibersihin setelah Tahap 23 selesai
+### Data (per 18 Mei 2026)
+- Kelas: 6 (3 monthly + 3 single) | Pendaftar: 7 (sejak 17 Mei) | Aktif: 0 (belum diverifikasi) | Produk Store: 2
+- Invoice: 3 pending, 4 lunas | Pembayaran: 8
+- DB dibersihin setelah Tahap 23 (17 Mei), data mulai terisi lagi sejak 17 Mei
 
 ---
 
@@ -176,7 +177,9 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 32 | Galeri Sketsa Dinamis + Limit 6 Beranda | ✅ Selesai, deployed (17 Mei) |
 | -- | 1 Button Beranda Toggle + Warna serasi | ✅ Selesai, deployed (17 Mei) — `ac640cf`, `c5dfe7f` |
 | -- | Upload galeri default ke galeri aja | ✅ Selesai, deployed (17 Mei) — `2b7808a` |
-| 33 | Update Kontak (WA, TikTok, FB) + Emoji Cleanup 87 file (Lucide Migration, Inter konsisten) | ✅ Selesai, deployed (18 Mei) — `e104fed` |
+| 33 | Update Kontak (WA, TikTok, FB) + Emoji Cleanup 87 file (Lucide Migration, Inter konsisten) | ✅ Selesai, deployed (18 Mei) — `df677fe`
+| -- | Fix AlertTriangle missing import — crash "This page couldn't load" di done step | ✅ Fix deployed (18 Mei) — `df677fe`
+| -- | Fix upload dir permissions server (555→755) | ✅ Fix deployed (18 Mei) |
 
 ---
 

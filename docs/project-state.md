@@ -9,9 +9,9 @@
 | Item | Status |
 |------|--------|
 | **Tahap Terakhir** | 33 — Emoji Cleanup + Lucide Migration |
-| **Versi Terdeploy** | ✅ 18 Mei 2026 — Emoji Cleanup (commit `e104fed`, PM2 ↺ 14) |
+| **Versi Terdeploy** | ✅ 18 Mei 2026 — Emoji Cleanup (commit `df677fe`, PM2 ↺ 16) |
 | **Status Server** | ✅ PM2 online |
-| **DB** | SQLite — `magic-pencil.db` (fresh, 0 pendaftar, 2 produk) |
+| **DB** | SQLite — `magic-pencil.db` (7 pendaftar, 3 pending invoice, 8 pembayaran) |
 | **Repo** | GitHub: `magicpencilid/magic-pencil` |
 
 ---
@@ -21,7 +21,7 @@
 | Lokasi | Status | Catatan |
 |--------|--------|---------|
 | Lokal (laptop) | ✅ Ready | Build siap |
-| Server (aaPanel) | ✅ Running | Terkini (18 Mei) — commit `e104fed`, PM2 ↺ 14 |
+| Server (aaPanel) | ✅ Running | Terkini (18 Mei) — commit `df677fe`, PM2 ↺ 16 |
 
 ---
 
@@ -66,18 +66,18 @@
 
 ---
 
-## Data Server *(per 17 Mei 2026 — DB fresh)*
+## Data Server *(per 18 Mei 2026)*
 
 | Item | Jumlah |
 |------|--------|
 | Kelas | 6 (3 monthly + 3 single) |
-| Pendaftar | **0** (fresh start setelah Tahap 23) |
+| Pendaftar | 7 (sejak 17 Mei) |
 | Produk Store | 2 (Kaos polos + Kaos polo) |
-| Aktif | 0 |
+| Aktif | 0 (belum diverifikasi) |
 | Karya | 0 |
 | Absensi | 0 |
-| Invoice | 0 |
-| Uploads | 3.3MB (gambar background, watermark, 2 foto produk) |
+| Invoice | 3 pending, 4 lunas |
+| Uploads | 3.3MB (gambar background, watermark, 2 foto produk, bukti transfer) |
 
 ---
 
@@ -125,7 +125,8 @@
 
 | Tanggal | Yang Diubah |
 |---------|-------------|
-| 2026-05-18 | **Tahap 33** — Emoji Cleanup 87 file (Step 1: UI/API visible, Step 2: app/ headers, Step 3: components+lib/ headers). Lucide icons + teks. Commit `e104fed`. PM2 ↺ 14. |
+| 2026-05-18 | **Tahap 33 + Fix** — Emoji Cleanup 87 file. Fix AlertTriangle missing import (crash "This page couldn't load" di done step). Fix upload dir permissions (555→755). Commit `df677fe`. PM2 ↺ 16. |
+| 2026-05-18 | **Analisis Absensi** — Gap analysis untuk handle murid kelewat kelas. Admin note investigation (admin_note di DB, belum tampil di UI). Rencana fitur absensi + alpha detection + WA notif (eksekusi nunggu WA API). |
 | 2026-05-17 | **Tahap 32** — Galeri Sketsa dinamis dari DB, Admin toggle + limit 6, Gallery.jsx rewrite (no lightbox). Commit `3132ef1`. PM2 ↺ 80+. |
 | 2026-05-17 | **Tahap 31** — Floating WA sembunyi di admin, Aturan baru (panggilan/larangan/workflow), Startup script dihapus. Commit `491b5fa`. PM2 ↺ 77. |
 | 2026-05-16 | **Perbaikan Sore** — Hapus box WA daftar, Fix floating WA nutup modal store, Admin jadwal total rework, API lokasi default (skip UI), Docs audit 7 file, Cleanup 6 file sisa. PM2 ↺ 76. 37+ commit. |

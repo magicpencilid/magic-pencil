@@ -1,11 +1,12 @@
 # STATE -- Magic Pencil
-> Auto: 2026-05-18 16:31
+> Auto: 2026-05-18 17:23
 
 ## APP
 nama:Magic Pencil
 tujuan:Landing page + pendaftaran + galeri karya murid + online store
 tahap:33 (Emoji Cleanup + Lucide Migration — 87 file)
-server:PM2 online (↺ 14)
+latest_deploy:commit df677fe (AlertTriangle fix), PM2 ↺ 16
+server:PM2 online (↺ 16)
 
 ## STATS
 pages:~29
@@ -50,11 +51,20 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **iOS PWA:** skip — bukan prioritas, masalah cuma di Safari Add to Home Screen
 - **Nama user:** willy (bukan wil)
 - **Aturan icon:** Semua icon harus Lucide, monochrome grey. Gak boleh pake emoji. Warna semantic boleh tp shade kalem.
-- **Emoji cleanup:** 87 file selesai total. Step 1: UI/API visible (11 file). Step 2: app/ headers (53 file). Step 3: components+lib/ headers (23 file). Font Inter konsisten.
+- **Emoji cleanup:** 87 file selesai total. Step 1: UI/API visible (ShareModal, WhatsAppButton, InvoiceLookup, dll). Step 2: app/ headers (53 file). Step 3: components+lib/ headers (23 file). Font Inter konsisten.
+
+## NOTES — 18 Mei 2026
+- **AlertTriangle fix:** Missing import di KonfirmasiPembayaran — error "This page couldn't load" pas done step. Commit `df677fe`.
+- **Upload dir fix:** `public/uploads/` dan `public/uploads/bukti-bayar/` permission 555→755 di server.
+- **Admin note:** Catatan user (admin_note) tersimpan di DB tapi belum ada kolom di admin PembayaranTable.
+- **Absensi gaps:** Gak ada auto-detect alpha, status 'alpha'/'izin', make-up system, notifikasi missed class. Rencana dikerjain setelah WA API siap.
+- **Obsidian hari ini:** 5 file summary di vault 20260518/.
 
 ## NEXT
 - WA API integration (notif ke WA ganti web push + lokasi kelas + jadwal) — ✅ NIB jadi, nunggu Meta Business diverifikasi, nomor baru + domain siap
 - Mobile UX improvement (auto-save draft form RegistrationForm + dashboard murid mobile polish)
+- Admin PembayaranTable: tambah kolom Catatan (admin_note)
+- Absensi system: auto-detect alpha, status 'alpha'/'izin', make-up, notifikasi WA (dikerjain setelah WA API siap)
 
 ## ROADMAP
 - Tahap 20 - Share + Investasi (selesai)
@@ -72,4 +82,4 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - Tahap 32 - Galeri Sketsa Dinamis + Limit 6 Beranda (selesai)
 - Tahap 33 - Update Kontak + Emoji Cleanup (selesai)
 - Next - WA API integration
-- Next - Mobile UX improvement
+- Next - Mobile UX improvement (auto-save draft form + dashboard mobile polish)
