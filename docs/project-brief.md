@@ -17,7 +17,7 @@
 | **Mata uang** | "Investasi" (bukan "Rp") |
 | **Design System** | Lihat Section 8 untuk rules lengkap |
 | **WA nomor** | `628111199059` |
-| **Kontak baru** | TikTok `@magicpencil.id`, FB `facebook.com/magicpencilid` |
+| **Sosial Media** | WA `+628111199059`, TikTok `@magicpencil.id`, FB `facebook.com/magicpencilid` |
 | **Transfer** | BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182) |
 | **Telegram** | @magicpencil_notif_bot |
 
@@ -96,7 +96,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | `produk` | Online store merchandise |
 | `karya_likes` | Like karya murid (fingerprint-based) |
 
-### Data (per 16 Mei)
+### Data (per 18 Mei)
 - Kelas: 6 (3 monthly + 3 single) | Pendaftar: 0 (fresh start) | Aktif: 0 | Produk Store: 2
 - DB dibersihin setelah Tahap 23 selesai
 
@@ -143,6 +143,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | Kompres Gambar Store | ✅ | Jimp resize 800px, JPEG quality 80 |
 | Navbar + Gallery UX Fixes | ✅ | Link Toko, Beli Merch, rename galeri |
 | Galeri Sketsa Dinamis | ✅ | Dari gallery_photos, limit 6 beranda, no lightbox. Upload foto masuk galeri dulu, atur lewat grid toggle. |
+| Emoji Cleanup 87 file | ✅ | Lucide migration: Step 1 (UI visible), Step 2 (app/ headers), Step 3 (components+lib/ headers). Font Inter konsisten di seluruh form. |
 
 ---
 
@@ -175,7 +176,7 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 | 32 | Galeri Sketsa Dinamis + Limit 6 Beranda | ✅ Selesai, deployed (17 Mei) |
 | -- | 1 Button Beranda Toggle + Warna serasi | ✅ Selesai, deployed (17 Mei) — `ac640cf`, `c5dfe7f` |
 | -- | Upload galeri default ke galeri aja | ✅ Selesai, deployed (17 Mei) — `2b7808a` |
-| 33 | Update Kontak (WA, TikTok, FB) + Emoji Cleanup Prioritas (13 file) | ✅ Selesai, deployed (18 Mei) — `ea52907` |
+| 33 | Update Kontak (WA, TikTok, FB) + Emoji Cleanup 87 file (Lucide Migration, Inter konsisten) | ✅ Selesai, deployed (18 Mei) — `e104fed` |
 
 ---
 
@@ -226,6 +227,6 @@ C:\Users\willy\DW Works\Magicpencil\Pencil Web\magic-pencil-app\
 - **password_plain** — disimpan di DB buat display admin + user setelah bayar
 - **Design System** — monochrome gray (Inter, Playfair Display, Italiana, Lucide Icons, gak pake emoji)
 - **Floating WA** — sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
-- **Kontak baru:** WA +62 811 199 059, TikTok @magicpencil.id, FB facebook.com/magicpencilid
+- **Kontak:** WA +62 811 199 059, TikTok @magicpencil.id, FB facebook.com/magicpencilid
 - **Aturan icon:** Semua Lucide, monochrome grey (currentColor / text-accent / text-primary / text-text-light). Warna semantic pake shade kalem. Gak boleh pake emoji.
 - **Galeri Sketsa** — dinamis dari gallery_photos, admin 1 button Beranda toggle, limit 6 beranda, tanpa lightbox. Upload foto masuk galeri dulu, atur lewat grid toggle.

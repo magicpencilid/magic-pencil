@@ -1,4 +1,4 @@
-# Magic Pencil — Project Cheat Sheet
+# Magic Pencil - Project Cheat Sheet
 
 > Satu halaman untuk lihat sekilas. Update tiap kali ada perubahan.
 
@@ -18,9 +18,9 @@
 |-------|-----------|
 | **Frontend** | Next.js 16.2.4 + React 19 + Tailwind CSS 4 |
 | **Backend** | Next.js API Routes (server-side) |
-| **DB** | SQLite (better-sqlite3) — `magic-pencil.db` |
+| **DB** | SQLite (better-sqlite3) - `magic-pencil.db` |
 | **Font** | Inter (body & navbar), Playfair Display (heading), Italiana (dekoratif) |
-| **Warna** | Monochrome gray — `--color-primary: #1a1a1a` |
+| **Warna** | Monochrome gray - `--color-primary: #1a1a1a` |
 | **Design System** | Semua gray, gak pake emoji, Lucide Icons wajib |
 
 ---
@@ -72,9 +72,7 @@ magic-pencil-app/
 | Lokasi kelas (API + auto-fill, skip UI nunggu WA API) | Selesai |
 | Floating WA sembunyi di admin (CSS :has selector) | Selesai |
 | Galeri Sketsa dinamis dari DB (show_on_homepage, limit 6) | Selesai |
-| 1 Button Beranda Toggle + Upload galeri default ke galeri aja | Selesai |
-| Update kontak (WA +62 811 199 059, TikTok @magicpencil.id, FB facebook.com/magicpencilid) | Selesai |
-| Emoji cleanup tahap 1 (13 file -> Lucide icons) | Selesai |
+| Emoji cleanup 87 file (Lucide, Inter konsisten) | Selesai |
 | Telegram Bot (@magicpencil_notif_bot) | Selesai |
 | WA floating button (wa.me/628111199059) | Selesai |
 | Dashboard murid (jadwal, absensi, karya, investasi) | Selesai |
@@ -125,10 +123,10 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 4. `pm2 restart magic-pencil`
 
 ### Catatan Deploy
-- **Jangan pake zip** — file .next/build/package.json bisa nimpa package.json asli
+- **Jangan pake zip** - file .next/build/package.json bisa nimpa package.json asli
 - **Kalo source code ada di server**, build langsung di server lebih reliable (hindari cross-platform native module issue)
 - **Better-sqlite3**: hash native module beda antara Windows build dan Linux runtime
-- **Server CPU KVM tua** — gak support `sharp`, pake `jimp`
+- **Server CPU KVM tua** - gak support `sharp`, pake `jimp`
 
 ---
 
@@ -147,26 +145,24 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - **Transfer:** BLU BY BCA DIGITAL a.n D Willy Ardhany (No.Rek: 001662116182)
 - **Telegram Bot:** @magicpencil_notif_bot
 - **Admin password:** `Pencil@dmin`
-- **Server CPU:** KVM tua — gak support `sharp`, pake `jimp`
+- **Server CPU:** KVM tua - gak support `sharp`, pake `jimp`
 - **Next.js 16:** route handler `params` wajib di-await
 - **Design System:** monochrome gray (Inter body, Playfair Display heading, Lucide Icons, gak pake emoji)
 - **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Floating WA:** sembunyi otomatis di admin via `body:has(#admin-root) #wa-wrap`
-- **Galeri Sketsa:** dinamis dari gallery_photos, admin 1 button Beranda toggle, limit 6, no lightbox. Upload foto masuk galeri aja, atur lewat grid toggle.
-- **Kontak baru:** WA +62 811 199 059, TikTok @magicpencil.id, FB facebook.com/magicpencilid
-- **Aturan icon:** Semua Lucide, monochrome grey, gak boleh emoji. Warna semantic pake shade kalem.
+- **Galeri Sketsa:** dinamis dari gallery_photos, admin toggle Beranda, limit 6, no lightbox
 
 ---
 
 ## NEXT
 
-- [x] Tahap 22 — Like + Reaction
-- [x] Tahap 23 — Auto Akun Murid
-- [x] Tahap 24 — Online Store
-- [x] Tahap 25-28 — Navbar UX, Kompres, Like Karya, Leaderboard
-- [x] Tahap 29 — Auto-generate Jadwal
-- [x] Tahap 30 — Minat Gambar + Design System
-- [x] Tahap 31 — Floating WA di Admin + Aturan Baru
-- [x] Tahap 32 — Galeri Sketsa Dinamis + Limit 6 Beranda
-- [x] Tahap 33 — Update Kontak (WA, TikTok, FB) + Emoji Cleanup
-- [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal) — ✅ NIB jadi, nunggu Meta Business diverifikasi, nomor baru + domain siap
+- [x] Tahap 22 - Like + Reaction
+- [x] Tahap 23 - Auto Akun Murid
+- [x] Tahap 24 - Online Store
+- [x] Tahap 25-28 - Navbar UX, Kompres, Like Karya, Leaderboard
+- [x] Tahap 29 - Auto-generate Jadwal
+- [x] Tahap 30 - Minat Gambar + Design System
+- [x] Tahap 31 - Floating WA di Admin + Aturan Baru
+- [x] Tahap 32 - Galeri Sketsa Dinamis + Limit 6 Beranda
+- [x] Tahap 33 - Emoji Cleanup + Lucide Migration (87 file)
+- [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal)
