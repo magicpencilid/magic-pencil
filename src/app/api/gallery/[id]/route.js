@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/gallery/[id] — Hapus Foto Galeri
+   API: /api/gallery/[id] — Hapus Foto Galeri
    
    DELETE — Hapus foto dari gallery_photos (admin only)
    ============================================= */

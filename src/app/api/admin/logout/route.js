@@ -1,5 +1,5 @@
 /* =============================================
-   🚪 LOGOUT API — Hapus session cookie
+   LOGOUT API — Hapus session cookie
    ============================================= */
 
 import { NextResponse } from "next/server";

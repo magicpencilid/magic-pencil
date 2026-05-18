@@ -1,5 +1,5 @@
 /* =============================================
-   🛍️ Admin: Produk — Kelola Merch Online Store
+   Admin: Produk — Kelola Merch Online Store
    Monochrome gray style
    ============================================= */
 

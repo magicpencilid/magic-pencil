@@ -1,5 +1,5 @@
 /* =============================================
-   📐 ADMIN MAIN LAYOUT — Auth Check + Sidebar
+   ADMIN MAIN LAYOUT — Auth Check + Sidebar
    
    - Cek session cookie → redirect ke /admin/login
    - Tampilkan sidebar + konten

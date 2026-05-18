@@ -1,5 +1,5 @@
 /* =============================================
-   🖼️ GALERI PUBLIK — Karya Murid yang Disetujui
+   GALERI PUBLIK — Karya Murid yang Disetujui
    
    Tampilkan semua karya approved.
    Layout grid monochrome.
@@ -12,7 +12,7 @@ import Link from "next/link";
 import { Loader2, ImageIcon, ArrowLeft, ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
 import { STATUS_LABEL } from "@/lib/karya-constants";
 
-/* 🔑 Dapetin fingerprint */
+/* Dapetin fingerprint */
 function getFingerprint() {
   if (typeof window === "undefined") return "";
   let fp = localStorage.getItem("galeri_fp");

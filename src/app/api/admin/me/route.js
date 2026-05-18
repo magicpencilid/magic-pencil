@@ -1,5 +1,5 @@
 /* =============================================
-   🔐 SESSION CHECK — Cek status login admin
+   SESSION CHECK — Cek status login admin
    ============================================= */
 
 import { NextResponse } from "next/server";

@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/produk — Online Store Produk
+   API: /api/produk — Online Store Produk
    
    GET  /api/produk — List semua produk (aktif utk publik, semua utk admin)
    POST /api/produk — Tambah produk baru (admin)

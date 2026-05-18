@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: DELETE /api/schedule-config/[id]
+   API: DELETE /api/schedule-config/[id]
    ============================================= */
 
 import { NextResponse } from "next/server";

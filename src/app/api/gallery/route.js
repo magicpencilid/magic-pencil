@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/gallery — Galeri Foto
+   API: /api/gallery — Galeri Foto
    
    GET   — List foto (gallery_photos + karya approved)
    POST  — Upload foto baru (admin only, multipart)

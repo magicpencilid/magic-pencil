@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/gallery/[id]/toggle-homepage
+   API: /api/gallery/[id]/toggle-homepage
    
    PATCH — Toggle show_on_homepage (admin only)
    ============================================= */

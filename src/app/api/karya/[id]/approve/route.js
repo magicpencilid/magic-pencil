@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/karya/[id]/approve
+   API: /api/karya/[id]/approve
    
    POST  — Approve / reject karya publik
    Body: { action: "approve" | "reject", admin: "nama" }

@@ -1,5 +1,5 @@
 /* =============================================
-   📋 ADMIN KARYA — Review Karya Murid
+   ADMIN KARYA — Review Karya Murid
    
    Tabel semua karya dengan status.
    Approve / reject / delete.

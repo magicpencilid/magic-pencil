@@ -1,5 +1,5 @@
 /* =============================================
-   📤 UPLOAD KARYA — Form Upload Foto & Metadata
+   UPLOAD KARYA — Form Upload Foto & Metadata
    ============================================= */
 
 "use client";

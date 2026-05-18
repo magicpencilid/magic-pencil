@@ -1,5 +1,5 @@
 /* =============================================
-   💳 INVOICE PAGE — Detail Invoice
+   INVOICE PAGE — Detail Invoice
    
    Bisa diakses lewat: /invoice?id=123
    atau nampilin form untuk cari invoice by nomor.

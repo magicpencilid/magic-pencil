@@ -1,5 +1,5 @@
 /* =============================================
-   📄 SYARAT & KETENTUAN — Halaman Syket + Alur Daftar
+   SYARAT & KETENTUAN — Halaman Syket + Alur Daftar
    
    Fungsi ganda:
    - Biasanya: static page buat baca syarat & ketentuan

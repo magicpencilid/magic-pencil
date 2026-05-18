@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/kelas — Manage Kelas & Harga
+   API: /api/kelas — Manage Kelas & Harga
    
    GET  /api/kelas — List semua kelas
    POST /api/kelas — Tambah kelas baru

@@ -1,5 +1,5 @@
 /* =============================================
-   📐 ROOT LAYOUT — Template untuk semua halaman
+   ROOT LAYOUT — Template untuk semua halaman
    
    - Navbar + Footer cuma muncul di halaman public
    - Halaman admin pake sidebar sendiri (no navbar/footer)

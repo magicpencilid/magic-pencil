@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/produk/[id] — Single Produk
+   API: /api/produk/[id] — Single Produk
    
    GET    — Detail produk
    PUT    — Update produk

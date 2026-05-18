@@ -1,5 +1,5 @@
 /* =============================================
-   🔐 LOGIN ADMIN
+   LOGIN ADMIN
    
    Halaman login sederhana pake password.
    Setelah login, redirect ke dashboard admin.

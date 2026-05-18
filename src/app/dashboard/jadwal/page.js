@@ -1,5 +1,5 @@
 /* =============================================
-   📅 JADWAL MURID — Halaman Jadwal Kelas
+   JADWAL MURID — Halaman Jadwal Kelas
    
    Fitur:
    - Tab: Hari Ini / Minggu Ini / Semua

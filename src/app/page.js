@@ -1,5 +1,5 @@
 /* =============================================
-   🏠 HOME PAGE — Halaman Utama
+   HOME PAGE — Halaman Utama
    
    1. HeroCarousel — carousel sketsa + "The art of pencil."
    2. ClassInfo — kartu kelas

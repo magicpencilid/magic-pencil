@@ -1,5 +1,5 @@
 /* =============================================
-   🔐 LOGIN API — Validasi password admin
+   LOGIN API — Validasi password admin
    ============================================= */
 
 import { NextResponse } from "next/server";

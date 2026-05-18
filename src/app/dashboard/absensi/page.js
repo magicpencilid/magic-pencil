@@ -1,5 +1,5 @@
 /* =============================================
-   📋 RIWAYAT ABSENSI — Halaman Absensi Murid
+   RIWAYAT ABSENSI — Halaman Absensi Murid
    
    Lihat semua riwayat check-in/check-out.
    ============================================= */

@@ -1,5 +1,5 @@
 /* =============================================
-   🖼️ GALLERY — Galeri Foto Magic Pencil
+   GALLERY — Galeri Foto Magic Pencil
    
    Grid Instagram-style, penuh warna.
    Campuran foto studio + karya murid approved.
@@ -18,7 +18,7 @@ const tabs = [
   { id: "murid", label: "Karya Murid" },
 ];
 
-/* 🔑 Dapetin fingerprint */
+/* Dapetin fingerprint */
 function getFingerprint() {
   if (typeof window === "undefined") return "";
   let fp = localStorage.getItem("gallery_fp");

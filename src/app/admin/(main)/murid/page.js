@@ -1,5 +1,5 @@
 /* =============================================
-   👦 HALAMAN MURID — Data Seluruh Peserta
+   HALAMAN MURID — Data Seluruh Peserta
    
    Data diambil dari tabel pendaftar.
    Ditampilkan dalam bentuk kartu profil.

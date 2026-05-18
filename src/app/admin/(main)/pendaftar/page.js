@@ -1,5 +1,5 @@
 /* =============================================
-   👥 PENDAFTAR PAGE — Data Pendaftar
+   PENDAFTAR PAGE — Data Pendaftar
    
    Tabel pendaftar dengan filter, search,
    update status, dan hapus.

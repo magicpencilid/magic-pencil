@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/karya/[id]
+   API: /api/karya/[id]
    
    GET   — Detail karya
    PATCH — Update karya (judul, deskripsi, kelas, is_public)

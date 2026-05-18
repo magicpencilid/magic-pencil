@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/gallery/[id]/like — Like/Unlike Foto
+   API: /api/gallery/[id]/like — Like/Unlike Foto
    
    GET  — Cek status like + jumlah (no toggle)
    POST — Toggle like/unlike (fingerprint-based)

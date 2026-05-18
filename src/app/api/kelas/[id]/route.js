@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/kelas/[id]
+   API: /api/kelas/[id]
    
    PUT    — Update kelas (nama, harga, deskripsi)
    DELETE — Hapus kelas

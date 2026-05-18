@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/produk/upload — Upload gambar produk
+   API: /api/produk/upload — Upload gambar produk
    
    POST — Upload gambar + simpan path
    ============================================= */

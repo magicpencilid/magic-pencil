@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/karya/populer — Karya Murid Terpopuler
+   API: /api/karya/populer — Karya Murid Terpopuler
    
    GET — 10 karya approved dengan like terbanyak
    ============================================= */

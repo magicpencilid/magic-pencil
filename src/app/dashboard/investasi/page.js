@@ -1,5 +1,5 @@
 /* =============================================
-   💰 INVESTASI — Riwayat Invoice Murid
+   INVESTASI — Riwayat Invoice Murid
    
    Nampilin semua invoice murid yang login:
    - Invoice bulanan (lunas/pending)

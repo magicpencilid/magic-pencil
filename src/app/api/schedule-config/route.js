@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/schedule-config
+   API: /api/schedule-config
    
    GET  — List semua hari & jam
    POST — Tambah baru

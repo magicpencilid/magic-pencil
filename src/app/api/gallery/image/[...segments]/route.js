@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/gallery/image/[...segments]
+   API: /api/gallery/image/[...segments]
    Proxy buat serve gambar galeri — biar gak kena cache issue Next.js
    ============================================= */
 

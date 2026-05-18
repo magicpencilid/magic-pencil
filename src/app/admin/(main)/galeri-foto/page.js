@@ -1,5 +1,5 @@
 /* =============================================
-   📋 ADMIN GALERI FOTO — Upload & Kelola Galeri
+   ADMIN GALERI FOTO — Upload & Kelola Galeri
    
    Upload foto baru, lihat hasil upload, hapus.
    ============================================= */

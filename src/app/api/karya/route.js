@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/karya — Galeri Karya Murid
+   API: /api/karya — Galeri Karya Murid
    
    GET  /api/karya — List karya (filter: ?murid_id=, ?status=)
    POST /api/karya — Upload karya baru (multipart: file, judul, dll)

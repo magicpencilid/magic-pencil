@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: GET /api/murid — Data Murid
+   API: GET /api/murid — Data Murid
    
    Ngambil semua data pendaftar.
    Support filter: ?status=aktif&limit=10

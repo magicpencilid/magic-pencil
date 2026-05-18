@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: POST /api/pembayaran/upload
+   API: POST /api/pembayaran/upload
    
    User konfirmasi pembayaran + upload bukti transfer.
    Terima FormData: registration_id, notes, file (image)

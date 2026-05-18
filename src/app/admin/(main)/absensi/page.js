@@ -1,5 +1,5 @@
 /* =============================================
-   📊 ADMIN ABSENSI — Lihat absensi semua murid
+   ADMIN ABSENSI — Lihat absensi semua murid
    ============================================= */
 
 "use client";

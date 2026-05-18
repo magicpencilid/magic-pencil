@@ -1,5 +1,5 @@
 /* =============================================
-   🎨 KARYA SAYA — Halaman Galeri Pribadi Murid
+   KARYA SAYA — Halaman Galeri Pribadi Murid
    
    Lihat semua karya yang sudah diupload.
    Tombol upload, detail, share.

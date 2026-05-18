@@ -1,5 +1,5 @@
 /* =============================================
-   🏢 ADMIN PAGE — Dashboard
+   ADMIN PAGE — Dashboard
    
    Menampilkan overview data pendaftaran.
    ============================================= */

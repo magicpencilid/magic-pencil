@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: GET /api/status?wa=0812345
+   API: GET /api/status?wa=0812345
    
    Cek status pendaftaran berdasarkan nomor WA.
    Kalo ada invoice, ikut ditampilkan.

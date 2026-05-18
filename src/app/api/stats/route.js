@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: GET /api/stats — Statistik Dashboard
+   API: GET /api/stats — Statistik Dashboard
    
    Ngambil data: total pendaftar, per status,
    per kelas, per bulan, pending verifikasi.

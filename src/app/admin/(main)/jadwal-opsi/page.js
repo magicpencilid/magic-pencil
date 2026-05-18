@@ -1,5 +1,5 @@
 /* =============================================
-   🗓️ ADMIN — Kelola Hari & Jam
+   ADMIN — Kelola Hari & Jam
    ============================================= */
 
 import JadwalOpsiAdmin from "@/components/JadwalOpsiAdmin";

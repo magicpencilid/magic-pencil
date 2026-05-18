@@ -1,5 +1,5 @@
 /* =============================================
-   🔐 LOGIN — Halaman Login Murid
+   LOGIN — Halaman Login Murid
    
    Murid login pake email + password.
    Monochrome grey — sesuai tema.

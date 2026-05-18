@@ -1,5 +1,5 @@
 /* =============================================
-   🔑 API: POST /api/murid/[id]/reset-password
+   API: POST /api/murid/[id]/reset-password
    
    Reset password akun murid.
    Generate password baru + hash, return plain.

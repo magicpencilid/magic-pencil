@@ -1,5 +1,5 @@
 /* =============================================
-   🏗️ AUTH LAYOUT — Untuk halaman login
+   AUTH LAYOUT — Untuk halaman login
    
    Layout minimal tanpa sidebar & tanpa auth check.
    ============================================= */

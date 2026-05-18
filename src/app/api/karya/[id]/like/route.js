@@ -1,5 +1,5 @@
 /* =============================================
-   📡 API: /api/karya/[id]/like — Like/Unlike Karya Murid
+   API: /api/karya/[id]/like — Like/Unlike Karya Murid
    
    GET  — Cek status like + jumlah
    POST — Toggle like/unlike (fingerprint-based)

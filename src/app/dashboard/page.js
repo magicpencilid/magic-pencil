@@ -1,5 +1,5 @@
 /* =============================================
-   📊 DASHBOARD — Halaman Utama Murid
+   DASHBOARD — Halaman Utama Murid
    
    Fitur:
    - Informasi akun
