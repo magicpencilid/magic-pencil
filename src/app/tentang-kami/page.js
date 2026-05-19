@@ -118,7 +118,11 @@ export default function TentangKamiPage() {
                 </a>
                 <span className="flex items-center gap-2 text-text-light">
                   <MapPin className="w-4 h-4" />
-                  Indonesia (Bogor, Jakarta)
+                  Indonesia
+                </span>
+                <span className="flex items-center gap-2 text-text-light">
+                  <MapPin className="w-4 h-4" />
+                  Bogor & Jakarta
                 </span>
               </div>
             </div>

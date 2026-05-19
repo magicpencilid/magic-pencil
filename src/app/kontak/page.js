@@ -43,8 +43,14 @@ const contacts = [
   },
   {
     icon: MapPin,
-    label: "Lokasi",
-    value: "Indonesia (Bogor, Jakarta)",
+    label: "Negara",
+    value: "Indonesia",
+    href: null,
+  },
+  {
+    icon: MapPin,
+    label: "Wilayah",
+    value: "Bogor & Jakarta",
     href: null,
   },
 ];
