@@ -14,7 +14,7 @@ export default function TestimoniSection({ initialData = [] }) {
   return (
     <section id="testimoni" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+        <h2 className="text-3xl md:text-4xl font-display font-bold text-primary mb-12 text-center">
           Mereka dan Gambar
         </h2>
 
@@ -29,13 +29,13 @@ export default function TestimoniSection({ initialData = [] }) {
               className="flex-shrink-0 w-72 snap-center bg-white rounded-2xl border border-gray-100 p-6 shadow-sm"
             >
               {/* Quote */}
-              <p className="text-gray-500 text-sm leading-relaxed mb-6 italic">
+              <p className="text-text-light text-sm leading-relaxed mb-6 italic">
                 &ldquo;{t.teks}&rdquo;
               </p>
 
               {/* Nama */}
               <div className="text-right">
-                <span className="text-gray-800 font-semibold text-sm">
+                <span className="text-primary font-semibold text-sm">
                   — {t.nama}
                 </span>
               </div>
