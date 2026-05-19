@@ -4,61 +4,68 @@
 
 ---
 
-### 2026-05-18: Tahap 33 — Emoji Cleanup + Lucide Migration
+### 2026-05-18: Tahap 33 — Update Kontak + Emoji Cleanup
 
-**Step 1 — UI/API Visible Emoji (11 file, high priority):**
-- ShareModal: emoji icon platform (📸🎵👍💬🐦) → Lucide (Camera, Music, ThumbsUp, MessageCircle, Image)
-- ShareModal: ➔ → ArrowRight, 🔗 → Link
-- WhatsAppButton: hapus 😊 dari tooltip
-- InvoiceLookup: ✅ LUNAS → CheckCircle, ⏳ PENDING → Clock
-- NotificationManager: ✅ → CheckCircle
-- syarat-ketentuan: hapus 🎉 dari judul
-- absensi API: hapus 🎨 dari response checkin/checkout
-- karya-constants & dashboard karya: hapus emoji dari share text
-- JadwalOpsiAdmin & KelasAdmin: hapus ✅ dari comment
+**Update Kontak:**
+- WhatsApp: +62 811 150 563 -> +62 811 199 059 (3 file: WhatsAppButton, Footer, Store)
+- TikTok: @magicpencilid -> @magicpencil.id
+- Facebook: facebook.com/magicpencilid (inline SVG, Lucide 1.14.0 belum punya icon FB)
 
-**Step 2 — Comment Headers app/ (53 file, medium priority):**
-- Semua header comment di pages (home, layout, invoice, login, syarat-ketentuan, galeri, koleksi)
-- Semua header comment di admin pages (auth, absensi, galeri-foto, jadwal-opsi, karya, kelas, murid, pendaftar, produk)
-- Semua header comment di dashboard pages (beranda, absensi, investasi, jadwal, karya, upload-karya)
-- Semua header comment di API routes (~27 file)
-- Inline comment: 🔑 di galeri & koleksi → teks
+**Emoji Cleanup Tahap 1 (13 file):**
+- Store: semua emoji diganti Lucide (ShoppingBag, Shirt, Coffee, Gift, X, Minus, Plus)
+- KonfirmasiPembayaran: emoji > Lucide (CheckCircle, Key, AlertTriangle, ArrowRight, Paperclip)
+- PendaftarTable: 24+ emoji > Lucide (CreditCard, Chevron, Copy, Save, dll)
+- Dashboard: absensiMsg pake prefix success:/error: + Lucide CheckCircle/AlertCircle
+- API register/pendaftar/pembayaran/invoice: notif emoji > teks ([Pendaftar], [Verifikasi], [Invoice])
+- auth-murid + status page: header emoji dihapus
 
-**Step 3 — Comment Headers components + lib (23 file, medium priority):**
-- AdminDashboard, AdminSidebar, ClassInfo, Gallery, Leaderboard, MuridCards, PembayaranTable, RegistrationForm, StatusCheck, WATemplate, LayoutShell
-- Step 1 follow-up: ShareModal, WhatsAppButton, InvoiceLookup, NotificationManager, JadwalOpsiAdmin, KelasAdmin
-- lib/: auth, database, karya-constants, karya, push, telegram
-- Inline comment: 📝 (2x) di RegistrationForm
+**Aturan baru:**
+- Semua icon harus Lucide, monochrome grey. Gak boleh emoji.
+- Warna semantic (error/success/warning) pake shade kalem
 
-**Total:** 87 file, 3 commit (`c1e0b0f`, `27afc86`, `e104fed`)
-**PM2:** ↺ 14 (emoji cleanup) / ↺ 16 (after AlertTriangle fix)
+**Files:** 13 file (store/page.js, KonfirmasiPembayaran.jsx, PendaftarTable.jsx, dashboard/page.js, 5 API files, auth-murid.js, status/page.js)
+**Commits:** ecdddf5 (kontak) + ea52907 (emoji)
+**Status:** ✅ Selesai, deployed (PM2 ↺ 11)
+
+---
+
+### 2026-05-16: Tahap 29 — Auto-generate Jadwal
+
+**Auto-generate jadwal:**
+- Monthly=4x otomatis, Single=1x otomatis
+- meeting_number + tanggal real dari schedule_config
+- Seed pertama jalan pas generate
+
+**Check-in validasi:**
+- Cek jadwal dulu sebelum check-in — gak bisa asal klik
+
+**Investasi card:**
+- Box investasi klikable → riwayat invoice di /dashboard/investasi
+
 **Status:** ✅ Selesai
 
 ---
 
-### 2026-05-18: Fix — AlertTriangle Missing Import ("This page couldn't load")
+### 2026-05-16: Tahap 30 — Minat Gambar + Design System
 
-**Bug:**
-- Commit `ea52907` (emoji cleanup Step 1) nambah `<AlertTriangle>` di JSX done step KonfirmasiPembayaran tapi lupa di-import dari lucide-react
-- Runtime error: React.createElement(undefined) → "Element type is invalid" → Next.js error page with black background "This page couldn't load"
-- Hanya muncul pas user klik "Ya, Saya Sudah Transfer" dan step berubah ke "done"
+**Minat Gambar:**
+- Ganti catatan tambahan → dropdown wajib di form daftar
+- 5 opsi: Alam, Manusia, Hewan, Bangunan, Benda Solid
+- Admin lihat minat gambar di MuridCards
 
-**Fix:**
-- Tambah `AlertTriangle` ke import lucide-react di KonfirmasiPembayaran.jsx
-- Juga fix directory permissions server: `public/uploads/` dan `public/uploads/bukti-bayar/` dari 555 (read-only) ke 755
+**Design System:**
+- Monochrome gray rules (semua gray, Lucide Icons, gak pake emoji)
+- Inter (body+navbar), Playfair Display (heading), Italiana (dekoratif)
+- Footer: link Invoice → Admin
 
-**Admin Note Investigation:**
-- Catatan user (admin_note) tersimpan di DB ✅
-- API GET return admin_note ✅
-- Belum ada kolom display di admin PembayaranTable ❌
+**Perbaikan UI Sore:**
+- Halaman daftar: hapus box WA redudan + icon benefits gray
+- Store modal: floating WA nutup tombol WA → sembunyiin floating WA pas modal kebuka
+- Admin jadwal: hapus +Tambah, filter kelas dropdown, filter lewat toggle
+- API default-location (skip UI, nunggu WA API)
 
-**Analisis Absensi:**
-- Gap: gak ada auto-detect alpha, status 'alpha'/'izin', make-up system, notifikasi missed class
-- Rencana: fitur absensi lengkap dikerjain setelah WA API siap
-
-**Files:** KonfirmasiPembayaran.jsx
-**Commit:** `df677fe` | **PM2:** ↺ 16
-**Status:** ✅ Fixed
+**Files:** 10+ file design system, daftar/page.js, store/page.js, WhatsAppButton.jsx, JadwalTable.jsx (5x)
+**Status:** ✅ Selesai
 
 ---
 
@@ -67,7 +74,7 @@
 **Floating WA di Admin:**
 - CSS `body:has(#admin-root) #wa-wrap { display: none }` di WhatsAppButton.jsx
 - `id="admin-root"` di admin/(main)/layout.js
-- Halaman admin gak perlu floating WA (cuma willy yang akses)
+- Halaman admin gak perlu floating WA (cuma wil yang akses)
 
 **Deploy issues & fixes:**
 - Zip deploy gagal: package.json ketimpa file dari .next/build/
@@ -81,7 +88,6 @@
 - Summary/ringkasan wajib ke Obsidian
 
 **Files:** WhatsAppButton.jsx, admin/(main)/layout.js
-**Commit:** `491b5fa` | **PM2:** ↺ 77
 **Status:** ✅ Selesai
 
 ---
@@ -108,50 +114,36 @@
 - Fix: commit `3132ef1`
 
 **Files:** database.js, Gallery.jsx (rewrite 300->80 line), galeri-foto/page.js, api/gallery/route.js, toggle-homepage/route.js (baru)
-**Commit:** `2e8355e`, `8008549`, `3132ef1` | **PM2:** ↺ 80+
 **Status:** ✅ Selesai
 
 ---
 
-### 2026-05-16: Tahap 29 — Auto-generate Jadwal
+### 2026-05-17: 1 Button Beranda Toggle (admin galeri foto)
 
-**Auto-generate jadwal:**
-- Monthly=4x otomatis, Single=1x otomatis
-- meeting_number + tanggal real dari schedule_config
-- Seed pertama jalan pas generate
+**Simplifikasi UI:**
+- Hapus badge "Beranda"/"Sembunyi" + toggle button — ganti 1 button icon House (Lucide)
+- **Aktif:** bg-accent text putih — "Di Beranda"
+- **Non-aktif:** bg-gray-100 text gray-500 — "Beranda"
+- **Penuh (limit 6):** disabled
+- Upload form: checkbox diganti button toggle ("Tampil"/"Jangan Tampil")
+- Warna button active disamain pake `bg-accent` biar serasi sama "+ Upload Foto"
 
-**Check-in validasi:**
-- Cek jadwal dulu sebelum check-in — gak bisa asal klik
-
-**Investasi card:**
-- Box investasi klikable → riwayat invoice di /dashboard/investasi
-
-**Files:** JadwalTable.jsx, api/jadwal/route.js, api/register/route.js
-**Commit:** multiple | **PM2:** ↺ 55-69
+**Files:** galeri-foto/page.js
 **Status:** ✅ Selesai
 
 ---
 
-### 2026-05-16: Tahap 30 — Minat Gambar + Design System
+---
 
-**Minat Gambar:**
-- Ganti catatan tambahan → dropdown wajib di form daftar
-- 5 opsi: Alam, Manusia, Hewan, Bangunan, Benda Solid
-- Admin lihat minat gambar di MuridCards
+### 2026-05-17: Upload Galeri — Default ke Galeri Aja
 
-**Design System:**
-- Monochrome gray rules (semua gray, Lucide Icons, gak pake emoji)
-- Inter (body+navbar), Playfair Display (heading), Italiana (dekoratif)
-- Footer: link Invoice → Admin
+**Perubahan flow upload:**
+- Hapus toggle "Tampil di Beranda" dari form upload
+- Default `show_homepage = 0` — upload foto masuk galeri aja
+- Admin atur dari grid toggle (button House) yang mana tampil di Beranda
+- Limit 6 tetap jalan lewat API toggle
 
-**Perbaikan UI Sore:**
-- Halaman daftar: hapus box WA redudan + icon benefits gray
-- Store modal: floating WA nutup tombol WA → sembunyiin floating WA pas modal kebuka
-- Admin jadwal: hapus +Tambah, filter kelas dropdown, filter lewat toggle
-- API default-location (skip UI, nunggu WA API)
-
-**Files:** 10+ file design system, daftar/page.js, store/page.js, WhatsAppButton.jsx, JadwalTable.jsx (5x)
-**Commit:** ~37 commit | **PM2:** ↺ 55-76
+**Files:** galeri-foto/page.js
 **Status:** ✅ Selesai
 
 ---
@@ -160,11 +152,10 @@
 
 **Leaderboard:**
 - API `/api/karya/populer` — top 10 karya approved with most likes
-- `Leaderboard.jsx` — grid responsive, badge peringkat (#1🏆 #2 #3) + ring oranye untuk top 3
+- `Leaderboard.jsx` — grid responsive, badge peringkat (monochrome gray)
 - Letak di halaman depan antara Galeri Sketsa dan Testimoni
 - Auto-hide kalo data kosong
 
-**Commit:** `77432df` | **PM2:** ↺ 54
 **Status:** ✅ Selesai
 
 ---
@@ -174,13 +165,12 @@
 **Like untuk karya murid:**
 - Tabel baru `karya_likes` (pattern: karya_id + fingerprint, UNIQUE)
 - API `/api/karya/[id]/like` (GET status + POST toggle)
-- ❤️ button + count di lightbox `/galeri`
+- Like button + count di lightbox `/galeri`
 
 **Fix count display:**
-- Count ❤️ selalu kelihatan walaupun 0 (IG-style)
+- Count like selalu kelihatan walaupun 0 (IG-style)
 - Fix `/koleksi` page: routing like berdasarkan source (gallery vs karya)
 
-**Commit:** `f5645a9` | **PM2:** ↺ 53
 **Status:** ✅ Selesai
 
 ---
@@ -192,7 +182,6 @@
 - DB path diupdate ke file baru, PNG lama dihapus
 - API upload produk otomatis kompres pake Jimp
 
-**Commit:** `7ee7623` | **PM2:** ↺ 52
 **Status:** ✅ Selesai
 
 ---
@@ -208,7 +197,6 @@
 - Update Navbar href + label
 - Hapus deskripsi dari galeri sketsa di home page
 
-**Commit:** `46f48a2`, `49b46b3`, `7a4a088`, `7b6ccd3` | **PM2:** ↺ 48-51
 **Status:** ✅ Selesai
 
 ---
@@ -223,7 +211,7 @@
 
 **Layout final (setelah polish):**
 - Title overlay kiri atas (gradient bg, drop-shadow)
-- Action bar bawah: ❤️ + count, Repost, Share, Beli Merch
+- Action bar bawah: Like + count, Repost, Share, Beli Merch
 - Caption di bawah action bar (kalo ada deskripsi)
 - Style konsisten antara Gallery home, /koleksi, /galeri
 
@@ -348,9 +336,9 @@
 
 **Fitur:**
 - Floating WA button di semua halaman
-- Tooltip "Ada yang bisa dibantu? 😊" — 2 baris, CSS-only
+- Tooltip "mau gambar apa hari ini?" — 2 baris, CSS-only
 - Awal client component pake Tailwind → fix server component + inline styles (stacking context issue)
-- Nomor: 628111150563
+- Nomor: 628111150563 (diupdate ke 628111199059 pada 18 Mei)
 
 **Status:** ✅ Selesai, deployed
 
