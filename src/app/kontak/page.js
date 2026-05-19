@@ -4,7 +4,7 @@
    Kartu kontak yang rapi, langsung terhubung.
    ============================================= */
 
-import { Mail, Camera, Music, MessageCircle, MapPin, Phone } from "lucide-react";
+import { Mail, Camera, Music, MessageCircle, MapPin, Phone, Clock } from "lucide-react";
 
 const contacts = [
   {
@@ -51,6 +51,12 @@ const contacts = [
     icon: MapPin,
     label: "Wilayah",
     value: "Bogor & Jakarta",
+    href: null,
+  },
+  {
+    icon: Clock,
+    label: "Jam Operasional",
+    value: "Senin–Sabtu, 09:00–17:00",
     href: null,
   },
 ];
