@@ -20,6 +20,9 @@ export default function MiniAbout() {
 
           {/* Teks */}
           <div className="flex-1">
+            <p className="font-bold text-primary text-xs uppercase tracking-wider mb-1.5">
+              Sedikit Tentang Kami
+            </p>
             <p className="text-text-light text-sm md:text-base leading-relaxed">
               Magic Pencil adalah penyedia kelas menggambar yang membantu peserta mengembangkan 
               kemampuan seni melalui pembelajaran yang terstruktur dan mudah dipahami.
