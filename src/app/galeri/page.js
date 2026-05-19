@@ -9,7 +9,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
-import { Loader2, ImageIcon, ArrowLeft, ChevronRight, X, Heart, Share2, ShoppingBag, Camera, Palette } from "lucide-react";
+import { Loader2, ImageIcon, ArrowLeft, ChevronLeft, ChevronRight, X, Heart, Share2, ShoppingBag, Camera, Palette } from "lucide-react";
 import ShareModal from "@/components/ShareModal";
 
 /* Dapetin fingerprint */
