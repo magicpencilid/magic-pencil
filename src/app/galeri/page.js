@@ -2,14 +2,14 @@
    GALERI — Galeri Foto & Karya Magic Pencil
    
    Gabungan foto studio + karya murid approved.
-   Studio dulu, baru murid. Urut berdasarkan tanggal.
+   Grid seragam, square aspect ratio.
    ============================================= */
 
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
-import { Loader2, ImageIcon, ArrowLeft, ChevronLeft, ChevronRight, X, Heart, Share2, ShoppingBag } from "lucide-react";
+import { Loader2, ImageIcon, ArrowLeft, ChevronRight, X, Heart, Share2, ShoppingBag, Camera, Palette } from "lucide-react";
 import ShareModal from "@/components/ShareModal";
 
 /* Dapetin fingerprint */
@@ -28,6 +28,16 @@ function getLikeApi(item) {
   return item.source === "murid"
     ? `/api/karya/${item.id}/like`
     : `/api/gallery/${item.id}/like`;
+}
+
+function formatDate(dateStr) {
+  try {
+    return new Date(dateStr + "Z").toLocaleDateString("id-ID", {
+      day: "numeric", month: "short", year: "numeric",
+    });
+  } catch {
+    return dateStr;
+  }
 }
 
 export default function GaleriPage() {
@@ -138,6 +148,13 @@ export default function GaleriPage() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [selected, selectedIdx]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const SourceIcon = ({ source }) => {
+    const Icon = source === "willy" ? Camera : Palette;
+    return (
+      <Icon className={`w-3.5 h-3.5 ${source === "willy" ? "text-accent" : "text-accent-dark"}`} />
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -152,7 +169,12 @@ export default function GaleriPage() {
               <p className="text-xs text-text-light">Foto & karya Magic Pencil</p>
             </div>
           </div>
-          <span className="text-xs text-text-light">{data.length} foto</span>
+          <Link
+            href="/#galeri"
+            className="text-xs text-text-light hover:text-primary transition-colors flex items-center gap-1"
+          >
+            Lihat Sketsa <ChevronRight className="w-3 h-3" />
+          </Link>
         </div>
       </header>
 
@@ -169,44 +191,47 @@ export default function GaleriPage() {
             <p className="text-sm">Foto dan karya akan tampil di sini</p>
           </div>
         ) : (
-          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-            {data.map((item, idx) => (
-              <button
-                key={`${item.source}-${item.id}`}
-                onClick={() => openDetail(idx)}
-                className="break-inside-avoid bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all text-left w-full group cursor-pointer"
-              >
-                <div className="bg-gray-100 overflow-hidden">
-                  {item.image_path ? (
-                    <img
-                      src={item.image_path}
-                      alt={item.title}
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="aspect-square flex items-center justify-center">
-                      <ImageIcon className="w-12 h-12 text-gray-300" />
-                    </div>
-                  )}
-                </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-primary text-sm truncate">{item.title}</h3>
-                  <p className="text-xs text-text-light mt-1 line-clamp-2">{item.deskripsi || "—"}</p>
-                  <div className="flex items-center justify-between mt-2">
-                    {item.source === "murid" ? (
-                      <span className="text-[10px] text-gray-400">{item.participant_name || "Murid"}</span>
+          <>
+            <p className="text-xs text-gray-400 mb-4">{data.length} foto</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {data.map((item, idx) => (
+                <button
+                  key={`${item.source}-${item.id}`}
+                  onClick={() => openDetail(idx)}
+                  className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all text-left w-full group cursor-pointer"
+                >
+                  <div className="aspect-square bg-gray-100 relative overflow-hidden">
+                    {item.image_path ? (
+                      <img
+                        src={item.image_path}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
                     ) : (
-                      <span className="text-[10px] text-gray-400">Foto Studio</span>
+                      <div className="w-full h-full flex items-center justify-center">
+                        <ImageIcon className="w-12 h-12 text-gray-300" />
+                      </div>
                     )}
-                    {item.source === "murid" && item.kelas && (
-                      <span className="text-[10px] text-gray-300">{item.kelas}</span>
-                    )}
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center shadow-sm">
+                        <SourceIcon source={item.source} />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </button>
-            ))}
-          </div>
+                  <div className="p-3">
+                    <h3 className="font-bold text-primary text-sm truncate">{item.title}</h3>
+                    <div className="flex items-center gap-1.5 mt-1.5">
+                      <SourceIcon source={item.source} />
+                      <span className="text-[10px] text-gray-400">
+                        {formatDate(item.created_at)}
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </main>
 
@@ -222,13 +247,17 @@ export default function GaleriPage() {
           >
             {/* Close + info */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-              <div>
-                <h2 className="font-bold text-primary">{selected.title}</h2>
-                <p className="text-xs text-text-light">
-                  {selected.source === "murid"
-                    ? `${selected.participant_name || "Murid"}${selected.kelas ? ` - ${selected.kelas}` : ""}`
-                    : "Foto Studio"}
-                </p>
+              <div className="flex items-center gap-2">
+                <SourceIcon source={selected.source} />
+                <div>
+                  <h2 className="font-bold text-primary">{selected.title}</h2>
+                  <p className="text-xs text-text-light">
+                    {formatDate(selected.created_at)}
+                    {selected.source === "murid" && selected.participant_name
+                      ? ` — ${selected.participant_name}`
+                      : ""}
+                  </p>
+                </div>
               </div>
               <button onClick={closeDetail} className="p-1 hover:bg-gray-100 rounded-lg transition-colors">
                 <X className="w-5 h-5" />
