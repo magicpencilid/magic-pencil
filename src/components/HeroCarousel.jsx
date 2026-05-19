@@ -128,6 +128,9 @@ export default function HeroCarousel() {
       <div className="hidden md:block absolute bottom-0 left-0 right-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           <div className="flex flex-col gap-4 max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-gray-200 text-[11px] font-semibold text-accent uppercase tracking-wider w-fit">
+              Kelas Menggambar
+            </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-primary leading-tight">
               The art of pencil.
             </h1>
@@ -147,6 +150,9 @@ export default function HeroCarousel() {
 
       {/* Mobile overlay — full text */}
       <div className="md:hidden absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-white/95 to-transparent pt-28 pb-6 px-4">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/80 border border-gray-200 text-[10px] font-semibold text-accent uppercase tracking-wider mb-2">
+          Kelas Menggambar
+        </span>
         <h1 className="text-3xl font-display font-bold text-primary">The art of pencil.</h1>
         <div className="mt-2 space-y-2 text-sm text-text-light leading-relaxed">
           <p>
