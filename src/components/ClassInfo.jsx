@@ -1,10 +1,11 @@
 /* =============================================
    CLASS INFO — Info Kelas Yang Ditawarkan
    
-   5 kelas: sketsa, gambar, lukis anabul, sesi sketsa, sesi gambar
+   6 kelas: sketsa, gambar, private, sesi sketsa, sesi gambar, lukis anabul
+   Layout seragam, card sejajar.
    ============================================= */
 
-import { Pencil, Pen, PaintBucket, Palette, Star, UserCheck } from "lucide-react";
+import { Pencil, Pen, UserPlus, Sparkles, Palette, Cat } from "lucide-react";
 
 const classes = [
   {
@@ -32,21 +33,21 @@ const classes = [
     timeNote: "Durasi waktu fleksibel",
   },
   {
-    icon: UserCheck,
+    icon: UserPlus,
     title: "Kelas Private",
-    subtitle: '"Belajar 1-on-1, materi sesuai kebutuhanmu"',
+    subtitle: "Belajar 1-on-1, materi sesuai kebutuhanmu",
     desc: "Kelas private dengan bimbingan penuh dari pengajar. Materi, jadwal, dan durasi bisa disesuaikan dengan kebutuhan dan tujuan kamu.",
     details: [
       "Pilih sendiri tema yang ingin dipelajari",
       "Bimbingan intensif 1-on-1 dengan pengajar",
     ],
     duration: "2 jam • sesuai kebutuhan",
-    adminNote: "Silahkan hubungi admin untuk keterangan lebih lanjut",
+    adminNote: "Hubungi admin untuk keterangan lebih lanjut",
   },
   {
-    icon: Star,
+    icon: Sparkles,
     title: "Sesi Sketsa",
-    subtitle: '"Sketsa yang kamu mau"',
+    subtitle: "Sketsa yang kamu mau",
     desc: "Sketsa sesuai keinginanmu, dibimbing langsung.",
     details: [
       "Kertas gambar",
@@ -59,7 +60,7 @@ const classes = [
   {
     icon: Palette,
     title: "Sesi Gambar",
-    subtitle: '"Gambar yang kamu suka"',
+    subtitle: "Gambar yang kamu suka",
     desc: "Gambar apapun yang kamu suka, kita bantu wujudkan.",
     details: [
       "Kertas gambar",
@@ -70,9 +71,9 @@ const classes = [
     timeNote: "Durasi waktu fleksibel",
   },
   {
-    icon: PaintBucket,
+    icon: Cat,
     title: "Sesi Lukis Anabul",
-    subtitle: '"Kenapa tidak kamu lukis sendiri anabulmu?"',
+    subtitle: "Kenapa tidak kamu lukis sendiri anabulmu?",
     desc: "Lukis anabul kesayanganmu dengan bimbingan langsung.",
     details: [
       "Kanvas 25x25",
@@ -103,50 +104,54 @@ export default function ClassInfo() {
           {classes.map((kelas, index) => {
             const Icon = kelas.icon;
             return (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 border border-gray-100 flex flex-col">
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6" />
+              <div
+                key={index}
+                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 border border-gray-100 flex flex-col"
+              >
+                {/* Icon — tinggi tetap */}
+                <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-4 shrink-0">
+                  <Icon className="w-6 h-6 text-accent" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-display font-bold text-primary mb-1">{kelas.title}</h3>
+                <h3 className="text-xl font-display font-bold text-primary mb-1">
+                  {kelas.title}
+                </h3>
                 {kelas.subtitle && (
-                  <p className="text-text-light text-sm italic mb-2">{kelas.subtitle}</p>
-                )}
-
-                {/* Description */}
-                <p className="text-text-light text-sm mb-4 leading-relaxed">{kelas.desc}</p>
-
-                {/* Details list */}
-                {kelas.details && (
-                  <ul className="space-y-1.5 mb-4">
-                    {kelas.details.map((d, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-text-light">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {/* Admin note */}
-                {kelas.adminNote && (
-                  <p className="text-sm font-bold text-primary mb-4 text-center">
-                    {kelas.adminNote}
+                  <p className="text-text-light text-sm italic mb-3">
+                    {kelas.subtitle}
                   </p>
                 )}
 
-                {/* Spacer */}
-                <div className="flex-1" />
+                {/* Content area — flex-1 biar footer selalu di bawah */}
+                <div className="flex-1 space-y-3">
+                  <p className="text-text-light text-sm leading-relaxed">
+                    {kelas.desc}
+                  </p>
 
-                {/* Duration */}
-                <div className="border-t border-gray-100 pt-4 mt-2 space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-text-light">
-                    <span>{kelas.duration}</span>
-                  </div>
+                  {kelas.details && (
+                    <ul className="space-y-1.5">
+                      {kelas.details.map((d, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-text-light">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {kelas.adminNote && (
+                    <p className="text-sm text-accent font-semibold">
+                      {kelas.adminNote}
+                    </p>
+                  )}
+                </div>
+
+                {/* Footer — selalu di bawah */}
+                <div className="border-t border-gray-100 pt-4 mt-4">
+                  <p className="text-sm text-text-light">{kelas.duration}</p>
                   {kelas.timeNote && (
-                    <p className="text-xs text-gray-400">{kelas.timeNote}</p>
+                    <p className="text-xs text-gray-400 mt-1">{kelas.timeNote}</p>
                   )}
                 </div>
               </div>
