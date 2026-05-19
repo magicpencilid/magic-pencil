@@ -7,12 +7,10 @@ import { Globe, Mail, Monitor, MessageCircle, Camera, Music } from "lucide-react
 import Link from "next/link";
 
 const quickLinks = [
-  { label: "Beranda", href: "/" },
-  { label: "Kelas", href: "/#kelas" },
-  { label: "Galeri", href: "/#galeri" },
-  { label: "Pendaftaran", href: "/daftar" },
-  { label: "Cek Status", href: "/status" },
-  { label: "Admin", href: "/admin/login" },
+  { label: "Tentang Kami", href: "/tentang-kami" },
+  { label: "Kebijakan Privasi", href: "/kebijakan-privasi" },
+  { label: "Syarat & Ketentuan", href: "/syarat-ketentuan" },
+  { label: "FAQ", href: "/faq" },
 ];
 
 const contacts = [

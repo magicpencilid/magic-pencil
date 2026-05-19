@@ -13,12 +13,53 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Scale, ChevronRight, CheckCircle, FileText } from "lucide-react";
 
 const sections = [
+  // ===== BAGIAN 1: SYARAT & KETENTUAN WEBSITE =====
   {
-    title: "1. Pendaftaran dan Aplikasi",
+    title: "1. Ketentuan Umum Penggunaan Website",
+    content: `Dengan mengakses dan menggunakan website Magic Pencil, Anda dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan yang berlaku.
+
+Kami berhak untuk mengubah, menambah, atau memperbarui syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku segera setelah dipublikasikan di halaman ini.
+
+Pengguna dilarang menggunakan website ini untuk tujuan ilegal atau melanggar hukum yang berlaku di Indonesia.`
+  },
+  {
+    title: "2. Hak Kekayaan Intelektual",
+    content: `Seluruh konten yang terdapat di website Magic Pencil, termasuk namun tidak terbatas pada teks, gambar, logo, desain, dan kode sumber, dilindungi oleh hak cipta dan hak kekayaan intelektual lainnya.
+
+Dilarang menyalin, mendistribusikan, memodifikasi, atau menggunakan konten website untuk kepentingan komersial tanpa izin tertulis dari Magic Pencil.
+
+Hak cipta karya seni murid yang ditampilkan di website tetap milik murid masing-masing.`
+  },
+  {
+    title: "3. Batasan Tanggung Jawab",
+    content: `Magic Pencil tidak bertanggung jawab atas kerugian langsung maupun tidak langsung yang timbul dari penggunaan website ini.
+
+Kami berusaha menyajikan informasi yang akurat dan terkini, namun tidak menjamin keakuratan, kelengkapan, atau keandalan informasi yang tersedia di website.
+
+Magic Pencil tidak bertanggung jawab atas kerusakan atau kehilangan data yang disebabkan oleh penggunaan website, termasuk namun tidak terbatas pada virus, malware, atau serangan siber.`
+  },
+  {
+    title: "4. Tautan ke Situs Pihak Ketiga",
+    content: `Website Magic Pencil mungkin berisi tautan ke situs pihak ketiga. Tautan tersebut disediakan untuk kemudahan pengguna dan tidak berarti kami mendukung atau bertanggung jawab atas konten, produk, atau layanan yang disediakan oleh pihak ketiga tersebut.
+
+Pengguna menggunakan tautan pihak ketiga sepenuhnya atas risiko sendiri.`
+  },
+  {
+    title: "5. Perubahan dan Hukum yang Berlaku",
+    content: `Magic Pencil berhak mengubah syarat dan ketentuan ini kapan saja. Pengguna disarankan untuk memeriksa halaman ini secara berkala.
+
+Syarat dan ketentuan ini tunduk pada hukum yang berlaku di Republik Indonesia. Apabila terjadi perselisihan, kedua belah pihak sepakat untuk menyelesaikannya melalui musyawarah terlebih dahulu.
+
+Jika ada ketentuan yang dinyatakan tidak sah oleh pengadilan, ketentuan lainnya tetap berlaku.`
+  },
+
+  // ===== BAGIAN 2: SYARAT & KETENTUAN PENDAFTARAN MURID =====
+  {
+    title: "6. Pendaftaran dan Aplikasi",
     content: `Silahkan buka Google Chrome dan lakukan pendaftaran di kolom "Daftar Sekarang".`
   },
   {
-    title: "2. Pembayaran",
+    title: "7. Pembayaran",
     content: `Murid dianggap resmi terdaftar setelah mengisi formulir pendaftaran dan melunasi biaya kelas (bulanan/per sesi). 
 
 Pembayaran tidak dapat dibayar sebagian atau dicicil.
@@ -28,7 +69,7 @@ Pembayaran dapat dilakukan secara Virtual Account, QRIS ataupun transfer.
 Biaya yang sudah dibayarkan tidak dapat ditarik kembali (non-refundable), namun bisa dipindahtangankan kepada orang lain dengan konfirmasi terlebih dahulu.`
   },
   {
-    title: "3. Kehadiran dan Penjadwalan",
+    title: "8. Kehadiran dan Penjadwalan",
     content: `Konfirmasi kehadiran dilakukan melalui aplikasi Magic Pencil dengan melakukan check-in / check-out.
 
 Pengaturan jadwal kelas termasuk ketersediaan pengajar dan slot kapasitas yang tersedia semua dilakukan di aplikasi Klaskoo.
@@ -40,7 +81,7 @@ Sesi pengganti dikarenakan berhalangan hadir, maka akan diberikan perpanjangan w
 Jika sampai dengan akhir bulan tidak terpenuhi maka akan diberikan waktu 1 jam setelah sesi grup berakhir di minggu pertama awal bulan dengan syarat mendaftar kembali dan melunasi kelas bulan yang berikutnya, selebihnya dianggap hangus.`
   },
   {
-    title: "4. Jadwal Kelas & Venue",
+    title: "9. Jadwal Kelas & Venue",
     content: `Kelas terbagi menjadi 3 sesi:
 
   10.00 — 12.00
@@ -56,13 +97,13 @@ Venue yang dipilih harus tetap di tempat umum dan tidak dapat diadakan di rumah.
 Jika terdapat kelas beruntun, maka kelas kedua akan diadakan di tempat yang sama dengan kelas pertama.`
   },
   {
-    title: "5. Peralatan Gambar",
+    title: "10. Peralatan Gambar",
     content: `Untuk kelas bulanan, wajib membawa peralatan dasar pribadi seperti: buku sketsa, pensil, pengserut dan penghapus.
 
 Untuk kelas harian, semua keperluan gambar seperti kertas sketsa, pensil, pengserut, penghapus dan cat akrilik sudah disediakan.`
   },
   {
-    title: "6. Dokumentasi & Hak Cipta",
+    title: "11. Dokumentasi & Hak Cipta",
     content: `Hak cipta karya tetap milik murid.
 
 Namun, pihak Magic Pencil berhak mengambil foto/video proses dan hasil karya untuk keperluan portofolio atau promosi di media sosial (kecuali jika murid keberatan).
