@@ -9,7 +9,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { } from "lucide-react";
 
 /* =============================================
    ?? DATA SKETSA (6 gambar)
@@ -59,10 +59,6 @@ export default function HeroCarousel() {
 
   const nextSlide = useCallback(() => {
     setCurrent((prev) => (prev + 1) % sketches.length);
-  }, []);
-
-  const prevSlide = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + sketches.length) % sketches.length);
   }, []);
 
   useEffect(() => {
@@ -115,13 +111,7 @@ export default function HeroCarousel() {
           </div>
         ))}
 
-        {/* Navigation arrows */}
-        <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/80 backdrop-blur-sm shadow-md flex items-center justify-center hover:bg-white transition-all text-primary hover:scale-105" aria-label="Previous slide">
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/80 backdrop-blur-sm shadow-md flex items-center justify-center hover:bg-white transition-all text-primary hover:scale-105" aria-label="Next slide">
-          <ChevronRight className="w-5 h-5" />
-        </button>
+        {/* No navigation arrows — slides auto-play */}
       </div>
 
       {/* ===== BRAND OVERLAY — "The art of pencil." ===== */}
