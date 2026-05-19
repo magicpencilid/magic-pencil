@@ -8,6 +8,7 @@
    ============================================= */
 
 import HeroCarousel from "@/components/HeroCarousel";
+import MiniAbout from "@/components/MiniAbout";
 import ClassInfo from "@/components/ClassInfo";
 import Gallery from "@/components/Gallery";
 import Leaderboard from "@/components/Leaderboard";
@@ -29,6 +30,7 @@ export default function Home() {
   return (
     <>
       <HeroCarousel />
+      <MiniAbout />
       <ClassInfo />
 
       {/* ===== CTA SECTION — di tengah, setelah kelas ===== */}
