@@ -11,6 +11,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import MiniAbout from "@/components/MiniAbout";
 import ClassInfo from "@/components/ClassInfo";
 import Gallery from "@/components/Gallery";
+import MiniStore from "@/components/MiniStore";
 import Leaderboard from "@/components/Leaderboard";
 import TestimoniSection from "@/components/TestimoniSection";
 import Link from "next/link";
@@ -61,6 +62,7 @@ export default function Home() {
       </section>
 
       <Gallery />
+      <MiniStore />
       <Leaderboard />
       <TestimoniSection initialData={testimonials} />
     </>
