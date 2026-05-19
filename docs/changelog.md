@@ -4,47 +4,67 @@
 
 ---
 
-### 2026-05-19: Tahap 34 — New Pages + Navbar/Footer Restructure + Galeri Merge
+### 2026-05-19: Tahap 34 — New Pages + Navbar/Footer Restructure + Galeri Merge + Finalisasi WA API Meta + Mini About/Store + Hero Badge + Lightbox Fix
 
-**Halaman Baru:**
-- /tentang-kami — Profil Magic Pencil (konten willy)
-- /kebijakan-privasi — Kebijakan data pengguna (konten willy)
-- /faq — 12 pertanyaan accordion interaktif (mamat)
-- /kontak — 6 kontak card (konten willy)
-- Layout: gradient-hero + white card rounded-2xl + Lucide icons
+**Halaman Baru (5 halaman):**
+- /tentang-kami, /kebijakan-privasi, /faq (12 accordion), /kontak (6 card info)
+- Layout: gradient-hero + white card + Lucide icons
 
 **Syarat & Ketentuan Diperluas:**
-- Dari 6 section -> 11 section
-- Tambah 5 section TOS website: Ketentuan Umum, HKI, Batasan Tanggung Jawab, Tautan Pihak Ketiga, Perubahan & Hukum
-- Gabung: syarat murid + TOS website dalam satu halaman
+- Dari 6 → 11 section (tambah 5 TOS website)
+- Gabung syarat murid + TOS website
 
-**Navbar Restructure:**
-- Sebelum: Beranda, Koleksi, Toko, Masuk
-- Sesudah: Beranda, Kelas, Galeri, Toko, Testimoni, Kontak, Masuk
-
-**Footer Restructure:**
-- Col 1 baru: Tentang Kami, Kebijakan Privasi, Syarat & Ketentuan, FAQ
-- Sebelum: Beranda, Kelas, Galeri, Pendaftaran, Cek Status, Admin
-- Col 2 Kontak tetap
+**Navbar & Footer Restructure:**
+- Navbar: Beranda, Kelas, Galeri, Toko, Testimoni, Kontak, Masuk
+- Koleksi → Galeri (rename)
+- Footer col 1: Tentang Kami, Kebijakan Privasi, Syarat & Ketentuan, FAQ
 
 **Galeri Merge:**
-- /galeri gabung foto studio + karya murid (1 fetch dari /api/gallery)
-- Studio dulu, baru murid. Urut tanggal.
-- Grid uniform square (dari masonry columns)
-- Card: judul + icon source (Camera/Palette) + tanggal upload
-- Lightbox: like + share + merch buttons
-- /koleksi folder dihapus, redirect 308 ke /galeri (next.config.ts)
+- /galeri gabung foto studio + karya murid (1 fetch, 2 source)
+- Grid uniform square, judul + icon source + tanggal
+- /koleksi folder dihapus, redirect 308 ke /galeri
+- Lightbox: like + share + merch
 
-**Homepage Polish:**
-- Testimoni font: font-display + text-primary (Playfair Display konsisten)
-- ClassInfo: Star->Sparkles, UserCheck->UserPlus, PaintBucket->Cat
-- Icon color: text-accent (#666 gray) konsisten
-- Layout card: flex-1 content biar footer selalu di bawah
-- id=testimoni anchor ditambahkan
+**Hero Badge Polish:**
+- Teks: "KELAS MENGGAMBAR UNTUK SEMUA UMUR" (teks polos tanpa bingkai)
+- Navigation arrows dihapus — slide auto-play only
 
-**Files:** 9 file (4 halaman baru, navbar, footer, galeri, syket, testimoni, next.config)
-**Commits:** 0b3dd43, 158a234, 74935b5, a2bda1a, a601034
-**Deploy:** PM2 restart ↺ 17 -> 21
+**Mini About Section:**
+- `src/components/MiniAbout.jsx` — homepage flow: Hero → MiniAbout → ClassInfo
+- Teks ajakan daftar + link ke /tentang-kami
+
+**Mini Store Section:**
+- `src/components/MiniStore.jsx` — homepage flow: Gallery → MiniStore → Leaderboard
+- Teks ajakan belanja + link ke /store
+
+**Gallery "Lihat Semua" Link:**
+- `src/components/Gallery.jsx` — link bawah grid ke /galeri
+
+**JSON-LD & OG Tags:**
+- LocalBusiness schema di layout.js
+- Open Graph metadata (title, description, siteName, locale)
+
+**Jam Operasional:**
+- Tambah di Kontak page: "Senin–Sabtu, 09:00–17:00"
+
+**Lokasi Fix:**
+- Dipisah jadi Negara: Indonesia + Wilayah: Bogor & Jakarta (Meta-friendly)
+- Diterapkan di Kontak + Tentang Kami
+
+**Gallery Lightbox Bug Fix — Critical:**
+- Root cause: `ChevronLeft` gak di-import dari lucide-react di `/galeri/page.js`
+- Error muncul pas klik gambar (lightbox conditional render)
+- Fix: tambah `ChevronLeft` ke import lucide-react
+- Verifikasi: browser test lightbox full berfungsi ✅
+
+**WA API Meta Preparation:**
+- Domain magicpencil.my.id diverifikasi Meta Business
+- Informasi bisnis lengkap (nama, alamat, WA, jam op, negara/wilayah)
+- Disubmit 19 Mei 15:32 WIB — nunggu review 2 business days
+
+**Files:** ~15 file
+**Commits (8):** 6756987, df97a99, d6c93ab, c56e16c, 1ae27a9, adefb2b, cad39ff, 18c6fdd
+**Deploy:** PM2 restart ↺ 22 → 32
 **Status:** ✅ Selesai, deployed
 
 ---

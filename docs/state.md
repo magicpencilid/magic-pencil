@@ -1,12 +1,12 @@
 # STATE -- Magic Pencil
-> Auto: 2026-05-19 10:41
+> Auto: 2026-05-19 15:28
 
 ## APP
 nama:Magic Pencil
 tujuan:Landing page + pendaftaran + galeri karya murid + online store
-tahap:34 (New Pages + Navbar/Footer Restructure + Galeri Merge)
-latest_deploy:commit a601034 (ClassInfo card rapi + icon baru), PM2 ↺ 21
-server:PM2 online (↺ 21)
+tahap:34 (Finalisasi WA API Meta + Mini About/Store + Galeri Lightbox Fix)
+latest_deploy:commit 18c6fdd (Fix: missing ChevronLeft import galeri lightbox), PM2 ↺ 32
+server:PM2 online (↺ 32)
 
 ## STATS
 pages:~29
@@ -41,7 +41,7 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Kontak:** WA `+628111199059`, TikTok `@magicpencil.id`, Facebook `facebook.com/magicpencilid`
 - **Minat Gambar:** dropdown wajib di form daftar (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Admin jadwal rework:** filter kelas dropdown, filter jadwal lewat otomatis, hapus +Tambah manual, hapus kolom Pengajar
-- **Galeri Sketsa:** dinamis dari gallery_photos, limit 6 beranda, 1 button toggle, gak ada lightbox. Upload masuk galeri aja, atur lewat grid.
+- **Galeri Sketsa:** dinamis dari gallery_photos, limit 6 beranda, 1 button toggle. Halaman /galeri punya lightbox penuh (like, share, merch link, prev/next). Upload masuk galeri aja, atur lewat grid.
 - **Floating WA:** sembunyi di admin via CSS body:has(#admin-root)
 - **Aturan baru:** panggilan willy/mamat, larangan lo/gua/agama, workflow step
 - **Lokasi kelas:** API settings/default-location, auto-fill pas daftar, UI skip nunggu WA API
@@ -62,6 +62,15 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - **Galeri merge:** /galeri gabung foto studio + karya murid, /koleksi dihapus + redirect 308
 - **Testimoni font fix:** font-display + text-primary konsisten
 - **ClassInfo icon:** Star->Sparkles, UserCheck->UserPlus, PaintBucket->Cat
+- **Hero badge:** tulisan polos "KELAS MENGGAMBAR UNTUK SEMUA UMUR" tanpa bingkai, tanpa arrow nav
+- **Mini About:** section baru di homepage (hero->MiniAbout->Kelas), teks + link ke /tentang-kami
+- **Mini Store:** section baru setelah Gallery, teks + link ke /store
+- **Gallery link:** "Lihat Semua di Galeri" di bawah grid gallery homepage, link ke /galeri
+- **Lokasi fix:** dipisah jadi Negara: Indonesia + Wilayah: Bogor & Jakarta (Kontak + Tentang Kami)
+- **Jam operasional:** tambah di halaman Kontak (Senin–Sabtu, 09:00–17:00)
+- **JSON-LD:** structured data LocalBusiness di head layout
+- **OG Tags:** openGraph metadata di layout (title, description, siteName, locale)
+- **Gallery lightbox fix:** tambah missing import ChevronLeft, fix crash saat klik gambar
 
 ## NOTES — 18 Mei 2026
 - **AlertTriangle fix:** Missing import di KonfirmasiPembayaran — error "This page couldn't load" pas done step. Commit `df677fe`.
@@ -91,6 +100,6 @@ minat_gambar:dropdown wajib (Alam, Manusia, Hewan, Bangunan, Benda Solid)
 - Tahap 31 - Floating WA Admin + Aturan Baru (selesai)
 - Tahap 32 - Galeri Sketsa Dinamis + Limit 6 Beranda (selesai)
 - Tahap 33 - Update Kontak + Emoji Cleanup (selesai)
-- Tahap 34 - New Pages + Navbar/Footer Restructure + Galeri Merge (selesai)
+- Tahap 34 - New Pages + Navbar/Footer Restructure + Galeri Merge + Finalisasi WA API Meta + Mini About/Store + Galeri Lightbox Fix (selesai)
 - Next - WA API integration
 - Next - Mobile UX improvement (auto-save draft form + dashboard mobile polish)
