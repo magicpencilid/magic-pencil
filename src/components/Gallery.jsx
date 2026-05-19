@@ -8,7 +8,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ImageIcon } from "lucide-react";
+import Link from "next/link";
+import { ImageIcon, ArrowRight } from "lucide-react";
 
 export default function Gallery() {
   const [photos, setPhotos] = useState([]);
@@ -78,6 +79,20 @@ export default function Gallery() {
                 )}
               </div>
             ))}
+          </div>
+        )
+}
+
+        {/* Link ke galeri penuh */}
+        {!loading && photos.length > 0 && (
+          <div className="mt-10 text-center">
+            <Link
+              href="/galeri"
+              className="inline-flex items-center gap-2 text-accent text-sm font-semibold hover:text-accent-dark transition-all group"
+            >
+              Lihat Semua di Galeri
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
           </div>
         )}
       </div>
