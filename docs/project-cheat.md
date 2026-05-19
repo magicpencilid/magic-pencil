@@ -57,7 +57,7 @@ magic-pencil-app/
 | Absensi check-in/out | Selesai |
 | Galeri karya murid (upload + approve + publik) | Selesai |
 | Watermark otomatis (jimp, max 1000px, 65%, multiply) | Selesai |
-| Galeri Foto Owner (/koleksi) | Selesai |
+| Galeri Foto & Karya (/galeri) | Selesai |
 | Testimoni (no foto, no bintang) | Selesai |
 | ShareModal + Native Share | Selesai |
 | Vertical Feed Lightbox (scroll feed kayak IG) | Selesai |
@@ -74,9 +74,13 @@ magic-pencil-app/
 | Galeri Sketsa dinamis dari DB (show_on_homepage, limit 6) | Selesai |
 | 1 Button Beranda Toggle + Upload galeri default ke galeri aja | Selesai |
 | Update kontak (WA +62 811 199 059, TikTok @magicpencil.id, FB facebook.com/magicpencilid) | Selesai |
-| Emoji cleanup tahap 1 (13 file -> Lucide icons) | Selesai |
+| Emoji cleanup (87 file -> Lucide icons) | Selesai |
 | Telegram Bot (@magicpencil_notif_bot) | Selesai |
 | WA floating button (wa.me/628111199059) | Selesai |
+| Halaman Tentang Kami, Kebijakan Privasi, FAQ, Kontak | Selesai |
+| Navbar + Footer restructure (navbar: Kelas/Galeri/Testimoni/Kontak, footer: legal) | Selesai |
+| Syarat & Ketentuan diperluas (6->11 section, gabung TOS website + murid) | Selesai |
+| /koleksi -> /galeri redirect + galeri merge (studio + murid, no tabs) | Selesai |
 | Dashboard murid (jadwal, absensi, karya, investasi) | Selesai |
 | Dashboard admin (11 sub menu) | Selesai |
 
@@ -155,6 +159,12 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - **Galeri Sketsa:** dinamis dari gallery_photos, admin 1 button Beranda toggle, limit 6, no lightbox. Upload foto masuk galeri aja, atur lewat grid toggle.
 - **Kontak baru:** WA +62 811 199 059, TikTok @magicpencil.id, FB facebook.com/magicpencilid
 - **Aturan icon:** Semua Lucide, monochrome grey, gak boleh emoji. Warna semantic pake shade kalem.
+- **Halaman baru:** /tentang-kami, /kebijakan-privasi, /faq, /kontak — gradient-hero + white card + Lucide icons
+- **Navbar baru:** Beranda, Kelas, Galeri, Toko, Testimoni, Kontak, Masuk
+- **Footer baru:** Col 1: Tentang Kami, Kebijakan Privasi, Syarat & Ketentuan, FAQ. Col 2: Kontak.
+- **Syarat & Ketentuan:** 11 section — 5 TOS website + 6 syarat murid
+- **Galeri:** /galeri gabung foto studio + karya murid. /koleksi dihapus (redirect 308)
+- **ClassInfo icon:** Star->Sparkles, UserCheck->UserPlus, PaintBucket->Cat
 
 ---
 
@@ -169,4 +179,5 @@ Pelanggan -> /store -> Pilih produk + ukuran/warna -> Isi nama & WA -> Pesan WA
 - [x] Tahap 31 — Floating WA di Admin + Aturan Baru
 - [x] Tahap 32 — Galeri Sketsa Dinamis + Limit 6 Beranda
 - [x] Tahap 33 — Update Kontak (WA, TikTok, FB) + Emoji Cleanup
+- [x] Tahap 34 — New Pages + Navbar/Footer Restructure + Galeri Merge
 - [ ] WA API integration (notifikasi ke WA ganti web push + lokasi kelas + jadwal) — ✅ NIB jadi, nunggu Meta Business diverifikasi, nomor baru + domain siap

@@ -4,6 +4,51 @@
 
 ---
 
+### 2026-05-19: Tahap 34 — New Pages + Navbar/Footer Restructure + Galeri Merge
+
+**Halaman Baru:**
+- /tentang-kami — Profil Magic Pencil (konten willy)
+- /kebijakan-privasi — Kebijakan data pengguna (konten willy)
+- /faq — 12 pertanyaan accordion interaktif (mamat)
+- /kontak — 6 kontak card (konten willy)
+- Layout: gradient-hero + white card rounded-2xl + Lucide icons
+
+**Syarat & Ketentuan Diperluas:**
+- Dari 6 section -> 11 section
+- Tambah 5 section TOS website: Ketentuan Umum, HKI, Batasan Tanggung Jawab, Tautan Pihak Ketiga, Perubahan & Hukum
+- Gabung: syarat murid + TOS website dalam satu halaman
+
+**Navbar Restructure:**
+- Sebelum: Beranda, Koleksi, Toko, Masuk
+- Sesudah: Beranda, Kelas, Galeri, Toko, Testimoni, Kontak, Masuk
+
+**Footer Restructure:**
+- Col 1 baru: Tentang Kami, Kebijakan Privasi, Syarat & Ketentuan, FAQ
+- Sebelum: Beranda, Kelas, Galeri, Pendaftaran, Cek Status, Admin
+- Col 2 Kontak tetap
+
+**Galeri Merge:**
+- /galeri gabung foto studio + karya murid (1 fetch dari /api/gallery)
+- Studio dulu, baru murid. Urut tanggal.
+- Grid uniform square (dari masonry columns)
+- Card: judul + icon source (Camera/Palette) + tanggal upload
+- Lightbox: like + share + merch buttons
+- /koleksi folder dihapus, redirect 308 ke /galeri (next.config.ts)
+
+**Homepage Polish:**
+- Testimoni font: font-display + text-primary (Playfair Display konsisten)
+- ClassInfo: Star->Sparkles, UserCheck->UserPlus, PaintBucket->Cat
+- Icon color: text-accent (#666 gray) konsisten
+- Layout card: flex-1 content biar footer selalu di bawah
+- id=testimoni anchor ditambahkan
+
+**Files:** 9 file (4 halaman baru, navbar, footer, galeri, syket, testimoni, next.config)
+**Commits:** 0b3dd43, 158a234, 74935b5, a2bda1a, a601034
+**Deploy:** PM2 restart ↺ 17 -> 21
+**Status:** ✅ Selesai, deployed
+
+---
+
 ### 2026-05-18: Tahap 33 — Update Kontak + Emoji Cleanup
 
 **Update Kontak:**
@@ -11,8 +56,11 @@
 - TikTok: @magicpencilid -> @magicpencil.id
 - Facebook: facebook.com/magicpencilid (inline SVG, Lucide 1.14.0 belum punya icon FB)
 
-**Emoji Cleanup Tahap 1 (13 file):**
-- Store: semua emoji diganti Lucide (ShoppingBag, Shirt, Coffee, Gift, X, Minus, Plus)
+**Emoji Cleanup (87 file, 3 tahap):**
+- Step 1: 11 file UI — Store, KonfirmasiPembayaran, PendaftarTable, dashboard
+- Step 2: 53 file app/ headers — semua file di app/ kecuali admin
+- Step 3: 23 file components+lib/ headers
+- Store: emoji > Lucide (ShoppingBag, Shirt, Coffee, Gift, X, Minus, Plus)
 - KonfirmasiPembayaran: emoji > Lucide (CheckCircle, Key, AlertTriangle, ArrowRight, Paperclip)
 - PendaftarTable: 24+ emoji > Lucide (CreditCard, Chevron, Copy, Save, dll)
 - Dashboard: absensiMsg pake prefix success:/error: + Lucide CheckCircle/AlertCircle
