@@ -42,7 +42,7 @@ export default function TentangKamiPage() {
             </div>
             <div>
               <p className="text-text-light leading-relaxed">
-                Magic Pencil adalah penyedia kelas menggambar yang berfokus pada pengembangan kemampuan seni menggunakan media pensil dan cat akrilik. Kami menyediakan program pembelajaran yang dirancang untuk pemula hingga tingkat lanjutan, untuk semua umur.
+                Magic Pencil merupakan program kelas menggambar yang dimiliki dan dikelola oleh D WILLY ARDHANY. Kami menyediakan program pembelajaran yang dirancang untuk pemula hingga tingkat lanjutan, untuk semua umur.
               </p>
             </div>
           </div>
